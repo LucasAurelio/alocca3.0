@@ -1,0 +1,14 @@
+.example-container {
+    width: 100%;
+    flex-direction: column;
+  } 
+  
+.example-container > * {
+    margin-right: 28px;
+    display: inline-block;
+    width: 25%;
+}
+
+.example-container button {
+    width: auto;
+}

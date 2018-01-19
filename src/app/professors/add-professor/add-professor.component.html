@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-title>Cadastrar professor</mat-card-title>
+
+  <!-- Tem um bug no angular form se você utilizar o id #siap junto com o two-way-binding [(ngModel)] -->
+  <form (ngSubmit)="onSubmit()" #addProfessorForm="ngForm" >
+    <div class="example-container">
+      <mat-form-field type="text">
+        <input matInput #siap (ngModel)="siap" maxLength="7" placeholder="SIAP" name="siap" pattern="[0-9]{7}" required>
+        <mat-hint align="end">{{siap.value?.length || 0}}/7</mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field type="text">
+        <input matInput [(ngModel)]="name" placeholder="nome" name="name" required>
+      </mat-form-field>
+  
+      <mat-form-field type="text">
+        <input matInput #nickname (ngModel)="nickname" maxLength="12" placeholder="apelido" name="nickname" required>
+        <mat-hint align="end">{{nickname.value?.length || 0}}/12</mat-hint>
+      </mat-form-field>
+  
+      <button type="submit" mat-button class="button" color="primary" [disabled]="!addProfessorForm.form.valid">SALVAR</button>
+    </div> 
+  </form>
+
+</mat-card>
+

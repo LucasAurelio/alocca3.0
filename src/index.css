@@ -1,0 +1,11 @@
+body, html{
+    height: 100%
+  }
+
+body{
+    margin: 0;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
