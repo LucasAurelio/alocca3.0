@@ -30,4 +30,12 @@ export class Professor {
         this.nickname = newNickname;
     }
     
+    toFirebaseObject() {
+        var professor: any = {
+            siap: this.siap,
+            name: this.name,
+            nickname: this.nickname
+        }
+        return <JSON>professor;
+    }
 }

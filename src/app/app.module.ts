@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
+import { DataManagerService } from './data-manager/data-manager.service'
+import { ProfessorsDmService } from './data-manager/professors/professors-dm.service';
 
 
 @NgModule({
@@ -30,7 +32,10 @@ import { AppRoutingModule } from './app-routing.module';
     ProfessorsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    DataManagerService,
+    ProfessorsDmService
+  ],
   bootstrap: [AppComponent]
 })
 
