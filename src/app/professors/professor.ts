@@ -1,7 +1,7 @@
 export class Professor {
 
     constructor(
-        public siap: number,
+        public siap: string,
         public name: string,
         public nickname: string
     ) {}
@@ -10,7 +10,7 @@ export class Professor {
         return this.siap;
     }
 
-    setSiap(newSiap: number) {
+    setSiap(newSiap: string) {
         this.siap = newSiap;
     }
 

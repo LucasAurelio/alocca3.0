@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Professor } from '../professor'
 import { ProfessorsDmService } from '../../data-manager/professors/professors-dm.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-professor',
@@ -14,11 +15,14 @@ export class AddProfessorComponent implements OnInit {
   static readonly  REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
   static readonly  MIN_LENGTH_ERROR_MSG = 'Não possui 7 dígitos';
 
-  siap: number;
+  siap: string;
   name: string;
   nickname: string;
   
-  constructor(private ProfDmService: ProfessorsDmService) { }
+  constructor(
+    private profDmService: ProfessorsDmService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
   }
@@ -37,7 +41,22 @@ export class AddProfessorComponent implements OnInit {
 
   saveProfessor() {
     let professor = new Professor(this.siap, this.name, this.nickname);
-    this.ProfDmService.saveProfessor(professor);
+
+    this.profDmService.existProfessor(professor).then( (exists) => {
+      console.log(exists + "  1")
+      if (exists) { 
+        this.snackBar.open("Esse professor (SIAP) já foi cadastrado.", null, {duration: 2500})
+      } else {
+        this.profDmService.existsChild("nickname", this.nickname).then( (exists) => {
+          console.log(exists + "  2")
+          if (exists) {
+            this.snackBar.open("Esse apelido já existe.", null, {duration: 2500})        
+          } else {
+            this.profDmService.saveProfessor(professor);
+          }
+        })
+      }
+    } )
   }
 
 }

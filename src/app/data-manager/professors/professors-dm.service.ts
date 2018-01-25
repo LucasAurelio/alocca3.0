@@ -8,7 +8,7 @@ import { Professor } from '../../professors/professor';
 export class ProfessorsDmService {
 
   readonly professorsListName = "professors";
-  readonly professorsListReference = "/professors/";
+  readonly professorsListReference = "professors/";
 
   dm: DataManagerService;
   professors: AngularFireList<JSON>;
@@ -23,4 +23,17 @@ export class ProfessorsDmService {
     this.dm.set(this.professors, professor.toFirebaseObject(), String(professor.siap))
   }
 
+  public existsChild(childKey, childValue) {
+    return this.professors.query.orderByChild(childKey).equalTo(childValue).once('value').then(
+        function (snapshot) {
+            return Promise.resolve(snapshot.exists())
+        }
+    )
+  }
+
+  public existProfessor(professor: Professor) {
+    return this.dm.existReference(this.professorsListReference + professor.siap);
+  }
+
+  
 }
