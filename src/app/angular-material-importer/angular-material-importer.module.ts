@@ -4,10 +4,13 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule,
          MatCardModule,
          MatFormFieldModule,
+         MatIconModule,
          MatInputModule,
          MatOptionModule,
          MatSelectModule,
          MatSnackBarModule,
+         MatSortModule,
+         MatTableModule,
          MatToolbarModule } from '@angular/material';
 
 @NgModule({
@@ -16,10 +19,13 @@ import { MatButtonModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
     MatToolbarModule
   ],
   declarations: [],
@@ -27,10 +33,13 @@ import { MatButtonModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
     MatToolbarModule
   ]
 })

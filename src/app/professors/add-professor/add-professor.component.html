@@ -1,28 +1,71 @@
-<mat-card>
-  <mat-card-title>Cadastrar professor</mat-card-title>
+<div>
+  <mat-card>
+    <mat-card-title>Cadastrar professor</mat-card-title>
+  
+    <form (ngSubmit)="saveProfessor()" #addProfessorForm="ngForm" >
+      <div class="card-content-container">
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="siap" maxLength="7" placeholder="SIAP" name="siap" pattern="[0-9]{7}" required>
+          <mat-hint align="end">{{siap?.length || 0}}/7</mat-hint>
+          <mat-error *ngIf="siapControl.errors.required">{{getErrorMessage(siapControl)}}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="name" placeholder="nome" name="name" required>
+          <mat-error *ngIf="nameControl.invalid">{{getErrorMessage(nameControl)}}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="nickname" maxLength="12" placeholder="apelido" name="nickname" required>
+          <mat-hint align="end">{{nickname?.length || 0}}/12</mat-hint>
+          <mat-error *ngIf="nicknameControl.invalid">{{getErrorMessage(nicknameControl)}}</mat-error>
+        </mat-form-field>
+    
+        <button type="submit" mat-button class="button" color="primary" [disabled]="!addProfessorForm.form.valid">SALVAR</button>
+      </div> 
+    </form>
+  
+  </mat-card>
+  
+  <div class="table-container mat-elevation-z8">
 
-  <form (ngSubmit)="saveProfessor()" #addProfessorForm="ngForm" >
-    <div class="example-container">
-      <mat-form-field type="text">
-        <input matInput [(ngModel)]="siap" maxLength="7" placeholder="SIAP" name="siap" pattern="[0-9]{7}" required>
-        <mat-hint align="end">{{siap?.length || 0}}/7</mat-hint>
-        <mat-error *ngIf="siapControl.errors.required">{{getErrorMessage(siapControl)}}</mat-error>
+    <div class="table-header">
+      <mat-form-field class="filter-input">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
       </mat-form-field>
-  
-      <mat-form-field type="text">
-        <input matInput [(ngModel)]="name" placeholder="nome" name="name" required>
-        <mat-error *ngIf="nameControl.invalid">{{getErrorMessage(nameControl)}}</mat-error>
-      </mat-form-field>
-  
-      <mat-form-field type="text">
-        <input matInput [(ngModel)]="nickname" maxLength="12" placeholder="apelido" name="nickname" required>
-        <mat-hint align="end">{{nickname?.length || 0}}/12</mat-hint>
-        <mat-error *ngIf="nicknameControl.invalid">{{getErrorMessage(nicknameControl)}}</mat-error>
-      </mat-form-field>
-  
-      <button type="submit" mat-button class="button" color="primary" [disabled]="!addProfessorForm.form.valid">SALVAR</button>
-    </div> 
-  </form>
+    </div>
 
-</mat-card>
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <!-- the sorted column's name must match the data property name -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+        <mat-cell *matCellDef="let prof">{{prof.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="nickname">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Apelido </mat-header-cell>
+        <mat-cell *matCellDef="let prof">{{prof.nickname}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="siap">
+        <mat-header-cell *matHeaderCellDef> SIAP </mat-header-cell>
+        <mat-cell *matCellDef="let prof">{{prof.siap}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="edit" style="flex: 2;">
+        <mat-header-cell *matHeaderCellDef style="flex: 2;"> </mat-header-cell>
+        <mat-cell *matCellDef="let prof" style="flex: 2;"><mat-icon>mode_edit</mat-icon></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="delete" style="flex: 1;">
+        <mat-header-cell *matHeaderCellDef style="flex: 1;"> </mat-header-cell>
+        <mat-cell *matCellDef="let prof" style="flex: 1;"><mat-icon>delete_forever</mat-icon></mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['name', 'nickname', 'siap', 'edit', 'delete']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'nickname', 'siap', 'edit', 'delete'];"></mat-row>
+
+    </mat-table>
+  </div>  
+</div>
 

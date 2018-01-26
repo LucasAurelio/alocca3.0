@@ -19,7 +19,6 @@ export class ProfessorsDmService {
   }
 
   public saveProfessor(professor: Professor) {
-    console.log(professor.siap, professor.name, professor.nickname)
     this.dm.set(this.professors, professor.toFirebaseObject(), String(professor.siap))
   }
 
@@ -33,6 +32,10 @@ export class ProfessorsDmService {
 
   public existProfessor(professor: Professor) {
     return this.dm.existReference(this.professorsListReference + professor.siap);
+  }
+
+  getProfessors() {
+    return this.professors;
   }
 
   

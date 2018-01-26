@@ -1,14 +1,42 @@
-.example-container {
+.card-content-container {
     width: 100%;
     flex-direction: column;
   } 
   
-.example-container > * {
+.card-content-container > * {
     margin-right: 28px;
     display: inline-block;
     width: 25%;
 }
 
-.example-container button {
+.card-content-container button {
+    margin-right: 28px;
+    display: inline-block;
     width: auto;
+}
+
+.table-container button {
+    width: auto;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+    margin-top: 28px;
+}
+  
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
+.filter-input {
+    width: 100%;    
 }
