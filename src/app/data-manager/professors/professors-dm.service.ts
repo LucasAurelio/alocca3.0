@@ -6,7 +6,7 @@ import { Professor } from '../../professors/professor';
 
 @Injectable()
 export class ProfessorsDmService {
-
+ 
   readonly professorsListName = "professors";
   readonly professorsListReference = "professors/";
 
@@ -19,7 +19,7 @@ export class ProfessorsDmService {
   }
 
   public saveProfessor(professor: Professor) {
-    this.dm.set(this.professors, professor.toFirebaseObject(), String(professor.siap))
+    return this.dm.set(this.professors, professor.toFirebaseObject(), String(professor.siap))
   }
 
   public existsChild(childKey, childValue) {
@@ -38,5 +38,8 @@ export class ProfessorsDmService {
     return this.professors;
   }
 
+  deleteProfessor(professorId: string) {
+    return this.dm.delete(this.professors, professorId);
+  }
   
 }

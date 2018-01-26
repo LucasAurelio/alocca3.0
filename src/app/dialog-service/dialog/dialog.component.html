@@ -1,0 +1,9 @@
+<div class="dialog-container">
+    <h2 mat-dialog-title>{{ data.title }}</h2>
+    <mat-card-subtitle class="dialog-message">{{ data.message }} </mat-card-subtitle>
+    <mat-dialog-actions class="dialog-actions">
+      <button mat-button color="accent" mat-dialog-close> <b> {{ data.negAct }} </b></button>
+      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+      <button mat-button  color="accent" [mat-dialog-close]="true"> <b> {{ data.posAct }} </b> </button>
+    </mat-dialog-actions>
+</div>

@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "index.css"
+        "index.css",
+        "alocca-theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
