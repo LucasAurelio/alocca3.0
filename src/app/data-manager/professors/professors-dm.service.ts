@@ -22,7 +22,7 @@ export class ProfessorsDmService {
     this.dm.push(this.professors, professor.toFirebaseObject());
   }
 
-  public existsChild(childKey, childValue) {
+  public existChild(childKey, childValue) {
     return this.professors.query.orderByChild(childKey).equalTo(childValue).once('value').then(
         function (snapshot) {
             return Promise.resolve(snapshot.exists())
@@ -30,8 +30,8 @@ export class ProfessorsDmService {
     )
   }
 
-  public existProfessor(professor: Professor) {
-    return this.dm.existReference(this.professorsListReference + professor.siap);
+  public existProfessor(professor: Professor, professorId: string) {
+    return this.dm.existReference(this.professorsListReference + professorId);
   }
 
   getProfessors() {

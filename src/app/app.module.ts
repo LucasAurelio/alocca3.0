@@ -15,8 +15,10 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { DataManagerService } from './data-manager/data-manager.service'
 import { ProfessorsDmService } from './data-manager/professors/professors-dm.service';
+import { CoursesDmService } from './data-manager/courses/courses-dm.service'
 import { DialogService } from './dialog-service/dialog.service';
 import { DialogModule } from './dialog-service/dialog/dialog.module'
+import { CoursesModule } from './courses/courses.module'
 
 
 @NgModule({
@@ -33,12 +35,14 @@ import { DialogModule } from './dialog-service/dialog/dialog.module'
     NavbarModule,
     ProfessorsModule,
     AppRoutingModule,
-    DialogModule
+    DialogModule,
+    CoursesModule
   ],
   providers: [
     DataManagerService,
     DialogService,
-    ProfessorsDmService
+    ProfessorsDmService,
+    CoursesDmService
   ],
   bootstrap: [AppComponent]
 })

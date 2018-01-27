@@ -56,16 +56,16 @@ export class AddProfessorComponent implements OnInit {
   saveProfessor() {
     let professor = new Professor(this.siap, this.name, this.nickname);
 
-    this.profDmService.existsChild('siap', this.siap).then( (exists) => {
+    this.profDmService.existChild('siap', this.siap).then( (exists) => {
       if (exists) { 
-        this.snackBar.open("Esse professor (SIAP) já foi cadastrado.", null, {duration: 2500});
+        this.snackBar.open("Esse professor (SIAP) já foi cadastrado", null, {duration: 2500});
       } else {
-        this.profDmService.existsChild("nickname", this.nickname).then( (exists) => {
+        this.profDmService.existChild("nickname", this.nickname).then( (exists) => {
           if (exists) {
-            this.snackBar.open("Esse apelido já existe.", null, {duration: 2500});      
+            this.snackBar.open("Esse apelido já existe", null, {duration: 2500});      
           } else {
             this.profDmService.saveProfessor(professor)
-            this.snackBar.open("Professor cadastrado com sucesso.", null, {duration: 2500});
+            this.snackBar.open("Professor cadastrado com sucesso", null, {duration: 2500});
             this.form.resetForm();
           }
         })
@@ -87,7 +87,7 @@ export class AddProfessorComponent implements OnInit {
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
         this.profDmService.deleteProfessor(firebaseId).catch(() => {
-          this.snackBar.open("Desculpe. Não foi possível apagar o professor.", null, {duration: 2500});      
+          this.snackBar.open("Desculpe. Não foi possível excluir o professor.", null, {duration: 2500});      
         });
       }
     })   

@@ -1,0 +1,100 @@
+<mat-card>
+    <mat-card-title>Editar informações</mat-card-title>
+  
+    <form (ngSubmit)="saveInformation()" #editCourseForm="ngForm" >
+      <div class="card-content-container">
+        <div class="form-row">
+          <mat-form-field type="text">
+            <input matInput [(ngModel)]="code" maxLength="7" placeholder="Código" name="code" pattern="[0-9]{7}" required>
+            <mat-hint align="end">{{code?.length || 0}}/7</mat-hint>
+            <mat-error *ngIf="codeControl.errors.required">{{getErrorMessage(codeControl)}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field type="text">
+              <input matInput [(ngModel)]="name" placeholder="Nome" name="name" required>
+              <mat-error *ngIf="nameControl.errors.required">{{getErrorMessage(nameControl)}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field type="text">
+              <input matInput [(ngModel)]="shortname"  maxLength="12" placeholder="Nome curto" name="shortname" required>
+              <mat-hint align="end">{{shortname?.length || 0}}/12</mat-hint>
+              <mat-error *ngIf="shortnameControl.errors.required">{{getErrorMessage(shortnameControl)}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field>
+              <input matInput type="number" [(ngModel)]="credits" placeholder="Créditos" name="credits" required>
+              <mat-error *ngIf="creditsControl.errors.required">{{getErrorMessage(creditsControl)}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="Unid. Acad. Ofertante" [(ngModel)]="offererDepartment" name="offererDepartment" required>
+              <mat-option *ngFor="let dep of departments" [value]="dep">
+                {{ dep }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="offererDepControl.errors.required">{{getErrorMessage(offererDepControl)}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-select placeholder="Unid. Acad. Solicitante" [(ngModel)]="requesterDepartment" name="requesterDepartment" required>
+                <mat-option *ngFor="let dep of departments" [value]="dep">
+                  {{ dep }}
+                </mat-option>
+              </mat-select>
+            <mat-error *ngIf="requesterDepControl.errors.required">{{getErrorMessage(requesterDepControl)}}</mat-error>                
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field>
+                <mat-select placeholder="tipo" [(ngModel)]="type" required name="type">
+                  <mat-option *ngFor="let type of courseTypes" [value]="type">
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="typeControl.errors.required">{{getErrorMessage(typeControl)}}</mat-error>                  
+              </mat-form-field>
+              
+
+              <span [ngSwitch]="type">
+                  <span *ngSwitchCase="'Optativa'">
+                      <mat-form-field class="min-semester">
+                          <mat-select placeholder="Min. sem. recomendado" [(ngModel)]="minRecSemester" name="minRecSemester" required>
+                            <mat-option *ngFor="let sem of semesters" [value]="sem">
+                              {{ sem }}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="minRecSemControl.errors.required">{{getErrorMessage(minRecSemControl)}}</mat-error>   
+                        </mat-form-field>
+
+                        <mat-form-field  class="max-semester" style="float:right;">
+                          <mat-select placeholder="Max. sem. recomendado" [(ngModel)]="maxRecSemester" name="maxRecSemester" required>
+                            <mat-option *ngFor="let sem of semesters" [value]="sem">
+                              {{ sem }}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="maxRecSemControl.errors.required">{{getErrorMessage(maxRecSemControl)}}</mat-error>   
+                        </mat-form-field>
+                  </span>
+
+                  <span *ngSwitchDefault>
+                    <mat-form-field style="width: 100%;">
+                        <mat-select placeholder="Semestre recomendado" [(ngModel)]="recommendedSemester" name="recommendedSemester"required>
+                          <mat-option *ngFor="let sem of semesters" [value]="sem">
+                            {{ sem }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="recSemControl.errors.required">{{getErrorMessage(recSemControl)}}</mat-error>   
+                      </mat-form-field>
+                  </span>
+              </span>
+
+              <button mat-button class="button" color="primary" [routerLink]="['/courses']">CANCELAR</button>
+              <button type="submit" mat-button class="button" color="primary" [disabled]="!editCourseForm.form.valid">SALVAR</button>
+        </div>
+      </div> 
+    </form>
+  
+  </mat-card>

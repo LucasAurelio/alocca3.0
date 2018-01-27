@@ -1,18 +1,31 @@
-.card-content-container {
+.form-row {
     width: 100%;
     flex-direction: column;
-  } 
-  
-.card-content-container > * {
-    margin-right: 28px;
-    display: inline-block;
-    width: 27%;
 }
 
-.card-content-container button {
+.form-row > * {
     margin-right: 28px;
     display: inline-block;
+    width: 30%;
+}
+
+.form-row button {
+    display: inline-block;
     width: auto;
+}
+
+.switch-case {
+    width: 100%;
+    flex-direction: column;
+}
+
+.min-semester {
+    width: 45%;
+}
+
+.max-semester {
+    width: 45%;
+    float: right;
 }
 
 .table-container button {
