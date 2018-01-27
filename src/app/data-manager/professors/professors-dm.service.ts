@@ -19,7 +19,7 @@ export class ProfessorsDmService {
   }
 
   public saveProfessor(professor: Professor) {
-    return this.dm.set(this.professors, professor.toFirebaseObject(), String(professor.siap))
+    this.dm.push(this.professors, professor.toFirebaseObject());
   }
 
   public existsChild(childKey, childValue) {
@@ -35,11 +35,22 @@ export class ProfessorsDmService {
   }
 
   getProfessors() {
-    return this.professors;
+    return this.professors.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 
   deleteProfessor(professorId: string) {
     return this.dm.delete(this.professors, professorId);
   }
+
+  getProfessorById(professorId: string) {
+    return this.dm.readObject(this.professorsListReference + professorId);
+  }
+
+  updateProfessor(professor: Professor, professorId: string) {
+    return this.dm.update(this.professors, professor.toFirebaseObject(), professorId);
+  }
+
   
 }

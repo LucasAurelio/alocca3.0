@@ -1,0 +1,20 @@
+.card-content-container {
+    width: 100%;
+    flex-direction: column;
+  } 
+  
+.card-content-container > * {
+    margin-right: 28px;
+    display: inline-block;
+    width: 30%;
+}
+
+.card-content-container button {
+    margin-right: 28px;
+    display: inline-block;
+    width: auto;
+}
+
+.card-actions {
+    margin-top: 28px;
+}

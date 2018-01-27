@@ -4,6 +4,7 @@ import { Professor } from '../professor'
 import { ProfessorsDmService } from '../../data-manager/professors/professors-dm.service';
 import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { DialogService } from "../../dialog-service/dialog.service"
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-professor',
@@ -28,11 +29,12 @@ export class AddProfessorComponent implements OnInit {
   constructor(
     private profDmService: ProfessorsDmService,
     private snackBar: MatSnackBar,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.profDmService.getProfessors().valueChanges().subscribe( professors => {
+    this.profDmService.getProfessors().subscribe( professors => {
       this.professorsList = professors;
       this.dataSource = new MatTableDataSource<JSON>(professors);
       this.dataSource.sort = this.sort;
@@ -54,27 +56,21 @@ export class AddProfessorComponent implements OnInit {
   saveProfessor() {
     let professor = new Professor(this.siap, this.name, this.nickname);
 
-    this.profDmService.existProfessor(professor).then( (exists) => {
+    this.profDmService.existsChild('siap', this.siap).then( (exists) => {
       if (exists) { 
         this.snackBar.open("Esse professor (SIAP) já foi cadastrado.", null, {duration: 2500});
-        this.form.resetForm();
       } else {
         this.profDmService.existsChild("nickname", this.nickname).then( (exists) => {
           if (exists) {
-            this.snackBar.open("Esse apelido já existe.", null, {duration: 2500});
-            this.form.resetForm();        
+            this.snackBar.open("Esse apelido já existe.", null, {duration: 2500});      
           } else {
-            this.profDmService.saveProfessor(professor).then(() => {
-              this.snackBar.open("Professor cadastrado com sucesso.", null, {duration: 2500});
-              this.form.resetForm();
-            }).catch((error) => {
-              this.snackBar.open("Desculpe. Não foi possível cadastrar o professor.", null, {duration: 2500});
-              this.form.resetForm();
-            });
+            this.profDmService.saveProfessor(professor)
+            this.snackBar.open("Professor cadastrado com sucesso.", null, {duration: 2500});
+            this.form.resetForm();
           }
         })
       }
-    })
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -83,17 +79,21 @@ export class AddProfessorComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  deleteProfessor(professor: Professor) {
+  deleteProfessor(professor: Professor, firebaseId: string) {
     var title = "Excluir Professor";
     var message = "Todas as informações de "+professor.nickname+" serão apagadas";
     var posAct = "Excluir";
     var negAct = "Cancelar";
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
-        this.profDmService.deleteProfessor(professor.siap).catch(() => {
+        this.profDmService.deleteProfessor(firebaseId).catch(() => {
           this.snackBar.open("Desculpe. Não foi possível apagar o professor.", null, {duration: 2500});      
         });
       }
     })   
+  }
+
+  redirectToEdition(professorId: string) {
+    this.router.navigateByUrl('edit_professor/'+professorId);
   }
 }
