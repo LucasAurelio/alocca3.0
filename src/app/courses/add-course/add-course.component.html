@@ -50,13 +50,13 @@
 
           <div class="form-row">
               <mat-form-field>
-                  <mat-select placeholder="tipo" [(ngModel)]="type" required name="type">
-                    <mat-option *ngFor="let type of courseTypes" [value]="type">
-                      {{ type }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="typeControl.errors.required">{{getErrorMessage(typeControl)}}</mat-error>                  
-                </mat-form-field>
+                <mat-select placeholder="tipo" [(ngModel)]="type" required name="type">
+                  <mat-option *ngFor="let type of courseTypes" [value]="type">
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="typeControl.errors.required">{{getErrorMessage(typeControl)}}</mat-error>                  
+              </mat-form-field>
                 
 
                 <span [ngSwitch]="type">

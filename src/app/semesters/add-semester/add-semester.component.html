@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Criar novo semestre</h2>
+
+
+<form (ngSubmit)="saveSemester()" #addSemesterForm="ngForm">
+
+  <div class="form-container">
+    <mat-form-field>
+      <mat-select placeholder="Ano" [(ngModel)]="year" required name="year">
+        <mat-option *ngFor="let y of years" [value]="y">
+          {{ y }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="yearControl.errors.required">{{getErrorMessage(yearControl)}}</mat-error>                  
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Semestre" [(ngModel)]="collegeSemester" required name="collegeSemester" class="semester-select">
+        <mat-option *ngFor="let sem of semesters" [value]="sem">
+          {{ sem }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="semesterControl.errors.required">{{getErrorMessage(semesterControl)}}</mat-error>                  
+    </mat-form-field>
+  </div>
+    
+
+    <mat-dialog-actions class="dialog-actions">
+      <button mat-button color="accent" mat-dialog-close> <b> CANCELAR </b></button>
+      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+      <button mat-button  type="submit" color="accent" [disabled]="!addSemesterForm.form.valid"> <b> CRIAR </b> </button>
+    </mat-dialog-actions>
+
+</form>

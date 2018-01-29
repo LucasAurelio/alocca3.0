@@ -19,6 +19,8 @@ import { CoursesDmService } from './data-manager/courses/courses-dm.service'
 import { DialogService } from './dialog-service/dialog.service';
 import { DialogModule } from './dialog-service/dialog/dialog.module'
 import { CoursesModule } from './courses/courses.module'
+import { SemestersModule } from './semesters/semesters.module'
+import { SemestersDmService } from './data-manager/semesters/semesters-dm.service'
 
 
 @NgModule({
@@ -36,13 +38,15 @@ import { CoursesModule } from './courses/courses.module'
     ProfessorsModule,
     AppRoutingModule,
     DialogModule,
-    CoursesModule
+    CoursesModule,
+    SemestersModule
   ],
   providers: [
     DataManagerService,
     DialogService,
     ProfessorsDmService,
-    CoursesDmService
+    CoursesDmService,
+    SemestersDmService
   ],
   bootstrap: [AppComponent]
 })

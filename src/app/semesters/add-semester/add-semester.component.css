@@ -1,0 +1,12 @@
+.dialog-message {
+    font-size: 1.2em;
+}
+
+.dialog-actions{
+    float: right;
+}
+
+.form-container {
+    width: 100%;
+    flex-direction: column;
+} 
