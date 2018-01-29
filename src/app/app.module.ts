@@ -22,6 +22,7 @@ import { CoursesModule } from './courses/courses.module'
 import { SemestersModule } from './semesters/semesters.module'
 import { SemestersDmService } from './data-manager/semesters/semesters-dm.service'
 import { SemesterService } from './semesters/semester.service'
+import { ProfRestrictionDmService } from './data-manager/professor-restrictions/prof-restriction-dm.service'
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { SemesterService } from './semesters/semester.service'
     ProfessorsDmService,
     CoursesDmService,
     SemestersDmService,
-    SemesterService
+    SemesterService,
+    ProfRestrictionDmService
   ],
   bootstrap: [AppComponent]
 })

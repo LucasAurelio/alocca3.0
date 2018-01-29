@@ -11,3 +11,11 @@
 .checkbox-cell {
     overflow: initial;
 }
+
+.schedule-restrictions-title {
+    margin-top: 28px !important;
+}
+
+.buttons {
+    margin-top: 28px;
+}

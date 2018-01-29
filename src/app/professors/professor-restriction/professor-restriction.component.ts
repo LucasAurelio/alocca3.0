@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SemesterService } from '../../semesters/semester.service'
 import { SemestersDmService } from '../../data-manager/semesters/semesters-dm.service'
 import { MatTableDataSource } from '@angular/material';
-
+import { SelectionModel } from '@angular/cdk/collections';
+import { ProfessorRestriction } from '../professor-restriction'
+import { ScheduleRestriction } from '../schedule-restriction'
+import { ActivatedRoute } from '@angular/router';
+import { ProfRestrictionDmService } from '../../data-manager/professor-restrictions/prof-restriction-dm.service'
 
 @Component({
   selector: 'app-professor-restriction',
@@ -11,7 +15,9 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class ProfessorRestrictionComponent implements OnInit {
 
-  semester: string;
+  semesterId: string;
+  semesterKey: string;
+  professorKey: string;
 
   minimumCredits: number;
   maximumCredits: number;
@@ -19,23 +25,56 @@ export class ProfessorRestrictionComponent implements OnInit {
 
   dataSource: MatTableDataSource<Schedule>;
 
+  initialSelection = [];
+  allowMultiSelect = true;
+  mondaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
+  tuesdaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
+  wednesdaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
+  thursdaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
+  fridaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
+
   constructor(
     private semesterService: SemesterService,
-    private semDmService: SemestersDmService
+    private semDmService: SemestersDmService,
+    private activatedRoute: ActivatedRoute,
+    private profRestDmService: ProfRestrictionDmService
   ) { }
 
   ngOnInit() {
     this.semesterService.getSemesterEmitter().subscribe((semesterKey) => {
-      this.semDmService.getSemesterById(semesterKey).valueChanges().subscribe( (semester) => {
-        this.semester = semester.identifier;
+      this.semesterKey = semesterKey;
+      this.semDmService.getSemesterByKey(semesterKey).valueChanges().subscribe( (semester) => {
+        this.semesterId = semester.identifier;
       });
     })
     this.semesterService.reemitSemester();
 
     this.dataSource = new MatTableDataSource<Schedule>(SCHEDULES_DATA);
+    this.professorKey = this.activatedRoute.snapshot.params['id']
+  }
+
+  saveRestrictions() {
+    let schedules = new ScheduleRestriction(
+      this.mondaySelection.selected.map(sch => sch.hour),
+      this.tuesdaySelection.selected.map(sch => sch.hour),
+      this.wednesdaySelection.selected.map(sch => sch.hour),
+      this.thursdaySelection.selected.map(sch => sch.hour),
+      this.fridaySelection.selected.map(sch => sch.hour),
+    )
+
+    let restrictions = new ProfessorRestriction(
+      this.professorKey,
+      this.semesterKey,
+      this.minimumCredits,
+      this.maximumCredits, 
+      this.graduationCredits,
+      schedules)
+
+    this.profRestDmService.saveRestrictions(restrictions);
   }
 
 }
+
 
 export interface Schedule {
   hour: number;

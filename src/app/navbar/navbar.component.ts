@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
     })
 
     this.semesterService.getSemesterEmitter().subscribe( (semesterKey) => {
-      this.semDmService.getSemesterById(semesterKey).valueChanges().subscribe( (semester) => {
+      this.semDmService.getSemesterByKey(semesterKey).valueChanges().subscribe( (semester) => {
         this.selectedSemester = semester.identifier;
       });
     })

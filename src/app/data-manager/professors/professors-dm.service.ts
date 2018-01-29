@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 import { DataManagerService } from '../data-manager.service';
 import { Professor } from '../../professors/professor';
 
@@ -11,7 +10,7 @@ export class ProfessorsDmService {
   readonly professorsListReference = "professors/";
 
   dm: DataManagerService;
-  professors: AngularFireList<JSON>;
+  professors: AngularFireList<JSON>; 
 
   constructor(dm: DataManagerService) {
     this.dm = dm;

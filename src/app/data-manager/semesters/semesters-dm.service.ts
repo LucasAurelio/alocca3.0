@@ -40,8 +40,8 @@ export class SemestersDmService {
     return this.dm.delete(this.semesters, semesterId);
   }
 
-  getSemesterById(semesterId: string) {
-    return this.dm.readObject(this.semestersListReference + semesterId);
+  getSemesterByKey(semesterKey: string) {
+    return this.dm.readObject(this.semestersListReference + semesterKey);
   }
 
 }
