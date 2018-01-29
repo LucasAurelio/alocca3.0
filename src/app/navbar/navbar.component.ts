@@ -5,6 +5,7 @@ import { SemestersDmService } from '../data-manager/semesters/semesters-dm.servi
 import { Semester } from '../semesters/semester'
 import { DialogService } from "../dialog-service/dialog.service"
 import { OrderBy } from '../utils/order-by-pipe'
+import { SemesterService } from '../semesters/semester.service'
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ import { OrderBy } from '../utils/order-by-pipe'
 })
 export class NavbarComponent implements OnInit {
 
-  semestersList: JSON[];
+  semestersList; 
   selectedSemester: string;
 
   constructor(
@@ -21,11 +22,18 @@ export class NavbarComponent implements OnInit {
     private semDmService: SemestersDmService,
     private dialogService: DialogService,
     private snackBar: MatSnackBar,
+    private semesterService: SemesterService
   ) { }
 
   ngOnInit() {
     this.semDmService.getSemesters().subscribe( semesters => {
       this.semestersList = semesters;
+    })
+
+    this.semesterService.getSemesterEmitter().subscribe( (semesterKey) => {
+      this.semDmService.getSemesterById(semesterKey).valueChanges().subscribe( (semester) => {
+        this.selectedSemester = semester.identifier;
+      });
     })
   }
 
@@ -43,13 +51,15 @@ export class NavbarComponent implements OnInit {
         this.semDmService.deleteSemester(firebaseId).catch(() => {
           this.snackBar.open("Desculpe. Não foi possível excluir o semestre", null, {duration: 2500});      
         });
+        if (semester.identifier == this.selectedSemester) {
+          this.semesterService.emitSemester(this.semestersList[0].key);
+        }
       }
-    })   
+    });
   }
 
-  onSemesterSelected(semIdentifier: string, semKey: string) {
-    this.selectedSemester = semIdentifier;
-    console.log(semIdentifier);
+  onSemesterSelected(semesterKey: string) {
+    this.semesterService.emitSemester(semesterKey);
   }
 
 }

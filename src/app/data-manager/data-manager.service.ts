@@ -18,8 +18,7 @@ export class DataManagerService {
   }
 
   push(list: AngularFireList<JSON>, object: JSON) {
-    list.push(object);
-    return list;
+    return list.push(object);
   }
 
   set(list: AngularFireList<JSON>, object: JSON, objReference: string) {

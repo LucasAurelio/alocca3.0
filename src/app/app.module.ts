@@ -21,6 +21,7 @@ import { DialogModule } from './dialog-service/dialog/dialog.module'
 import { CoursesModule } from './courses/courses.module'
 import { SemestersModule } from './semesters/semesters.module'
 import { SemestersDmService } from './data-manager/semesters/semesters-dm.service'
+import { SemesterService } from './semesters/semester.service'
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SemestersDmService } from './data-manager/semesters/semesters-dm.servic
     DialogService,
     ProfessorsDmService,
     CoursesDmService,
-    SemestersDmService
+    SemestersDmService,
+    SemesterService
   ],
   bootstrap: [AppComponent]
 })

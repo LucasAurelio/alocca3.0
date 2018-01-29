@@ -11,13 +11,12 @@
         <span> Novo Semestre </span>
       </button>
 
-      <button mat-menu-item *ngFor="let sem of semestersList | orderBy:'identifier':false"  (click)="onSemesterSelected(sem.identifier, sem.key)">        
+      <button mat-menu-item *ngFor="let sem of semestersList | orderBy:'identifier':false">        
          <button mat-icon-button (click)="deleteSemester(sem, sem.key)">
             <mat-icon color="warn">delete</mat-icon>
           </button>
-         <span>  {{sem.identifier}}  </span>          
+         <span  (click)="onSemesterSelected(sem.key)" class="semester-span">  {{sem.identifier}}  </span>          
       </button>
-     
     
   </mat-menu>
 
