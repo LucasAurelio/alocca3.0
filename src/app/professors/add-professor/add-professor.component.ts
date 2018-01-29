@@ -96,4 +96,8 @@ export class AddProfessorComponent implements OnInit {
   redirectToEdition(professorId: string) {
     this.router.navigateByUrl('edit_professor/'+professorId);
   }
+
+  redirectToRestrictions(professorId: string) {
+    this.router.navigateByUrl('prof_restriction/'+professorId);
+  }
 }

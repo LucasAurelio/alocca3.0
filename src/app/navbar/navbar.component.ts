@@ -28,6 +28,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.semDmService.getSemesters().subscribe( semesters => {
       this.semestersList = semesters;
+      // mudar isso para pegar o semestre mais atual ao inves do de indice 0 
+      this.semesterService.emitSemester(this.semestersList[0].key)
     })
 
     this.semesterService.getSemesterEmitter().subscribe( (semesterKey) => {
@@ -35,6 +37,7 @@ export class NavbarComponent implements OnInit {
         this.selectedSemester = semester.identifier;
       });
     })
+
   }
 
   addNewSemester() {

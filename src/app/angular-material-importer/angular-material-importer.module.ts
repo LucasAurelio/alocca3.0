@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MatButtonModule,
          MatCardModule,
+         MatCheckboxModule,
          MatDialogModule,
          MatFormFieldModule,
          MatIconModule,
@@ -20,6 +21,7 @@ import { MatButtonModule,
   imports: [
     CommonModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -38,6 +40,7 @@ import { MatButtonModule,
   exports: [
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,

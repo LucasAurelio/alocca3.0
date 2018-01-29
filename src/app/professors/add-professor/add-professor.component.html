@@ -55,6 +55,9 @@
       <ng-container matColumnDef="options">
         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
         <mat-cell *matCellDef="let prof">
+            <button mat-icon-button color="accent"> 
+                <mat-icon class="table-options" (click)="redirectToRestrictions(prof.key)">event_busy</mat-icon>
+            </button>
             <button mat-icon-button color="accent">
               <mat-icon class="table-options" (click)="redirectToEdition(prof.key)">edit</mat-icon>
             </button>
