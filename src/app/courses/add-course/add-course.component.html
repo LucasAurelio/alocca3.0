@@ -121,8 +121,8 @@
           <mat-cell *matCellDef="let course">{{course.name}}</mat-cell>
         </ng-container>
   
-        <ng-container matColumnDef="shortname" mat-sort-header>
-          <mat-header-cell *matHeaderCellDef> Nome curto </mat-header-cell>
+        <ng-container matColumnDef="shortname">
+          <mat-header-cell *matHeaderCellDef  mat-sort-header> Nome curto </mat-header-cell>
           <mat-cell *matCellDef="let course">{{course.shortname}}</mat-cell>
         </ng-container>
 
