@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -22,10 +22,16 @@ import { CoursesModule } from './courses/courses.module'
 import { SemestersModule } from './semesters/semesters.module'
 import { SemestersDmService } from './data-manager/semesters/semesters-dm.service'
 
+import { AuthService } from './authentication/auth.service';
+import { LoginPageComponent } from './authentication/login/login.component';
+import { HomePageComponent } from './authentication/home/home.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+      AppComponent,
+      LoginPageComponent,
+      HomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,8 @@ import { SemestersDmService } from './data-manager/semesters/semesters-dm.servic
     DialogService,
     ProfessorsDmService,
     CoursesDmService,
-    SemestersDmService
+    SemestersDmService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
