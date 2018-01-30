@@ -19,7 +19,7 @@ export class SemestersDmService {
   }
 
   public saveSemester(semester: Semester) {
-    this.dm.push(this.semesters, semester.toFirebaseObject());
+    return this.dm.push(this.semesters, semester.toFirebaseObject()).key;
   }
 
   public existChild(childKey, childValue) {
@@ -38,6 +38,10 @@ export class SemestersDmService {
 
   deleteSemester(semesterId: string) {
     return this.dm.delete(this.semesters, semesterId);
+  }
+
+  getSemesterByKey(semesterKey: string) {
+    return this.dm.readObject(this.semestersListReference + semesterKey);
   }
 
 }

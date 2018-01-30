@@ -3,6 +3,7 @@ import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 import { Semester } from '../semester'
 import { SemestersDmService } from '../../data-manager/semesters/semesters-dm.service'
+import { SemesterService } from '../semester.service'
 
 @Component({
   selector: 'app-add-semester',
@@ -22,7 +23,8 @@ export class AddSemesterComponent implements OnInit {
   constructor(
     private semDmService: SemestersDmService,
     private snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<AddSemesterComponent>
+    private dialogRef: MatDialogRef<AddSemesterComponent>,
+    private semesterService: SemesterService
   ) { }
 
   ngOnInit() {
@@ -50,8 +52,9 @@ export class AddSemesterComponent implements OnInit {
       if (exists) {
         this.snackBar.open("Esse semestre já existe.", null, {duration: 2500});
       } else {
-        this.semDmService.saveSemester(sem);
+        let semesterKey = this.semDmService.saveSemester(sem);
         this.snackBar.open("Semestre criado com sucesso", null, {duration: 2500});
+        this.semesterService.emitSemester(semesterKey);
         this.dialogRef.close();
       }
     })

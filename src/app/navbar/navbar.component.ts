@@ -5,6 +5,7 @@ import { SemestersDmService } from '../data-manager/semesters/semesters-dm.servi
 import { Semester } from '../semesters/semester'
 import { DialogService } from "../dialog-service/dialog.service"
 import { OrderBy } from '../utils/order-by-pipe'
+import { SemesterService } from '../semesters/semester.service'
 import { AuthService } from '../authentication/auth.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { AuthService } from '../authentication/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  semestersList: JSON[];
+  semestersList;
   selectedSemester: string;
 
   constructor(
@@ -23,12 +24,22 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private dialogService: DialogService,
     private snackBar: MatSnackBar,
+    private semesterService: SemesterService
   ) { }
 
   ngOnInit() {
     this.semDmService.getSemesters().subscribe( semesters => {
       this.semestersList = semesters;
+      // mudar isso para pegar o semestre mais atual ao inves do de indice 0
+      this.semesterService.emitSemester(this.semestersList[0].key)
     })
+
+    this.semesterService.getSemesterEmitter().subscribe( (semesterKey) => {
+      this.semDmService.getSemesterByKey(semesterKey).valueChanges().subscribe( (semester) => {
+        this.selectedSemester = semester.identifier;
+      });
+    })
+
   }
 
   addNewSemester() {
@@ -43,15 +54,17 @@ export class NavbarComponent implements OnInit {
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
         this.semDmService.deleteSemester(firebaseId).catch(() => {
-          this.snackBar.open("Desculpe. Não foi possível excluir o semestre", null, {duration: 2500});      
+          this.snackBar.open("Desculpe. Não foi possível excluir o semestre", null, {duration: 2500});
         });
+        if (semester.identifier == this.selectedSemester) {
+          this.semesterService.emitSemester(this.semestersList[0].key);
+        }
       }
-    })   
+    });
   }
 
-  onSemesterSelected(semIdentifier: string, semKey: string) {
-    this.selectedSemester = semIdentifier;
-    console.log(semIdentifier);
+  onSemesterSelected(semesterKey: string) {
+    this.semesterService.emitSemester(semesterKey);
   }
 
   logout() {

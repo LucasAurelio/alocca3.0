@@ -13,18 +13,17 @@ export class DataManagerService {
      }
 
   // Documentar 
-  createList(listReference: string) { 
-    return this.db.list<JSON>(listReference);
+  createList(listName: string) { 
+    return this.db.list<JSON>(listName);
   }
 
   push(list: AngularFireList<JSON>, object: JSON) {
-    list.push(object);
-    return list;
+    return list.push(object);
   }
 
   set(list: AngularFireList<JSON>, object: JSON, objReference: string) {
       return list.set(objReference, object).then(() => {
-        return Promise.resolve(list);
+        return Promise.resolve();
       }).catch((error) => {
         return Promise.reject(error);
       });
@@ -32,7 +31,7 @@ export class DataManagerService {
 
   update(list: AngularFireList<JSON>, object: JSON, objReference: string) {
     return list.update(objReference, object).then(() => {
-      return Promise.resolve(list);
+      return Promise.resolve();
     }).catch((error) => {
       return Promise.reject(error);
     });
@@ -40,7 +39,7 @@ export class DataManagerService {
 
   delete(list: AngularFireList<JSON>, objReference: string) {
     return list.remove(objReference).then(() => {
-      return Promise.resolve(list);
+      return Promise.resolve();
     }).catch((error) => {
       return Promise.reject(error);
     });

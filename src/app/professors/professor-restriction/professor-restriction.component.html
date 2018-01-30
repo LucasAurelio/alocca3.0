@@ -1,0 +1,87 @@
+<mat-card>
+    <mat-card-title>Adicionar restrições ({{ semesterId }})</mat-card-title>
+
+    <form (ngSubmit)="saveRestrictions()" #restrictionsForm="ngForm" >
+
+      <div class="credits-restrictions-form">
+          <mat-form-field>
+              <input matInput type="number" [(ngModel)]="minimumCredits" min="0" max="40" placeholder="Mínimo de créditos" name="minimumCredits">
+          </mat-form-field>
+
+          <mat-form-field>
+              <input matInput type="number" [(ngModel)]="maximumCredits" min="0" max="40" placeholder="Máximo de créditos" name="maximumCredits">
+          </mat-form-field>
+
+          <mat-form-field>
+              <input matInput type="number" [(ngModel)]="graduationCredits" min="0" max="40" placeholder="Créditos da pós-graduação" name="graduationCredits">
+          </mat-form-field>
+      </div>
+
+      <mat-card-subtitle style="margin-top: 14px;">Restrições de horários</mat-card-subtitle>
+      
+      <mat-table [dataSource]="dataSource" #table>
+
+        <ng-container matColumnDef="schedule">
+          <mat-header-cell *matHeaderCellDef> Horário </mat-header-cell>
+          <mat-cell *matCellDef="let sch">{{sch.range}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="monday">
+          <mat-header-cell *matHeaderCellDef> Segunda </mat-header-cell>
+          <mat-cell *matCellDef="let sch" class="checkbox-cell"> 
+            <mat-checkbox (click)="$event.stopPropagation()"
+                  (change)="$event ? mondaySelection.toggle(sch.hour) : null"
+                  [checked]="mondaySelection.isSelected(sch.hour)"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="tuesday">
+          <mat-header-cell *matHeaderCellDef> Terça </mat-header-cell>
+          <mat-cell *matCellDef="let sch" class="checkbox-cell">
+              <mat-checkbox (click)="$event.stopPropagation()"
+              (change)="$event ? tuesdaySelection.toggle(sch.hour) : null"
+              [checked]="tuesdaySelection.isSelected(sch.hour)"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="wednesday">
+          <mat-header-cell *matHeaderCellDef> Quarta </mat-header-cell>
+          <mat-cell *matCellDef="let sch" class="checkbox-cell">
+              <mat-checkbox (click)="$event.stopPropagation()"
+              (change)="$event ? wednesdaySelection.toggle(sch.hour) : null"
+              [checked]="wednesdaySelection.isSelected(sch.hour)"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="thursday">
+          <mat-header-cell *matHeaderCellDef> Quinta </mat-header-cell>
+          <mat-cell *matCellDef="let sch" class="checkbox-cell">
+              <mat-checkbox (click)="$event.stopPropagation()"
+              (change)="$event ? thursdaySelection.toggle(sch.hour) : null"
+              [checked]="thursdaySelection.isSelected(sch.hour)"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="friday">
+          <mat-header-cell *matHeaderCellDef> sexta </mat-header-cell>
+          <mat-cell *matCellDef="let sch" class="checkbox-cell">
+              <mat-checkbox (click)="$event.stopPropagation()"
+              (change)="$event ? fridaySelection.toggle(sch.hour) : null"
+              [checked]="fridaySelection.isSelected(sch.hour)"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        
+  
+        <mat-header-row *matHeaderRowDef="['schedule', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns:['schedule', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];"></mat-row>
+  
+      </mat-table>
+      
+      <div class="buttons">
+          <button mat-button class="button" color="primary" [routerLink]="['/professors']">CANCELAR</button>           
+          <button type="submit" mat-button class="button" color="primary" [disabled]="!restrictionsForm.form.valid">SALVAR</button> 
+      </div>
+        
+    </form>
+  
+  </mat-card>

@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-title>Criar turmas</mat-card-title>
+  <form (ngSubmit)="saveClass()" #addClassForm="ngForm">
+
+      <div class="form-container">
+
+        <mat-form-field>
+          <input type="text" placeholder="Disciplina" matInput [formControl]="courseControl" [matAutocomplete]="coursesAuto">
+          <mat-autocomplete #coursesAuto="matAutocomplete">
+            <mat-option *ngFor="let course of filteredCourses | async" [value]="course.shortname">
+              {{ course.shortname }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input type="text" placeholder="Professor 1" matInput [formControl]="professor1Control" [matAutocomplete]="prof1Auto">
+          <mat-autocomplete #prof1Auto="matAutocomplete">
+            <mat-option *ngFor="let prof of filteredProfessors1 | async" [value]="prof.nickname">
+              {{ prof.nickname }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input type="text" placeholder="Professor 2" matInput [formControl]="professor2Control" [matAutocomplete]="prof2Auto">
+          <mat-autocomplete #prof2Auto="matAutocomplete">
+            <mat-option *ngFor="let prof of filteredProfessors2 | async" [value]="prof.nickname">
+              {{ prof.nickname }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <button type="submit" mat-button class="button" color="primary" [disabled]="!addClassForm.form.valid">SALVAR</button>
+      </div>
+
+  </form>
+</mat-card>

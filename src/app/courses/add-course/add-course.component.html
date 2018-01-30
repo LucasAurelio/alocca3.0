@@ -122,32 +122,32 @@
         </ng-container>
   
         <ng-container matColumnDef="shortname">
-          <mat-header-cell *matHeaderCellDef> Nome curto </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef  mat-sort-header> Nome curto </mat-header-cell>
           <mat-cell *matCellDef="let course">{{course.shortname}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="credits">
-          <mat-header-cell *matHeaderCellDef> Créd. </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Créd. </mat-header-cell>
           <mat-cell *matCellDef="let course">{{course.credits}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="offererDep">
-          <mat-header-cell *matHeaderCellDef> Ofertante </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ofertante </mat-header-cell>
           <mat-cell *matCellDef="let course">{{course.offererDepartment}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="requesterDep">
-          <mat-header-cell *matHeaderCellDef> Solicitante </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Solicitante </mat-header-cell>
           <mat-cell *matCellDef="let course">{{course.requesterDepartment}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
           <mat-cell *matCellDef="let course">{{course.type}}</mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="semesters">
-          <mat-header-cell *matHeaderCellDef> Semestres </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Semestres </mat-header-cell>
             <mat-cell *matCellDef="let course">{{ formatSemesters(course.minimumSemester, course.maximumSemester) }}</mat-cell>
         </ng-container>
 
@@ -155,12 +155,12 @@
           <mat-header-cell *matHeaderCellDef> </mat-header-cell>
           <mat-cell *matCellDef="let course">
               <button mat-icon-button color="accent">
-                <mat-icon class="table-options" (click)="redirectToEdition(course.key)">edit</mat-icon>
+                <mat-icon class="table-options" matTooltip="Editar informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(course.key)">edit</mat-icon>
               </button>
               <button mat-icon-button color="warn" (click)="deleteCourse(course, course.key)">
-                <mat-icon class="table-options">delete</mat-icon>
+                <mat-icon class="table-options" matTooltip="Excluir" [matTooltipShowDelay]="800">delete</mat-icon>
               </button>
-          </mat-cell>
+          </mat-cell> 
         </ng-container>
   
         <mat-header-row *matHeaderRowDef="['code', 'name', 'shortname', 'credits', 'offererDep', 'requesterDep', 'type', 'semesters', 'options']"></mat-header-row>

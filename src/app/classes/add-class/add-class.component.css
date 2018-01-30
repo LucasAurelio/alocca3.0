@@ -1,0 +1,15 @@
+.form-container {
+    width: 100%;
+    flex-direction: column;
+}
+
+.form-container > * {
+    margin-right: 28px;
+    display: inline-block;
+    width: 27%;
+}
+
+.form-container button {
+    display: inline-block;
+    width: auto;
+}

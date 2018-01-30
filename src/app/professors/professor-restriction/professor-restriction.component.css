@@ -1,0 +1,21 @@
+.credits-restrictions-form {
+    width: 100%;
+    flex-direction: column;
+}
+
+.credits-restrictions-form > *{
+    width: 30%;
+    margin-right: 28px;
+}
+
+.checkbox-cell {
+    overflow: initial;
+}
+
+.schedule-restrictions-title {
+    margin-top: 28px !important;
+}
+
+.buttons {
+    margin-top: 28px;
+}

@@ -11,3 +11,8 @@
 .toolbar {
     display: flex;
 }
+
+.semester-span {
+    display: inline-block;
+    width: 100%;
+}

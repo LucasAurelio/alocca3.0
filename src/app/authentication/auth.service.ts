@@ -23,7 +23,7 @@ export class AuthService {
                 self.usersDmService.checkEmail(user.email).then(
                     exists => {
                         if (!exists) {
-                            self.snackbarService.open("Cadastra, gay!", null, { duration: 2500 });
+                            self.snackbarService.open("Você não tem permissão de acesso. Por favor, solicite acesso!", null, { duration: 3500 });
                             self.logout();
                         }
                         else {

@@ -21,10 +21,14 @@ import { DialogModule } from './dialog-service/dialog/dialog.module'
 import { CoursesModule } from './courses/courses.module'
 import { SemestersModule } from './semesters/semesters.module'
 import { SemestersDmService } from './data-manager/semesters/semesters-dm.service'
+
 import { UsersDmService } from './data-manager/users/users-dm.service'
 import { AuthService } from './authentication/auth.service';
 import { AuthenticationModule } from "./authentication/authentication.module";
-
+import { SemesterService } from './semesters/semester.service'
+import { ProfRestrictionDmService } from './data-manager/professor-restrictions/prof-restriction-dm.service'
+import { ClassesModule } from './classes/classes.module'
+import { ClassesDmService } from './data-manager/classes/classes-dm.service'
 
 @NgModule({
   declarations: [
@@ -43,6 +47,7 @@ import { AuthenticationModule } from "./authentication/authentication.module";
     DialogModule,
     CoursesModule,
     SemestersModule,
+    ClassesModule
     AuthenticationModule
   ],
   providers: [
@@ -51,6 +56,9 @@ import { AuthenticationModule } from "./authentication/authentication.module";
     ProfessorsDmService,
     CoursesDmService,
     SemestersDmService,
+    SemesterService,
+    ProfRestrictionDmService,
+    ClassesDmService,
     UsersDmService,
     AuthService
   ],
