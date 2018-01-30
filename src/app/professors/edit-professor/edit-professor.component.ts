@@ -26,7 +26,7 @@ export class EditProfessorComponent implements OnInit {
     private profDmService: ProfessorsDmService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router 
   ) { }
 
   ngOnInit() {

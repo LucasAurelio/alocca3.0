@@ -28,46 +28,46 @@
   
         <ng-container matColumnDef="monday">
           <mat-header-cell *matHeaderCellDef> Segunda </mat-header-cell>
-          <mat-cell *matCellDef="let row" class="checkbox-cell"> 
+          <mat-cell *matCellDef="let sch" class="checkbox-cell"> 
             <mat-checkbox (click)="$event.stopPropagation()"
-                  (change)="$event ? mondaySelection.toggle(row) : null"
-                  [checked]="mondaySelection.isSelected(row)"></mat-checkbox>
+                  (change)="$event ? mondaySelection.toggle(sch.hour) : null"
+                  [checked]="mondaySelection.isSelected(sch.hour)"></mat-checkbox>
           </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="tuesday">
           <mat-header-cell *matHeaderCellDef> Terça </mat-header-cell>
-          <mat-cell *matCellDef="let row" class="checkbox-cell">
+          <mat-cell *matCellDef="let sch" class="checkbox-cell">
               <mat-checkbox (click)="$event.stopPropagation()"
-              (change)="$event ? tuesdaySelection.toggle(row) : null"
-              [checked]="tuesdaySelection.isSelected(row)"></mat-checkbox>
+              (change)="$event ? tuesdaySelection.toggle(sch.hour) : null"
+              [checked]="tuesdaySelection.isSelected(sch.hour)"></mat-checkbox>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="wednesday">
           <mat-header-cell *matHeaderCellDef> Quarta </mat-header-cell>
-          <mat-cell *matCellDef="let row" class="checkbox-cell">
+          <mat-cell *matCellDef="let sch" class="checkbox-cell">
               <mat-checkbox (click)="$event.stopPropagation()"
-              (change)="$event ? wednesdaySelection.toggle(row) : null"
-              [checked]="wednesdaySelection.isSelected(row)"></mat-checkbox>
+              (change)="$event ? wednesdaySelection.toggle(sch.hour) : null"
+              [checked]="wednesdaySelection.isSelected(sch.hour)"></mat-checkbox>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="thursday">
           <mat-header-cell *matHeaderCellDef> Quinta </mat-header-cell>
-          <mat-cell *matCellDef="let row" class="checkbox-cell">
+          <mat-cell *matCellDef="let sch" class="checkbox-cell">
               <mat-checkbox (click)="$event.stopPropagation()"
-              (change)="$event ? thursdaySelection.toggle(row) : null"
-              [checked]="thursdaySelection.isSelected(row)"></mat-checkbox>
+              (change)="$event ? thursdaySelection.toggle(sch.hour) : null"
+              [checked]="thursdaySelection.isSelected(sch.hour)"></mat-checkbox>
           </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="friday">
           <mat-header-cell *matHeaderCellDef> sexta </mat-header-cell>
-          <mat-cell *matCellDef="let row" class="checkbox-cell">
+          <mat-cell *matCellDef="let sch" class="checkbox-cell">
               <mat-checkbox (click)="$event.stopPropagation()"
-              (change)="$event ? fridaySelection.toggle(row) : null"
-              [checked]="fridaySelection.isSelected(row)"></mat-checkbox>
+              (change)="$event ? fridaySelection.toggle(sch.hour) : null"
+              [checked]="fridaySelection.isSelected(sch.hour)"></mat-checkbox>
           </mat-cell>
         </ng-container>
         

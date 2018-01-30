@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SemesterService } from '../../semesters/semester.service'
 import { SemestersDmService } from '../../data-manager/semesters/semesters-dm.service'
 import { MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ProfessorRestriction } from '../professor-restriction'
 import { ScheduleRestriction } from '../schedule-restriction'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProfRestrictionDmService } from '../../data-manager/professor-restrictions/prof-restriction-dm.service'
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-professor-restriction',
   templateUrl: './professor-restriction.component.html',
   styleUrls: ['./professor-restriction.component.css']
-})
+}) 
 export class ProfessorRestrictionComponent implements OnInit {
 
   semesterId: string;
@@ -24,42 +25,79 @@ export class ProfessorRestrictionComponent implements OnInit {
   graduationCredits: number;
 
   dataSource: MatTableDataSource<Schedule>;
+  @ViewChild('restrictionsForm') form;
 
   initialSelection = [];
   allowMultiSelect = true;
-  mondaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
-  tuesdaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
-  wednesdaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
-  thursdaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
-  fridaySelection = new SelectionModel<Schedule>(this.allowMultiSelect, this.initialSelection);
+  mondaySelection = new SelectionModel<number>(this.allowMultiSelect, this.initialSelection);
+  tuesdaySelection = new SelectionModel<number>(this.allowMultiSelect, this.initialSelection);
+  wednesdaySelection = new SelectionModel<number>(this.allowMultiSelect, this.initialSelection);
+  thursdaySelection = new SelectionModel<number>(this.allowMultiSelect, this.initialSelection);
+  fridaySelection = new SelectionModel<number>(this.allowMultiSelect, this.initialSelection);
 
   constructor(
     private semesterService: SemesterService,
     private semDmService: SemestersDmService,
     private activatedRoute: ActivatedRoute,
-    private profRestDmService: ProfRestrictionDmService
+    private profRestDmService: ProfRestrictionDmService,
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
+    this.professorKey = this.activatedRoute.snapshot.params['id']
+
     this.semesterService.getSemesterEmitter().subscribe((semesterKey) => {
       this.semesterKey = semesterKey;
+
       this.semDmService.getSemesterByKey(semesterKey).valueChanges().subscribe( (semester) => {
         this.semesterId = semester.identifier;
       });
+
+      this.profRestDmService.getRestrictionById(semesterKey, this.professorKey).valueChanges().subscribe(
+        restrictions => {
+
+          if (restrictions) {
+            this.minimumCredits = restrictions.minCredits;
+            this.maximumCredits = restrictions.maxCredits;
+            this.graduationCredits = restrictions.graduationCredits;
+  
+            restrictions.scheduleRestrictions.monday? restrictions.scheduleRestrictions.monday.forEach(
+              element => { this.mondaySelection.select(element); }) : undefined;
+  
+            restrictions.scheduleRestrictions.tuesday?  restrictions.scheduleRestrictions.tuesday.forEach(
+              element => { this.tuesdaySelection.select(element); }) : undefined;
+  
+            restrictions.scheduleRestrictions.wednesday?  restrictions.scheduleRestrictions.wednesday.forEach(
+              element => { this.wednesdaySelection.select(element); }) : undefined;
+              
+            restrictions.scheduleRestrictions.thursday?  restrictions.scheduleRestrictions.thursday.forEach(
+              element => { this.thursdaySelection.select(element); }) : undefined;
+  
+            restrictions.scheduleRestrictions.friday?  restrictions.scheduleRestrictions.friday.forEach(
+              element => { this.fridaySelection.select(element); }) : undefined;   
+          } else {
+            this.form.resetForm();
+            this.cleanTable();
+          }
+            
+        }
+      )
     })
+
     this.semesterService.reemitSemester();
 
     this.dataSource = new MatTableDataSource<Schedule>(SCHEDULES_DATA);
-    this.professorKey = this.activatedRoute.snapshot.params['id']
+
   }
 
   saveRestrictions() {
     let schedules = new ScheduleRestriction(
-      this.mondaySelection.selected.map(sch => sch.hour),
-      this.tuesdaySelection.selected.map(sch => sch.hour),
-      this.wednesdaySelection.selected.map(sch => sch.hour),
-      this.thursdaySelection.selected.map(sch => sch.hour),
-      this.fridaySelection.selected.map(sch => sch.hour),
+      this.mondaySelection.selected,
+      this.tuesdaySelection.selected,
+      this.wednesdaySelection.selected,
+      this.thursdaySelection.selected,
+      this.fridaySelection.selected,
     )
 
     let restrictions = new ProfessorRestriction(
@@ -71,6 +109,16 @@ export class ProfessorRestrictionComponent implements OnInit {
       schedules)
 
     this.profRestDmService.saveRestrictions(restrictions);
+    this.snackBar.open("Restrições atualizadas", null, {duration: 2500});
+    this.router.navigateByUrl("professors")
+  }
+
+  private cleanTable() {
+    this.mondaySelection.clear();
+    this.tuesdaySelection.clear();
+    this.wednesdaySelection.clear();
+    this.thursdaySelection.clear();
+    this.fridaySelection.clear();
   }
 
 }

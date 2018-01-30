@@ -37,6 +37,11 @@ export class ProfRestrictionDmService {
     this.dm.set(this.semesterRestrictions, restrictions.toFirebaseObject(), restrictions.professorKey);
   }
 
+  getRestrictionById(semesterKey: string, professorKey: string) {
+    this.updateSemesterKey(semesterKey);
+    return this.dm.readObject(this.semesterRestrictionsListRef + professorKey);
+  }
+
   private updateSemesterKey(semesterKey: string) {
     this.semesterRestrictionsListName = this.allRestrictionsListReference + semesterKey;
     this.semesterRestrictionsListRef = this.semesterRestrictionsListName + '/';
