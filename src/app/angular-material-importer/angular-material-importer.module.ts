@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatButtonModule,
          MatCardModule,
          MatDialogModule,
          MatFormFieldModule,
+         MatGridListModule,
          MatIconModule,
          MatInputModule,
          MatMenuModule,
@@ -23,6 +24,7 @@ import { MatButtonModule,
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatMenuModule,
@@ -40,6 +42,7 @@ import { MatButtonModule,
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatMenuModule,

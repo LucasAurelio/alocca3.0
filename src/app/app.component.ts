@@ -13,11 +13,9 @@ export class AppComponent {
     title = 'app';
 
     authState: Observable<User>;
-    isValidEmail: boolean;
 
     constructor(public aAuth: AuthService) {
         //Sera substituido pela função
-        this.isValidEmail = true;
         this.authState = aAuth.authState();
     }
 }

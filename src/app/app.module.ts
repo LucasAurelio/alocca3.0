@@ -21,17 +21,14 @@ import { DialogModule } from './dialog-service/dialog/dialog.module'
 import { CoursesModule } from './courses/courses.module'
 import { SemestersModule } from './semesters/semesters.module'
 import { SemestersDmService } from './data-manager/semesters/semesters-dm.service'
-
+import { UsersDmService } from './data-manager/users/users-dm.service'
 import { AuthService } from './authentication/auth.service';
-import { LoginPageComponent } from './authentication/login/login.component';
-import { HomePageComponent } from './authentication/home/home.component';
+import { AuthenticationModule } from "./authentication/authentication.module";
 
 
 @NgModule({
   declarations: [
-      AppComponent,
-      LoginPageComponent,
-      HomePageComponent
+      AppComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +42,8 @@ import { HomePageComponent } from './authentication/home/home.component';
     AppRoutingModule,
     DialogModule,
     CoursesModule,
-    SemestersModule
+    SemestersModule,
+    AuthenticationModule
   ],
   providers: [
     DataManagerService,
@@ -53,6 +51,7 @@ import { HomePageComponent } from './authentication/home/home.component';
     ProfessorsDmService,
     CoursesDmService,
     SemestersDmService,
+    UsersDmService,
     AuthService
   ],
   bootstrap: [AppComponent]

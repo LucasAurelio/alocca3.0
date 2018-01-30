@@ -1,8 +1,6 @@
 ﻿<div *ngIf="authState | async as user; else showLogin">
-  <div *ngIf="isValidEmail; else showLogin">
     <app-navbar></app-navbar>
     <router-outlet></router-outlet>
-  </div>
 </div>
 <ng-template #showLogin>
   <app-login-page></app-login-page>
