@@ -1,0 +1,35 @@
+<mat-card id="view-requests-card" *ngIf="requests">
+<!-- Card Toolbar -->
+  <mat-toolbar class="view-requests-card-toolbar">
+    Requisições de Acesso
+  </mat-toolbar>
+
+<!-- Card Content -->
+  <mat-card-content id="request-card-content">
+
+  <!-- Card Table -->
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp center-table">
+      <thead>
+        <tr>
+          <th>SIAPE</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requests">
+          <td>{{request.SIAPE}}</td>
+          <td>{{request.name}}</td>
+          <td>{{request.email}}</td>
+          <td (click)="onAcceptRequest(request.SIAPE,request.name,request.email)">
+            <i class="material-icons mdl-color-text--accent">thumb_up</i>
+          </td>
+          <td (click)="onDeleteRequest(request.SIAPE,request.name,request.email)">
+              <i class="material-icons delete-button">delete</i>
+        </td>
+      </tbody>
+    </table>
+  </mat-card-content>
+</mat-card>
