@@ -23,7 +23,8 @@ import { SemestersModule } from './semesters/semesters.module'
 import { SemestersDmService } from './data-manager/semesters/semesters-dm.service'
 import { SemesterService } from './semesters/semester.service'
 import { ProfRestrictionDmService } from './data-manager/professor-restrictions/prof-restriction-dm.service'
-
+import { ClassesModule } from './classes/classes.module'
+import { ClassesDmService } from './data-manager/classes/classes-dm.service'
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ProfRestrictionDmService } from './data-manager/professor-restrictions/
     AppRoutingModule,
     DialogModule,
     CoursesModule,
-    SemestersModule
+    SemestersModule,
+    ClassesModule
   ],
   providers: [
     DataManagerService,
@@ -50,7 +52,8 @@ import { ProfRestrictionDmService } from './data-manager/professor-restrictions/
     CoursesDmService,
     SemestersDmService,
     SemesterService,
-    ProfRestrictionDmService
+    ProfRestrictionDmService,
+    ClassesDmService
   ],
   bootstrap: [AppComponent]
 })

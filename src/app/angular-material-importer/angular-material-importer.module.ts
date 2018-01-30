@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatButtonModule,
+import { MatAutocompleteModule,
+         MatButtonModule,
          MatCardModule,
          MatCheckboxModule,
          MatDialogModule,
@@ -21,6 +22,7 @@ import { MatButtonModule,
 @NgModule({
   imports: [
     CommonModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatCheckboxModule,
     MatCardModule,
@@ -40,6 +42,7 @@ import { MatButtonModule,
   ],
   declarations: [],
   exports: [
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
