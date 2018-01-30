@@ -47,7 +47,7 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
     DialogModule,
     CoursesModule,
     SemestersModule,
-    ClassesModule
+    ClassesModule,
     AuthenticationModule
   ],
   providers: [
