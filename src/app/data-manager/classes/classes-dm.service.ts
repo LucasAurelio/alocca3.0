@@ -39,7 +39,15 @@ export class ClassesDmService {
   /**Verifica quantas turmas já existem de uma disciplina (courseKey) no semestre (semesterKey) */
   getNumberOfClasses(semesterKey: string, courseKey: string) { 
     this.updateSemesterKey(semesterKey);
-    // this.semesterClasses.query.orderByChild('course').equalTo(courseKey).ref.
+    return this.semesterClasses.query.orderByChild('course').equalTo(courseKey)
+            .once('value').then(
+              function(snapshot) {
+                var list = snapshot.val();
+                var number = Object.keys(list).length
+                console.log(number);
+                Promise.resolve(number);
+              }
+            )
   }
 
   /**Atualiza a lista de turmas para o semestre especificado*/
