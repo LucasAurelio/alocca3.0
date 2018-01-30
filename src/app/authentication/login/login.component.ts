@@ -11,8 +11,14 @@ export class LoginPageComponent implements OnInit {
     constructor(public authService: AuthService, private router: Router) { }
     ngOnInit() {
     }
+
     login() {
         this.authService.login();
-        this.router.navigate(['']); 
+        this.router.navigateByUrl('');
+    }
+
+    requestAccess(){
+      console.log("Solicita Acesso");
+      this.router.navigateByUrl('requestAccess');
     }
 }
