@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms'; 
 import { Course } from '../course'
 import { CoursesDmService } from '../../data-manager/courses/courses-dm.service'
 import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';

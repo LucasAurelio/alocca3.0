@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { CoursesDmService } from '../../data-manager/courses/courses-dm.service'
 import { Observable } from 'rxjs/Observable';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
 import { ProfessorsDmService } from '../../data-manager/professors/professors-dm.service'
+import { SemesterService } from '../../semesters/semester.service'
+import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-add-class',
@@ -13,8 +16,12 @@ import { ProfessorsDmService } from '../../data-manager/professors/professors-dm
 })
 export class AddClassComponent implements OnInit {
 
-  courseControl: FormControl = new FormControl();
-  professor1Control: FormControl = new FormControl();
+  static readonly  REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
+
+  semesterKey: string;
+
+  courseControl: FormControl = new FormControl('', [Validators.required]);
+  professor1Control: FormControl = new FormControl('', [Validators.required]);
   professor2Control: FormControl = new FormControl();  
 
   filteredCourses: Observable<any[]>;
@@ -26,7 +33,9 @@ export class AddClassComponent implements OnInit {
 
   constructor(
     private coursesDmService: CoursesDmService,
-    private profDmService: ProfessorsDmService
+    private profDmService: ProfessorsDmService,
+    private semesterService: SemesterService,
+    private snackBar: MatSnackBar
   ) {   }
 
   ngOnInit() {
@@ -58,7 +67,40 @@ export class AddClassComponent implements OnInit {
       )
     })
 
+    /* Muda a variável de semestre sempre que o semestre mudar na navbar*/
+    this.semesterService.getSemesterEmitter().subscribe(semesterKey => {
+      this.semesterKey = semesterKey;
+    })
+    this.semesterService.reemitSemester();
+
+  }
+
+  saveClass() {
+    // Verifica se as entradas estão nas respectivas lista de disciplinas e professores
+    var isCourseValid = this.coursesList.map(course => course.shortname).includes(this.courseControl.value)
+                        || this.courseControl.value == "" || this.courseControl.value == null;
+    var isProf1Valid = this.professorsList.map(prof => prof.nickname).includes(this.professor1Control.value)
+                       || this.professor1Control.value == "" || this.professor1Control.value == null;
+    var isProf2Valid = this.professorsList.map(prof => prof.nickname).includes(this.professor2Control.value)
+                       || this.professor2Control.value == "" || this.professor2Control.value == null;
+
+    if (!isCourseValid) {
+      this.snackBar.open("Disciplina inválida. Selecione uma disciplina já cadastrada.", null, {duration: 3000});
+      return;
+    }
+
+    if (!isProf1Valid) {
+      this.snackBar.open("Professor 1 inválido. Selecione um professor já cadastrado.", null, {duration: 3000});
+      return;
+    }
+
+    if (!isProf2Valid) {
+      this.snackBar.open("Professor 2 inválido. Selecione um professor já cadastrado.", null, {duration: 3000});
+      return;
+    }
+
     
   }
+
 
 }
