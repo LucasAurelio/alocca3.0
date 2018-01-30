@@ -10,6 +10,7 @@ import { AddClassComponent } from './classes/add-class/add-class.component'
 
 import { LoginPageComponent } from './authentication/login/login.component';
 import { HomePageComponent } from './authentication/home/home.component';
+import { RequestAccessComponent } from './requests/request-access/request-access.component';
 
 const routes: Routes = [
   { path: 'professors', component: AddProfessorComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'prof_restriction/:id', component: ProfessorRestrictionComponent },
-  { path: 'classes', component: AddClassComponent }
+  { path: 'classes', component: AddClassComponent },
+  { path: 'requestAccess', component: RequestAccessComponent }
 ];
 
 @NgModule({

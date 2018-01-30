@@ -4,7 +4,7 @@ export class User {
 
     constructor(
         public email: string,
-		public permission: UserPermission
+		    public permission: UserPermission
     ) { }
 
     toFirebaseObject() {

@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialImporterModule } from './angular-material-importer/angular-material-importer.module'
 import { NavbarModule } from './navbar/navbar.module'
 import { ProfessorsModule } from './professors/professors.module'
+import { RequestsModule } from './requests/requests.module'
 
 import { AppComponent } from './app.component';
 
@@ -27,6 +28,7 @@ import { AuthService } from './authentication/auth.service';
 import { AuthenticationModule } from "./authentication/authentication.module";
 import { SemesterService } from './semesters/semester.service'
 import { ProfRestrictionDmService } from './data-manager/professor-restrictions/prof-restriction-dm.service'
+import { RequestsDmService } from './data-manager/requests/requests-dm.service'
 import { ClassesModule } from './classes/classes.module'
 import { ClassesDmService } from './data-manager/classes/classes-dm.service'
 
@@ -47,8 +49,9 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
     DialogModule,
     CoursesModule,
     SemestersModule,
-    ClassesModule
-    AuthenticationModule
+    ClassesModule,
+    AuthenticationModule,
+    RequestsModule
   ],
   providers: [
     DataManagerService,
@@ -60,7 +63,8 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
     ProfRestrictionDmService,
     ClassesDmService,
     UsersDmService,
-    AuthService
+    AuthService,
+    RequestsDmService
   ],
   bootstrap: [AppComponent]
 })
