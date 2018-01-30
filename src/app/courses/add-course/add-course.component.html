@@ -155,12 +155,12 @@
           <mat-header-cell *matHeaderCellDef> </mat-header-cell>
           <mat-cell *matCellDef="let course">
               <button mat-icon-button color="accent">
-                <mat-icon class="table-options" (click)="redirectToEdition(course.key)">edit</mat-icon>
+                <mat-icon class="table-options" matTooltip="Editar informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(course.key)">edit</mat-icon>
               </button>
               <button mat-icon-button color="warn" (click)="deleteCourse(course, course.key)">
-                <mat-icon class="table-options">delete</mat-icon>
+                <mat-icon class="table-options" matTooltip="Excluir" [matTooltipShowDelay]="800">delete</mat-icon>
               </button>
-          </mat-cell>
+          </mat-cell> 
         </ng-container>
   
         <mat-header-row *matHeaderRowDef="['code', 'name', 'shortname', 'credits', 'offererDep', 'requesterDep', 'type', 'semesters', 'options']"></mat-header-row>
