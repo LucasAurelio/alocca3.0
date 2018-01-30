@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { AddSemesterComponent } from "../semesters/add-semester/add-semester.component"
 import { SemestersDmService } from '../data-manager/semesters/semesters-dm.service'
@@ -6,6 +6,7 @@ import { Semester } from '../semesters/semester'
 import { DialogService } from "../dialog-service/dialog.service"
 import { OrderBy } from '../utils/order-by-pipe'
 import { SemesterService } from '../semesters/semester.service'
+import { AuthService } from '../authentication/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,12 +15,13 @@ import { SemesterService } from '../semesters/semester.service'
 })
 export class NavbarComponent implements OnInit {
 
-  semestersList; 
+  semestersList;
   selectedSemester: string;
 
   constructor(
     private dialog: MatDialog,
     private semDmService: SemestersDmService,
+    private authService: AuthService,
     private dialogService: DialogService,
     private snackBar: MatSnackBar,
     private semesterService: SemesterService
@@ -28,7 +30,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.semDmService.getSemesters().subscribe( semesters => {
       this.semestersList = semesters;
-      // mudar isso para pegar o semestre mais atual ao inves do de indice 0 
+      // mudar isso para pegar o semestre mais atual ao inves do de indice 0
       this.semesterService.emitSemester(this.semestersList[0].key)
     })
 
@@ -52,7 +54,7 @@ export class NavbarComponent implements OnInit {
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
         this.semDmService.deleteSemester(firebaseId).catch(() => {
-          this.snackBar.open("Desculpe. Não foi possível excluir o semestre", null, {duration: 2500});      
+          this.snackBar.open("Desculpe. Não foi possível excluir o semestre", null, {duration: 2500});
         });
         if (semester.identifier == this.selectedSemester) {
           this.semesterService.emitSemester(this.semestersList[0].key);
@@ -63,6 +65,10 @@ export class NavbarComponent implements OnInit {
 
   onSemesterSelected(semesterKey: string) {
     this.semesterService.emitSemester(semesterKey);
+  }
+
+  logout() {
+      this.authService.logout();
   }
 
 }

@@ -1,4 +1,4 @@
-
+﻿
 <mat-toolbar color="primary" class="toolbar">
   <button mat-button class="button">Alocca</button>
   <button mat-button class="button" routerLink="/professors">Professores</button>
@@ -21,6 +21,7 @@
     
   </mat-menu>
 
-  <button mat-button [matMenuTriggerFor]="appMenu">{{ selectedSemester || 'semestre' }}</button>
+  <button mat-button [matMenuTriggerFor]="appMenu">{{ selectedSemester || 'Semestre' }}</button>
+  <button mat-button class="button" (click)="logout()">Sair</button>
 
 </mat-toolbar>

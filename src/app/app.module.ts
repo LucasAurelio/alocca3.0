@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -21,6 +21,10 @@ import { DialogModule } from './dialog-service/dialog/dialog.module'
 import { CoursesModule } from './courses/courses.module'
 import { SemestersModule } from './semesters/semesters.module'
 import { SemestersDmService } from './data-manager/semesters/semesters-dm.service'
+
+import { UsersDmService } from './data-manager/users/users-dm.service'
+import { AuthService } from './authentication/auth.service';
+import { AuthenticationModule } from "./authentication/authentication.module";
 import { SemesterService } from './semesters/semester.service'
 import { ProfRestrictionDmService } from './data-manager/professor-restrictions/prof-restriction-dm.service'
 import { ClassesModule } from './classes/classes.module'
@@ -28,7 +32,7 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
 
 @NgModule({
   declarations: [
-    AppComponent
+      AppComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,7 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
     CoursesModule,
     SemestersModule,
     ClassesModule
+    AuthenticationModule
   ],
   providers: [
     DataManagerService,
@@ -53,7 +58,9 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
     SemestersDmService,
     SemesterService,
     ProfRestrictionDmService,
-    ClassesDmService
+    ClassesDmService,
+    UsersDmService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
