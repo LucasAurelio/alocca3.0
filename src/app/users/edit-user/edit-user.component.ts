@@ -83,7 +83,7 @@ export class EditUserComponent implements OnInit {
       } else {
         this.userDmService.existChild("email", this.email).then( (exists) => {
           if (exists && this.email!= this.originalEmail) {
-            this.snackBar.open("Esse email já existe", null, {duration: 2500});      
+            this.snackBar.open("Esse email já foi cadastrado", null, {duration: 2500});      
           } else {
             this.userDmService.updateUser(user, this.id);
             this.snackBar.open("Informações atualizadas", null, {duration: 2500});

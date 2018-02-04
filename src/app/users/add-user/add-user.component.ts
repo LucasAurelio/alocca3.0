@@ -72,9 +72,15 @@ export class AddUserComponent implements OnInit {
       if (exists) { 
         this.snackBar.open("Esse usuário (SIAP) já foi cadastrado", null, {duration: 2500});
       } else {
+        this.userDmService.existChild("email", this.email).then( (exists) => {
+          if (exists) {
+            this.snackBar.open("Esse email já foi cadastrado", null, {duration: 2500});      
+          } else {
             this.userDmService.saveUser(user)
             this.snackBar.open("Usuário cadastrado com sucesso", null, {duration: 2500});
             this.form.resetForm();
+          }
+        })
       }
     });
   }
