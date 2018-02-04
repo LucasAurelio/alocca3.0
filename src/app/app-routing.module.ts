@@ -7,6 +7,8 @@ import { AddCourseComponent } from './courses/add-course/add-course.component'
 import { EditCourseComponent } from './courses/edit-course/edit-course.component'
 import { ProfessorRestrictionComponent } from './professors/professor-restriction/professor-restriction.component'
 import { AddClassComponent } from './classes/add-class/add-class.component'
+import { AddUserComponent } from './users/add-user/add-user.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
 
 import { LoginPageComponent } from './authentication/login/login.component';
 import { HomePageComponent } from './authentication/home/home.component';
@@ -19,7 +21,9 @@ const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'prof_restriction/:id', component: ProfessorRestrictionComponent },
-  { path: 'classes', component: AddClassComponent }
+  { path: 'classes', component: AddClassComponent },
+  { path: 'users', component: AddUserComponent },
+  { path: 'edit_user/:id', component: EditUserComponent }
 ];
 
 @NgModule({

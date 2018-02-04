@@ -1,4 +1,4 @@
 ﻿export enum UserPermission {
-    admin = 1,
-    default = 0
+    Admin = 1,
+    Default = 0
 }

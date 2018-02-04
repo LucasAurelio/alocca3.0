@@ -3,7 +3,7 @@
   <button mat-button class="button">Alocca</button>
   <button mat-button class="button" routerLink="/professors">Professores</button>
   <button mat-button class="button" routerLink="/courses">Disciplinas</button>
-  <button mat-button class="button" routerLink="/classes">Turmas</button>  
+  <button mat-button class="button" routerLink="/classes">Turmas</button> 
   <span class="spacer"></span>
 
   <mat-menu #appMenu="matMenu">
@@ -22,6 +22,7 @@
   </mat-menu>
 
   <button mat-button [matMenuTriggerFor]="appMenu">{{ selectedSemester || 'Semestre' }}</button>
+  <button mat-button class="button" routerLink="/users">Usuários</button>
   <button mat-button class="button" (click)="logout()">Sair</button>
 
 </mat-toolbar>
