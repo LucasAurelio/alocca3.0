@@ -64,6 +64,14 @@ export class AddUserComponent implements OnInit {
   parsePermissionValue(){
     this.permissionValue = UserPermission[this.permission];
   }
+
+  parsePermissionString(permissionValue){
+    if(permissionValue == 1){
+      return "Admin";
+    }else{
+      return "Default"
+    }
+  }
   
   saveUser() {
     let user = new User(this.siape, this.name, this.permissionValue, this.email);

@@ -53,7 +53,7 @@
 
       <ng-container matColumnDef="permission">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
-        <mat-cell *matCellDef="let user">{{user.permission}}</mat-cell>
+        <mat-cell *matCellDef="let user">{{parsePermissionString(user.permission)}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="siape">
