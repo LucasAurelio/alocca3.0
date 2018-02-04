@@ -21,8 +21,8 @@ export class AddUserComponent implements OnInit {
   siape: string;
   name: string;
   permissionOptions: string[];
-  permission: number;
-  permissionValue: string;
+  permission: string;
+  permissionValue: number;
   email: string;
   usersList: JSON[];
   dataSource: MatTableDataSource<JSON>;

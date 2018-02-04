@@ -1,9 +1,9 @@
 export class User {
 
     constructor(
-        public siape,
-        public name,
-		public permission: string,
+        public siape: string,
+        public name: string,
+		public permission: number,
         public email: string
     ) { }
 

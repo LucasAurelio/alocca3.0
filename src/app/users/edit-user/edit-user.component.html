@@ -1,3 +1,39 @@
-<p>
-  edit-user works!
-</p>
+<mat-card>
+    <mat-card-title>Editar informações</mat-card-title>
+  
+    <form (ngSubmit)="saveInformation()" #editUserForm="ngForm" >
+      <div class="card-content-container">
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="siape" maxLength="7" placeholder="SIAPE" name="siape" pattern="[0-9]{7}" required>
+          <mat-hint align="end">{{siape?.length || 0}}/7</mat-hint>
+          <mat-error *ngIf="siapeControl.errors.required">{{getErrorMessage(siapeControl)}}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="name" placeholder="nome" name="name" required>
+          <mat-error *ngIf="nameControl.invalid">{{getErrorMessage(nameControl)}}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-select placeholder="Tipo" (change)="parsePermissionValue()" [(ngModel)]="permission" name="permission" required>
+            <mat-option *ngFor="let perm of permissionOptions" [value]="perm">
+              {{ perm }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="permissionControl.errors.required">{{getErrorMessage(permissionControl)}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="email" placeholder="email" name="email" pattern="[A-Za-z0-9._%+-]+@+[a-z]+.ufcg.edu.br" required>
+          <mat-hint align="end">@ccc, @computacao</mat-hint>
+          <mat-error *ngIf="emailControl.errors.required">{{getErrorMessage(emailControl)}}</mat-error>
+        </mat-form-field>
+
+        <mat-card-actions class="card-actions">
+            <button mat-button class="button" color="primary" [routerLink]="['/users']">CANCELAR</button>          
+            <button type="submit" mat-button class="button" color="primary" [disabled]="!editUserForm.form.valid">SALVAR</button>
+        </mat-card-actions>
+      </div> 
+    </form>
+  
+  </mat-card>
