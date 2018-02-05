@@ -52,9 +52,9 @@ export class AddClassComponent implements OnInit {
 
       this.filteredCourses = controls.courseControl.valueChanges.pipe(
         startWith<string | Course>(''),
-        map(value => typeof value === 'string' ? value : value.shortname),
-        map(shortname => shortname ? this.coursesList.filter(course =>
-          course.shortname.toLowerCase().indexOf(shortname.toLowerCase()) === 0) : this.coursesList.slice())
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this.coursesList.filter(course =>
+          course.name.toLowerCase().indexOf(name.toLowerCase()) === 0) : this.coursesList.slice())
       );
     });
 
@@ -65,15 +65,15 @@ export class AddClassComponent implements OnInit {
       this.filteredProfessors1 = controls.professor1Control.valueChanges.pipe(
         startWith<string | Professor>(''),
         map(value => typeof value === 'string' ? value : value.nickname),
-        map(nickname => nickname ? this.professorsList.filter(prof =>
-          prof.nickname.toLowerCase().indexOf(nickname.toLowerCase()) === 0): this.professorsList.slice())
+        map(name => name ? this.professorsList.filter(prof =>
+          prof.name.toLowerCase().indexOf(name.toLowerCase()) === 0): this.professorsList.slice())
       )
 
       this.filteredProfessors2 = controls.professor2Control.valueChanges.pipe(
         startWith<string | Professor>(''),
         map(value => typeof value === 'string' ? value : value.nickname),
-        map(nickname => nickname ? this.professorsList.filter(prof =>
-          prof.nickname.toLowerCase().indexOf(nickname.toLowerCase()) === 0): this.professorsList.slice())
+        map(name => name ? this.professorsList.filter(prof =>
+          prof.name.toLowerCase().indexOf(name.toLowerCase()) === 0): this.professorsList.slice())
       )
     })
 
@@ -86,55 +86,53 @@ export class AddClassComponent implements OnInit {
   }
 
   saveClass() {
-    var controls = this.classForm.controls
-    var courseShortname = controls.courseControl. //this.course.shortname: undefined;
-    // var prof1Nickname = this.professor1? this.professor1.nickname: undefined;
-    // var prof2Nickname = this.professor2? this.professor2.nickname: undefined;
-
-    console.log(courseShortname);
+    var course = this.classForm.controls.courseControl.value;
+    var prof1 = this.classForm.controls.professor1Control.value;
+    var prof2 = this.classForm.controls.professor2Control.value;
 
     // Verifica se as entradas estão nas respectivas lista de disciplinas e professores
-    var isCourseValid = courseShortname? this.coursesList.map(course => course.shortname).includes(courseShortname) : false; 
-    // var isProf1Valid = prof1Nickname? this.professorsList.map(prof => prof.nickname).includes(prof1Nickname) : false;
-    // var isProf2Valid = prof2Nickname? this.professorsList.map(prof => prof.nickname).includes(prof2Nickname) : false;
+    var isCourseValid = course? course.name? true : false : false; 
+    var isProf1Valid = prof1? prof1.name? true : false : false;
+    var isProf2Valid = prof2? prof2.name? true : false : true;
 
     if (!isCourseValid) {
       this.snackBar.open("Disciplina inválida. Selecione uma disciplina já cadastrada.", null, {duration: 3000});
       return;
     }
 
-    // if (!isProf1Valid) {
-    //   this.snackBar.open("Professor 1 inválido. Selecione um professor já cadastrado.", null, {duration: 3000});
-    //   return;
-    // }
+    if (!isProf1Valid) {
+      this.snackBar.open("Professor 1 inválido. Selecione um professor já cadastrado.", null, {duration: 3000});
+      return;
+    }
 
-    // if (!isProf2Valid) {
-    //   this.snackBar.open("Professor 2 inválido. Selecione um professor já cadastrado.", null, {duration: 3000});
-    //   return;
-    // }
+    if (!isProf2Valid) {
+      this.snackBar.open("Professor 2 inválido. Selecione um professor já cadastrado.", null, {duration: 3000});
+      return;
+    }
 
-    let class_ = new Class(
-      this.semesterKey,
-      this.classForm.controls.courseControl.value.key,
-      1,
-      this.classForm.controls.professor1Control.value.key,
-      this.classForm.controls.professor2Control.value? this.classForm.controls.professor2Control.value.key : null 
-    )
+    var self = this;
 
-    // this.classesDmService.saveClass(class_);
+    this.classesDmService.getNumberOfClasses(this.semesterKey, course.key).then( (number) => {
 
-    // this.classesDmService.getNumberOfClasses(this.semesterKey, this.courseControl.value.key).then(
-    //   result => { console.log(result); }
-    // )
-    
+      let class_ = new Class(
+        self.semesterKey,
+        course.key,
+        number + 1,
+        prof1.key,
+        prof1? prof1.key : null 
+      );
+
+      self.classesDmService.saveClass(class_);
+      self.snackBar.open("Turma salva com sucesso", null, {duration: 2500}); 
+    }) 
   }
 
   displayCourse(course?: any): string | undefined {
-    return course ? course.shortname : undefined;
+    return course ? course.name : undefined;
   }
 
   displayProfessor(professor?: any): string | undefined {
-    return professor ? professor.nickname : undefined;
+    return professor ? professor.name : undefined;
   }
 
 }

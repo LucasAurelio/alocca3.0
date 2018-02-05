@@ -43,9 +43,8 @@ export class ClassesDmService {
             .once('value').then(
               function(snapshot) {
                 var list = snapshot.val();
-                var number = Object.keys(list).length
-                console.log(number);
-                Promise.resolve(number);
+                var number = Object.keys(list? list: []).length
+                return Promise.resolve(number);
               }
             )
   }

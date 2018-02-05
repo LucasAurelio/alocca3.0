@@ -5,31 +5,31 @@
       <div class="form-container">
 
         <mat-form-field>
-          <input type="text" placeholder="Disciplina" matInput [formControl]="courseControl" 
+          <input type="text" placeholder="Disciplina" matInput formControlName="courseControl" 
           [matAutocomplete]="coursesAuto">
           <mat-autocomplete #coursesAuto="matAutocomplete" [displayWith]="displayCourse">
             <mat-option *ngFor="let course of filteredCourses | async" [value]="course">
-              {{ course.shortname }}
+              {{ course.name }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
 
         <mat-form-field>
-          <input type="text" placeholder="Professor 1" matInput [formControl]="professor1Control" 
+          <input type="text" placeholder="Professor 1" matInput formControlName="professor1Control" 
           [matAutocomplete]="prof1Auto">
           <mat-autocomplete #prof1Auto="matAutocomplete" [displayWith]="displayProfessor">
             <mat-option *ngFor="let prof of filteredProfessors1 | async" [value]="prof">
-              {{ prof.nickname }}
+              {{ prof.name }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
 
         <mat-form-field>
-          <input type="text" placeholder="Professor 2" matInput [formControl]="professor2Control"
+          <input type="text" placeholder="Professor 2" matInput formControlName="professor2Control"
            [matAutocomplete]="prof2Auto">
           <mat-autocomplete #prof2Auto="matAutocomplete" [displayWith]="displayProfessor">
             <mat-option *ngFor="let prof of filteredProfessors2 | async" [value]="prof">
-              {{ prof.nickname }}
+              {{ prof.name }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
