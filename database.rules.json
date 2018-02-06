@@ -1,0 +1,28 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "courses": {
+      ".indexOn": ["code", "name", "shortname"], 
+      ".read": true,
+    	".write": true,
+    },
+    "semesters": {
+      ".indexOn": ["identifier"], 
+      ".read": true,
+    	".write": true,
+    },
+    "users": {
+      ".indexOn": ["email"], 
+      ".read": true,
+    	".write": true,
+    },
+    "classes": {
+      "$uid":{
+        ".indexOn": ["course"], 
+      	".read": true,
+    		".write": true,
+      }
+    }
+  }
+}
