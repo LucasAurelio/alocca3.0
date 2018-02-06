@@ -1,0 +1,51 @@
+.card-content-container {
+    width: 100%;
+    flex-direction: column;
+  } 
+  
+.card-content-container > * {
+    margin-right: 28px;
+    display: inline-block;
+    width: 27%;
+}
+
+.card-content-container button {
+    margin-right: 28px;
+    display: inline-block;
+    width: auto;
+}
+
+.table-container button {
+    width: auto;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    min-width: 300px;
+    margin-top: 28px;
+}
+  
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
+.filter-input {
+    width: 100%;    
+}
+
+.mat-column-actions {
+    flex: 0 0 100px !important;
+    white-space: unset !important;
+}
+
+.table-options {
+    width: 42px;
+}

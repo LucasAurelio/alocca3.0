@@ -1,16 +1,18 @@
-import { UserPermission } from './permission';
-
 export class User {
 
     constructor(
-        public email: string,
-		public permission: UserPermission
+        public siape: string,
+        public name: string,
+		public permission: number,
+        public email: string
     ) { }
 
     toFirebaseObject() {
         var user: any = {
-            email: this.email,
-			permission: this.permission
+            siape: this.siape,
+            name: this.name,
+			permission: this.permission,
+            email: this.email
         }
         return <JSON>user;
     }
