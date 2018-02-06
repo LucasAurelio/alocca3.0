@@ -7,6 +7,7 @@ import { AddCourseComponent } from './courses/add-course/add-course.component'
 import { EditCourseComponent } from './courses/edit-course/edit-course.component'
 import { ProfessorRestrictionComponent } from './professors/professor-restriction/professor-restriction.component'
 import { AddClassComponent } from './classes/add-class/add-class.component'
+import { EditClassComponent } from './classes/edit-class/edit-class.component'
 
 const routes: Routes = [
   { path: 'professors', component: AddProfessorComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'courses', component: AddCourseComponent },
   { path: 'edit_course/:id', component: EditCourseComponent },
   { path: 'prof_restriction/:id', component: ProfessorRestrictionComponent },
-  { path: 'classes', component: AddClassComponent }
+  { path: 'classes', component: AddClassComponent },
+  { path: 'edit_class/:id', component: EditClassComponent}
 ];
 
 @NgModule({

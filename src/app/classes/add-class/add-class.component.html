@@ -92,6 +92,9 @@
     <ng-container matColumnDef="options">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let class_">
+          <button mat-icon-button color="accent">
+              <mat-icon class="table-options" matTooltip="Editar Informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(class_.key)">edit</mat-icon>
+            </button>
           <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClass(class_, class_.key)">
             <mat-icon class="table-options">delete</mat-icon>
           </button>

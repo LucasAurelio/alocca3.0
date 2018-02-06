@@ -12,6 +12,7 @@ import { Course } from '../../courses/course'
 import { Professor } from '../../professors/professor'
 import { Class } from '../class'
 import { DialogService } from "../../dialog-service/dialog.service"
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-class',
@@ -47,7 +48,8 @@ export class AddClassComponent implements OnInit {
     private semesterService: SemesterService,
     private snackBar: MatSnackBar,
     private classesDmService: ClassesDmService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private router: Router
   ) {   }
 
   ngOnInit() {
@@ -87,16 +89,13 @@ export class AddClassComponent implements OnInit {
     this.semesterService.getSemesterEmitter().subscribe(semesterKey => {
       this.semesterKey = semesterKey;
 
-      this.classesDmService.getClasses(semesterKey).subscribe( classes => {
+      this.classesDmService.getClasses().subscribe( classes => {
         this.dataSource = new MatTableDataSource<JSON>(classes);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
     })
     this.semesterService.reemitSemester();
-
-   
-
   }
 
   saveClass() {
@@ -131,7 +130,7 @@ export class AddClassComponent implements OnInit {
     }
 
 
-    this.classesDmService.getNumberOfClasses(this.semesterKey, course.key).then( (number) => {
+    this.classesDmService.getNumberOfClasses(course.key).then( (number) => {
 
       let class_ = new Class(
         this.semesterKey,
@@ -158,7 +157,7 @@ export class AddClassComponent implements OnInit {
   }
 
   updateVerification(classKey: string,  isVerified: boolean) {
-    this.classesDmService.updateVerification(this.semesterKey, isVerified, classKey);
+    this.classesDmService.updateVerification(isVerified, classKey);
   }
 
   applyFilter(filterValue: string) {
@@ -174,11 +173,15 @@ export class AddClassComponent implements OnInit {
     var negAct = "Cancelar";
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
-        this.classesDmService.deleteClass(this.semesterKey, firebaseId).catch(() => {
+        this.classesDmService.deleteClass(firebaseId).catch(() => {
           this.snackBar.open("Desculpe. Não foi possível excluir a turma.", null, {duration: 2500});      
         });
       }
     })   
+  }
+
+  redirectToEdition(classKey: string) {
+    this.router.navigateByUrl('edit_class/'+classKey);
   }
 
 }

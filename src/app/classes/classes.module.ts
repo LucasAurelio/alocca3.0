@@ -4,6 +4,7 @@ import { AddClassComponent } from './add-class/add-class.component';
 import { AngularMaterialImporterModule } from '../angular-material-importer/angular-material-importer.module'
 import { AppRoutingModule } from '../app-routing.module'
 import { ReactiveFormsModule }   from '@angular/forms';
+import { EditClassComponent } from './edit-class/edit-class.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { ReactiveFormsModule }   from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [AddClassComponent]
+  declarations: [AddClassComponent, EditClassComponent]
 })
 export class ClassesModule { }
