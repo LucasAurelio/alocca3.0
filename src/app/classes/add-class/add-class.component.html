@@ -12,7 +12,7 @@
               {{ course.name }}
             </mat-option>
           </mat-autocomplete>
-        </mat-form-field>
+        </mat-form-field>  
 
         <mat-form-field>
           <input type="text" placeholder="Professor 1" matInput formControlName="professor1Control" 
@@ -39,3 +39,70 @@
 
   </form>
 </mat-card>
+
+<div class="table-container mat-elevation-z8">
+
+  <div class="table-header">
+    <mat-form-field class="filter-input">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <!-- the sorted column's name must match the data property name -->
+    <ng-container matColumnDef="check">
+      <mat-header-cell *matHeaderCellDef> Verificado </mat-header-cell>
+      <mat-cell *matCellDef="let class_" class="checkbox-cell">
+        <mat-checkbox (click)="$event.stopPropagation()"
+        (change)="$event ? updateVerification(class_.key, !class_.verified) : null"
+        [checked]="class_.verified"></mat-checkbox>
+    </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="course">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Disciplina </mat-header-cell>
+      <mat-cell *matCellDef="let class_">{{ class_.courseName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header> Turma </mat-header-cell>
+      <mat-cell *matCellDef="let class_">{{ class_.number }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="prof1">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header> Professor 1 </mat-header-cell>
+      <mat-cell *matCellDef="let class_">{{  class_.professor1Name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="prof2">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header> Professor 2 </mat-header-cell>
+      <mat-cell *matCellDef="let class_">{{ class_.professor2Name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="schedule">
+      <mat-header-cell *matHeaderCellDef> Horários </mat-header-cell>
+      <mat-cell *matCellDef="let class_">{{ class_.schedule? class_.schedule : ""}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="note">
+      <mat-header-cell *matHeaderCellDef> Observação </mat-header-cell>
+      <mat-cell *matCellDef="let class_">{{ class_.note?  class_.note : "" }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let class_">
+          <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClass(class_, class_.key)">
+            <mat-icon class="table-options">delete</mat-icon>
+          </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['check', 'course', 'number', 'prof1', 'prof2', 'schedule', 'note', 'options']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['check', 'course', 'number', 'prof1', 'prof2', 'schedule', 'note', 'options'];"></mat-row>
+  </mat-table>
+
+  <span class="spacer"></span>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</div>  

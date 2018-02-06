@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { CoursesDmService } from '../../data-manager/courses/courses-dm.service'
 import { Observable } from 'rxjs/Observable';
@@ -6,11 +6,12 @@ import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
 import { ProfessorsDmService } from '../../data-manager/professors/professors-dm.service'
 import { SemesterService } from '../../semesters/semester.service'
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ClassesDmService } from '../../data-manager/classes/classes-dm.service'
 import { Course } from '../../courses/course'
 import { Professor } from '../../professors/professor'
 import { Class } from '../class'
+import { DialogService } from "../../dialog-service/dialog.service"
 
 @Component({
   selector: 'app-add-class',
@@ -35,13 +36,18 @@ export class AddClassComponent implements OnInit {
 
   coursesList: any[];
   professorsList: any[];
+  
+  dataSource: MatTableDataSource<JSON>;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private coursesDmService: CoursesDmService,
     private profDmService: ProfessorsDmService,
     private semesterService: SemesterService,
     private snackBar: MatSnackBar,
-    private classesDmService: ClassesDmService
+    private classesDmService: ClassesDmService,
+    private dialogService: DialogService
   ) {   }
 
   ngOnInit() {
@@ -80,8 +86,16 @@ export class AddClassComponent implements OnInit {
     /* Muda a variável de semestre sempre que o semestre mudar na navbar*/
     this.semesterService.getSemesterEmitter().subscribe(semesterKey => {
       this.semesterKey = semesterKey;
+
+      this.classesDmService.getClasses(semesterKey).subscribe( classes => {
+        this.dataSource = new MatTableDataSource<JSON>(classes);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      });
     })
     this.semesterService.reemitSemester();
+
+   
 
   }
 
@@ -95,6 +109,7 @@ export class AddClassComponent implements OnInit {
     var isProf1Valid = prof1? prof1.name? true : false : false;
     var isProf2Valid = prof2? prof2.name? true : false : true;
 
+    // Validações
     if (!isCourseValid) {
       this.snackBar.open("Disciplina inválida. Selecione uma disciplina já cadastrada.", null, {duration: 3000});
       return;
@@ -110,20 +125,27 @@ export class AddClassComponent implements OnInit {
       return;
     }
 
-    var self = this;
+    if (prof2 && prof2.name && prof2.name == prof1.name) {
+      this.snackBar.open("Os professores não podem ser iguais", null, {duration: 3000});
+      return;
+    }
+
 
     this.classesDmService.getNumberOfClasses(this.semesterKey, course.key).then( (number) => {
 
       let class_ = new Class(
-        self.semesterKey,
+        this.semesterKey,
         course.key,
+        course.name,
         number + 1,
         prof1.key,
-        prof1? prof1.key : null 
+        prof1.name,
+        prof1? prof1.key : null,
+        prof2? prof2.name : null 
       );
 
-      self.classesDmService.saveClass(class_);
-      self.snackBar.open("Turma salva com sucesso", null, {duration: 2500}); 
+      this.classesDmService.saveClass(class_);
+      this.snackBar.open("Turma salva com sucesso", null, {duration: 2500}); 
     }) 
   }
 
@@ -133,6 +155,30 @@ export class AddClassComponent implements OnInit {
 
   displayProfessor(professor?: any): string | undefined {
     return professor ? professor.name : undefined;
+  }
+
+  updateVerification(classKey: string,  isVerified: boolean) {
+    this.classesDmService.updateVerification(this.semesterKey, isVerified, classKey);
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  deleteClass(class_: Class, firebaseId: string) {
+    var title = "Excluir Turma";
+    var message = "Todas as informações dessa turma serão apagadas";
+    var posAct = "Excluir";
+    var negAct = "Cancelar";
+    this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
+      if (result) {
+        this.classesDmService.deleteClass(this.semesterKey, firebaseId).catch(() => {
+          this.snackBar.open("Desculpe. Não foi possível excluir a turma.", null, {duration: 2500});      
+        });
+      }
+    })   
   }
 
 }
