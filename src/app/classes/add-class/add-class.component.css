@@ -13,3 +13,24 @@
     display: inline-block;
     width: auto;
 }
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    min-width: 300px;
+    margin-top: 28px;
+}
+
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
+.filter-input {
+    width: 100%;    
+}
+
+.checkbox-cell {
+    overflow: initial;
+}

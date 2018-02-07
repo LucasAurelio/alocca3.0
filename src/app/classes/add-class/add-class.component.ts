@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { CoursesDmService } from '../../data-manager/courses/courses-dm.service'
 import { Observable } from 'rxjs/Observable';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
 import { ProfessorsDmService } from '../../data-manager/professors/professors-dm.service'
 import { SemesterService } from '../../semesters/semester.service'
-import { MatSnackBar } from '@angular/material';
-
+import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { ClassesDmService } from '../../data-manager/classes/classes-dm.service'
+import { Course } from '../../courses/course'
+import { Professor } from '../../professors/professor'
+import { Class } from '../class'
+import { DialogService } from "../../dialog-service/dialog.service"
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-class',
@@ -20,9 +25,11 @@ export class AddClassComponent implements OnInit {
 
   semesterKey: string;
 
-  courseControl: FormControl = new FormControl('', [Validators.required]);
-  professor1Control: FormControl = new FormControl('', [Validators.required]);
-  professor2Control: FormControl = new FormControl();  
+  classForm = new FormGroup ({
+    courseControl: new FormControl('', [Validators.required]),
+    professor1Control: new FormControl('', [Validators.required]),
+    professor2Control: new FormControl()
+  });
 
   filteredCourses: Observable<any[]>;
   filteredProfessors1: Observable<any[]>;
@@ -30,23 +37,32 @@ export class AddClassComponent implements OnInit {
 
   coursesList: any[];
   professorsList: any[];
+  
+  dataSource: MatTableDataSource<JSON>;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private coursesDmService: CoursesDmService,
     private profDmService: ProfessorsDmService,
     private semesterService: SemesterService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private classesDmService: ClassesDmService,
+    private dialogService: DialogService,
+    private router: Router
   ) {   }
 
   ngOnInit() {
-    /* Recupera a lista de disciplinas e conecta ao autocompletar juntamente com um filtro*/
+    var controls = this.classForm.controls;
+    /* Recupera a lista de disciplinas e a conecta ao autocompletar juntamente com um filtro*/
     this.coursesDmService.getCourses().subscribe(courses => {
       this.coursesList = courses;
 
-      this.filteredCourses = this.courseControl.valueChanges.pipe(
-        startWith(''),
-        map(val => this.coursesList.filter(course =>
-          course.shortname.toLowerCase().indexOf(val.toLowerCase()) === 0))
+      this.filteredCourses = controls.courseControl.valueChanges.pipe(
+        startWith<string | Course>(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this.coursesList.filter(course =>
+          course.name.toLowerCase().indexOf(name.toLowerCase()) === 0) : this.coursesList.slice())
       );
     });
 
@@ -54,36 +70,45 @@ export class AddClassComponent implements OnInit {
     this.profDmService.getProfessors().subscribe( professors => {
       this.professorsList = professors;
 
-      this.filteredProfessors1 = this.professor1Control.valueChanges.pipe(
-        startWith(''),
-        map(val => this.professorsList.filter(prof =>
-          prof.nickname.toLowerCase().indexOf(val.toLowerCase()) === 0))
+      this.filteredProfessors1 = controls.professor1Control.valueChanges.pipe(
+        startWith<string | Professor>(''),
+        map(value => typeof value === 'string' ? value : value.nickname),
+        map(name => name ? this.professorsList.filter(prof =>
+          prof.name.toLowerCase().indexOf(name.toLowerCase()) === 0): this.professorsList.slice())
       )
 
-      this.filteredProfessors2 = this.professor2Control.valueChanges.pipe(
-        startWith(''),
-        map(val => this.professorsList.filter(prof =>
-          prof.nickname.toLowerCase().indexOf(val.toLowerCase()) === 0))
+      this.filteredProfessors2 = controls.professor2Control.valueChanges.pipe(
+        startWith<string | Professor>(''),
+        map(value => typeof value === 'string' ? value : value.nickname),
+        map(name => name ? this.professorsList.filter(prof =>
+          prof.name.toLowerCase().indexOf(name.toLowerCase()) === 0): this.professorsList.slice())
       )
     })
 
     /* Muda a variável de semestre sempre que o semestre mudar na navbar*/
     this.semesterService.getSemesterEmitter().subscribe(semesterKey => {
       this.semesterKey = semesterKey;
+
+      this.classesDmService.getClasses().subscribe( classes => {
+        this.dataSource = new MatTableDataSource<JSON>(classes);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      });
     })
     this.semesterService.reemitSemester();
-
   }
 
   saveClass() {
-    // Verifica se as entradas estão nas respectivas lista de disciplinas e professores
-    var isCourseValid = this.coursesList.map(course => course.shortname).includes(this.courseControl.value)
-                        || this.courseControl.value == "" || this.courseControl.value == null;
-    var isProf1Valid = this.professorsList.map(prof => prof.nickname).includes(this.professor1Control.value)
-                       || this.professor1Control.value == "" || this.professor1Control.value == null;
-    var isProf2Valid = this.professorsList.map(prof => prof.nickname).includes(this.professor2Control.value)
-                       || this.professor2Control.value == "" || this.professor2Control.value == null;
+    var course = this.classForm.controls.courseControl.value;
+    var prof1 = this.classForm.controls.professor1Control.value;
+    var prof2 = this.classForm.controls.professor2Control.value;
 
+    // Verifica se as entradas estão nas respectivas lista de disciplinas e professores
+    var isCourseValid = course? course.name? true : false : false; 
+    var isProf1Valid = prof1? prof1.name? true : false : false;
+    var isProf2Valid = prof2? prof2.name? true : false : true;
+
+    // Validações
     if (!isCourseValid) {
       this.snackBar.open("Disciplina inválida. Selecione uma disciplina já cadastrada.", null, {duration: 3000});
       return;
@@ -99,8 +124,64 @@ export class AddClassComponent implements OnInit {
       return;
     }
 
-    
+    if (prof2 && prof2.name && prof2.name == prof1.name) {
+      this.snackBar.open("Os professores não podem ser iguais", null, {duration: 3000});
+      return;
+    }
+
+
+    this.classesDmService.getNumberOfClasses(course.key).then( (number) => {
+
+      let class_ = new Class(
+        this.semesterKey,
+        course.key,
+        course.name,
+        number + 1,
+        prof1.key,
+        prof1.name,
+        prof1? prof1.key : null,
+        prof2? prof2.name : null 
+      );
+
+      this.classesDmService.saveClass(class_);
+      this.snackBar.open("Turma salva com sucesso", null, {duration: 2500}); 
+    }) 
   }
 
+  displayCourse(course?: any): string | undefined {
+    return course ? course.name : undefined;
+  }
+
+  displayProfessor(professor?: any): string | undefined {
+    return professor ? professor.name : undefined;
+  }
+
+  updateVerification(classKey: string,  isVerified: boolean) {
+    this.classesDmService.updateVerification(isVerified, classKey);
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  deleteClass(class_: Class, firebaseId: string) {
+    var title = "Excluir Turma";
+    var message = "Todas as informações dessa turma serão apagadas";
+    var posAct = "Excluir";
+    var negAct = "Cancelar";
+    this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
+      if (result) {
+        this.classesDmService.deleteClass(firebaseId).catch(() => {
+          this.snackBar.open("Desculpe. Não foi possível excluir a turma.", null, {duration: 2500});      
+        });
+      }
+    })   
+  }
+
+  redirectToEdition(classKey: string) {
+    this.router.navigateByUrl('edit_class/'+classKey);
+  }
 
 }

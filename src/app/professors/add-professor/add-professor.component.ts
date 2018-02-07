@@ -20,7 +20,6 @@ export class AddProfessorComponent implements OnInit {
   siap: string;
   name: string;
   nickname: string;
-  professorsList: JSON[];
   dataSource: MatTableDataSource<JSON>;
   @ViewChild('addProfessorForm') form;
   @ViewChild(MatSort) sort: MatSort;
@@ -35,7 +34,6 @@ export class AddProfessorComponent implements OnInit {
 
   ngOnInit() {
     this.profDmService.getProfessors().subscribe( professors => {
-      this.professorsList = professors;
       this.dataSource = new MatTableDataSource<JSON>(professors);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
