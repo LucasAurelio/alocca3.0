@@ -3,7 +3,7 @@ export class User {
     constructor(
         public siape: string,
         public name: string,
-		public permission: number,
+	    	public permission: number,
         public email: string
     ) { }
 

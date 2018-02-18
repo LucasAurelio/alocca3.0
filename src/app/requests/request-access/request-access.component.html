@@ -1,0 +1,33 @@
+<mat-card id="new-request-card">
+  <form (ngSubmit)="onAddNewRequest()" #userForm="ngForm">
+  <!-- Card Toolbar -->
+    <mat-toolbar class="new-request-card-toolbar mdl-color-text--white mdl-color--primary">
+      Solicitação
+      <span class="spacer"></span>
+      <button mat-button id="back-button" [routerLink]="['/home']">Voltar</button> 
+      <button mat-button type="submit" [disabled]="!userForm.form.valid" >Cadastrar</button>
+    </mat-toolbar>
+ 
+  <!-- Card Form -->
+    <mat-card-content id="new-request-card-content">
+      <div class="request-card-row">
+
+      <!-- User SIAPE input -->
+        <mat-form-field id="request-SIAPE-input" type="text">
+          <input matInput placeholder="SIAPE" [(ngModel)]="SIAPE" name="SIAPE" size="7" maxlength="7" pattern="[0-9]{7}" required>
+        </mat-form-field>
+
+      <!-- User name input -->
+        <mat-form-field id="request-name-input" type="text">
+          <input matInput placeholder="Nome" [(ngModel)]="name" name="name" required>
+        </mat-form-field>
+
+      <!-- User e-mail input -->
+        <mat-form-field id="request-email-input">
+          <input matInput pattern="[A-Za-z0-9._%+-]+@+[a-z]+.ufcg.edu.br" placeholder="E-mail" [(ngModel)]="email" name="email" required>
+        </mat-form-field>
+  
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>

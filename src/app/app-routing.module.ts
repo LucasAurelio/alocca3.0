@@ -12,6 +12,7 @@ import { AddUserComponent } from './users/add-user/add-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { LoginPageComponent } from './authentication/login/login.component';
 import { HomePageComponent } from './authentication/home/home.component';
+import { RequestAccessComponent } from './requests/request-access/request-access.component';
 
 const routes: Routes = [
   { path: 'professors', component: AddProfessorComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'classes', component: AddClassComponent },
   { path: 'edit_class/:id', component: EditClassComponent},
   { path: 'users', component: AddUserComponent },
-  { path: 'edit_user/:id', component: EditUserComponent }
+  { path: 'edit_user/:id', component: EditUserComponent },
+  { path: 'requestAccess', component: RequestAccessComponent }
 ];
 
 @NgModule({
