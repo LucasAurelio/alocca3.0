@@ -2,6 +2,17 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
 
+`Alocca is a web system that helps department coordinators of universities allocate professors, classes and classrooms every  semester.`
+
+## Developers
+
+* [Dandara Sousa](https://github.com/dandaramcsousa)
+* [Hugo Gabriel](https://github.com/hugogbs)
+* [Laybson Cunha](https://github.com/laybson)
+* [Lucas Aurelio](https://github.com/LucasAurelio)
+* [Luiz Fonseca](https://github.com/fonluiz)
+* [Paulo Vinicius](https://github.com/paul0vinicius)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

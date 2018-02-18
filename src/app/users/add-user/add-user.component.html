@@ -1,0 +1,90 @@
+<div>
+  <mat-card>
+    <mat-card-title>Cadastrar usuário</mat-card-title>
+  
+    <form (ngSubmit)="saveUser()" #addUserForm="ngForm" >
+      <div class="card-content-container">
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="siape" maxLength="7" placeholder="SIAPE" name="siape" pattern="[0-9]{7}" required>
+          <mat-hint align="end">{{siape?.length || 0}}/7</mat-hint>
+          <mat-error *ngIf="siapeControl.errors.required">{{getErrorMessage(siapeControl)}}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="name" placeholder="nome" name="name" required>
+          <mat-error *ngIf="nameControl.invalid">{{getErrorMessage(nameControl)}}</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-select placeholder="Tipo" (change)="parsePermissionValue()" [(ngModel)]="permission" name="permission" required>
+            <mat-option *ngFor="let perm of permissionOptions" [value]="perm">
+              {{ perm }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="permissionControl.errors.required">{{getErrorMessage(permissionControl)}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field type="text">
+          <input matInput [(ngModel)]="email" placeholder="email" name="email" pattern="[A-Za-z0-9._%+-]+@+[a-z]+.ufcg.edu.br" required>
+          <mat-hint align="end">@ccc, @computacao</mat-hint>
+          <mat-error *ngIf="emailControl.errors.required">{{getErrorMessage(emailControl)}}</mat-error>
+        </mat-form-field>
+    
+        <button type="submit" mat-button class="button" color="primary" [disabled]="!addUserForm.form.valid">SALVAR</button>
+      </div> 
+    </form>
+  
+  </mat-card>
+  
+  <div class="table-container mat-elevation-z8">
+
+    <div class="table-header">
+      <mat-form-field class="filter-input">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <!-- the sorted column's name must match the data property name -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="permission">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{parsePermissionString(user.permission)}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="siape">
+        <mat-header-cell *matHeaderCellDef> SIAPE </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.siape}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.email}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <button mat-icon-button color="accent">
+              <mat-icon class="table-options" matTooltip="Editar Informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(user.key)">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteUser(user, user.key)">
+              <mat-icon class="table-options">delete</mat-icon>
+            </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['name', 'permission', 'siape', 'email', 'options']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'permission', 'siape', 'email', 'options'];"></mat-row>
+
+    </mat-table>
+
+    <span class="spacer"></span>
+
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>  
+</div>

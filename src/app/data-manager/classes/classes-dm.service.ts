@@ -36,10 +36,22 @@ export class ClassesDmService {
     this.dm.push(this.semesterClasses, class_.toFirebaseObject())
   }
 
+  getClasses() {
+    return this.semesterClasses.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+  }
+
   /**Verifica quantas turmas já existem de uma disciplina (courseKey) no semestre (semesterKey) */
-  getNumberOfClasses(semesterKey: string, courseKey: string) { 
-    this.updateSemesterKey(semesterKey);
-    // this.semesterClasses.query.orderByChild('course').equalTo(courseKey).ref.
+  getNumberOfClasses(courseKey: string) { 
+    return this.semesterClasses.query.orderByChild('courseKey').equalTo(courseKey)
+            .once('value').then(
+              function(snapshot) {
+                var list = snapshot.val();
+                var number = Object.keys(list? list: []).length
+                return Promise.resolve(number);
+              }
+            )
   }
 
   /**Atualiza a lista de turmas para o semestre especificado*/
@@ -48,6 +60,20 @@ export class ClassesDmService {
     this.semesterClassesListRef = this.semesterClassesListName + '/';
     this.semesterClasses = this.dm.createList(this.semesterClassesListName);
   }
+
+  deleteClass(classKey: string) {
+    return this.dm.delete(this.semesterClasses, classKey);
+  }
+
+  updateVerification(value: boolean, classKey: string) {
+    var obj: any = {verified: value};
+    return this.dm.update(this.semesterClasses, <JSON>obj, classKey);
+  }
+
+  getClassById(classKey: string) {
+    return this.dm.readObject(this.semesterClassesListRef + classKey);
+  }
+
 
 }
  
