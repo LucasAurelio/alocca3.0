@@ -1,38 +1,36 @@
-#new-request-card {
-  margin: 50px 250px 50px 250px;
-  padding: 0px 0px 0px 0px;
+.form-container {
+    width: 100%;
+    flex-direction: column;
 }
 
-#back-button{
-  margin-right: 1%;
+.form-container > * {
+    margin-right: 28px;
+    display: inline-block;
+    width: 27%;
 }
 
-#new-request-card-content {
-  text-align: left;
-  padding: 30px 30px 30px 30px;
+.form-container button {
+    display: inline-block;
+    width: auto;
 }
 
-#request-SIAPE-input {
-  width: 10%;
-  margin-top: 10px;
-  margin-bottom: 1px;
-  margin-left: 5%;
+.table-container {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    min-width: 300px;
+    margin-top: 28px;
 }
 
-#request-name-input {
-  width: 30%;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  margin-left: 8%;
-}
-#request-email-input {
-  width: 30%;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  margin-left: 8%;
-  margin-right: 5%;
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.filter-input {
+    width: 100%;
+}
+
+.checkbox-cell {
+    overflow: initial;
 }

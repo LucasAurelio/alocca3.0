@@ -1,35 +1,46 @@
-<mat-card id="view-requests-card" *ngIf="requests">
-<!-- Card Toolbar -->
-  <mat-toolbar class="view-requests-card-toolbar">
-    Requisições de Acesso
-  </mat-toolbar>
+<div class="table-container mat-elevation-z8">
 
-<!-- Card Content -->
-  <mat-card-content id="request-card-content">
+  <div class="table-header">
+    <mat-form-field class="filter-input">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+    </mat-form-field>
+  </div>
 
-  <!-- Card Table -->
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp center-table">
-      <thead>
-        <tr>
-          <th>SIAPE</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let request of requests">
-          <td>{{request.SIAPE}}</td>
-          <td>{{request.name}}</td>
-          <td>{{request.email}}</td>
-          <td (click)="onAcceptRequest(request.SIAPE,request.name,request.email)">
-            <i class="material-icons mdl-color-text--accent">thumb_up</i>
-          </td>
-          <td (click)="onDeleteRequest(request.SIAPE,request.name,request.email)">
-              <i class="material-icons delete-button">delete</i>
-        </td>
-      </tbody>
-    </table>
-  </mat-card-content>
-</mat-card>
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <!-- the sorted column's name must match the data property name -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+      <mat-cell *matCellDef="let reqUser">{{reqUser.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="siape">
+      <mat-header-cell *matHeaderCellDef> SIAPE </mat-header-cell>
+      <mat-cell *matCellDef="let reqUser">{{reqUser.SIAPE}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell *matCellDef="let reqUser">{{reqUser.email}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let reqUser">
+          <button mat-icon-button color="accent">
+            <mat-icon class="table-options" matTooltip="Editar Informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(user.key)">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteUser(user, user.key)">
+            <mat-icon class="table-options">delete</mat-icon>
+          </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['name', 'siape', 'email', 'options']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['name', 'siape', 'email', 'options'];"></mat-row>
+
+  </mat-table>
+
+  <span class="spacer"></span>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</div>

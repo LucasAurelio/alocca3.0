@@ -8,7 +8,12 @@ import { AuthService } from '../auth.service';
     styleUrls: ['./login.component.css']
 })
 export class LoginPageComponent implements OnInit {
-    constructor(public authService: AuthService, private router: Router) { }
+
+    loginPage: boolean;
+
+    constructor(public authService: AuthService, private router: Router) {
+      this.loginPage = this.authService.getLoginPage();
+    }
     ngOnInit() {
     }
 
@@ -18,7 +23,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     requestAccess(){
-      console.log("Solicita Acesso");
-      this.router.navigateByUrl('requestAccess');
+      this.authService.requestAccess();
+      this.loginPage = this.authService.getLoginPage();
     }
 }

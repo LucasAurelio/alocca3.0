@@ -7,11 +7,16 @@ import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AuthService {
+
+    loginPage: boolean;
     constructor(
         public afAuth: AngularFireAuth,
         public usersDmService: UsersDmService,
         public snackbarService: MatSnackBar,
-        public router: Router) { }
+        public router: Router)
+        {
+          this.loginPage = true;
+        }
 
     login() {
         var self = this;
@@ -34,10 +39,22 @@ export class AuthService {
         ).catch(
             function (err) { setTimeout(function () { throw err; }); });
     }
+
     logout() {
         return this.afAuth.auth.signOut();
     }
+
     authState() {
         return this.afAuth.authState;
+    }
+
+    requestAccess(){
+      console.log(this.loginPage);
+      if(this.loginPage) this.loginPage = false;
+      else this.loginPage = true;
+    }
+
+    getLoginPage(){
+      return this.loginPage;
     }
 }
