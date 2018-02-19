@@ -32,6 +32,7 @@ import { ProfRestrictionDmService } from './data-manager/professor-restrictions/
 import { RequestsDmService } from './data-manager/requests/requests-dm.service'
 import { ClassesModule } from './classes/classes.module'
 import { ClassesDmService } from './data-manager/classes/classes-dm.service'
+import { SchedulesModule } from './schedules/schedules.module';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
     ClassesModule,
     AuthenticationModule,
     UsersModule,
-    RequestsModule
+    RequestsModule,
+    SchedulesModule
   ],
   providers: [
     DataManagerService,

@@ -13,6 +13,7 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { LoginPageComponent } from './authentication/login/login.component';
 import { HomePageComponent } from './authentication/home/home.component';
 import { RequestAccessComponent } from './requests/request-access/request-access.component';
+import { SchedulesTableComponent} from './schedules/schedules-table/schedules-table.component';
 
 const routes: Routes = [
   { path: 'professors', component: AddProfessorComponent },
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'edit_class/:id', component: EditClassComponent},
   { path: 'users', component: AddUserComponent },
   { path: 'edit_user/:id', component: EditUserComponent },
-  { path: 'requestAccess', component: RequestAccessComponent }
+  { path: 'requestAccess', component: RequestAccessComponent },
+  { path: 'schedules-table', component: SchedulesTableComponent}
 ];
 
 @NgModule({
