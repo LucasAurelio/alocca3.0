@@ -28,9 +28,31 @@
 }
 
 .filter-input {
-    width: 100%;    
+    width: 100%;
 }
 
 .checkbox-cell {
     overflow: initial;
+}
+
+
+.alert-card-header {
+  background-color: #000077;
+  margin-bottom: 7px;
+}
+
+.alert-card {
+  margin-bottom: 20px;
+}
+
+mat-card-title {
+  color: #FFFFFF;
+}
+
+.demo-tab-group {
+  border: 1px solid #e8e8e8;
+}
+
+.demo-tab-content {
+  padding: 16px;
 }

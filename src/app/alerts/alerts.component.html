@@ -1,0 +1,23 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" position="end">
+    Cards com alertas
+    <mat-card>
+      <mat-card-header color="primary">
+        <mat-card-title>Violação de Créditos</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          O(A) professor(a) Joseana está com mais créditos que o limite estabelecido
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary">Ignorar</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <button type="submit" mat-button class="button" color="primary" (click)="sidenav.toggle()">Abrir</button>
+    <app-root></app-root>
+  </mat-sidenav-content>
+</mat-sidenav-container>

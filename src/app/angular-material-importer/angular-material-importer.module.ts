@@ -18,7 +18,11 @@ import { MatAutocompleteModule,
          MatSortModule,
          MatTableModule,
          MatToolbarModule,
-         MatTooltipModule } from '@angular/material';
+         MatTooltipModule,
+         MatTabsModule } from '@angular/material';
+
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 @NgModule({
   imports: [
@@ -40,7 +44,9 @@ import { MatAutocompleteModule,
     MatSortModule,
     MatTableModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSidenavModule,
+    MatTabsModule
   ],
   declarations: [],
   exports: [
@@ -61,7 +67,9 @@ import { MatAutocompleteModule,
     MatSortModule,
     MatTableModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSidenavModule,
+    MatTabsModule
   ]
 })
 

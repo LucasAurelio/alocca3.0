@@ -32,10 +32,12 @@ import { ProfRestrictionDmService } from './data-manager/professor-restrictions/
 import { RequestsDmService } from './data-manager/requests/requests-dm.service'
 import { ClassesModule } from './classes/classes.module'
 import { ClassesDmService } from './data-manager/classes/classes-dm.service'
+import { AlertsComponent } from './alerts/alerts.component'
 
 @NgModule({
   declarations: [
-      AppComponent
+      AppComponent,
+      AlertsComponent
   ],
   imports: [
     BrowserModule,
