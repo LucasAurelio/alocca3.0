@@ -5,6 +5,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 import { AngularMaterialImporterModule } from './angular-material-importer/angular-material-importer.module'
 import { NavbarModule } from './navbar/navbar.module'
 import { ProfessorsModule } from './professors/professors.module'
@@ -29,6 +30,7 @@ import { SemesterService } from './semesters/semester.service'
 import { ProfRestrictionDmService } from './data-manager/professor-restrictions/prof-restriction-dm.service'
 import { ClassesModule } from './classes/classes.module'
 import { ClassesDmService } from './data-manager/classes/classes-dm.service'
+import { MatList } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
     CoursesModule,
     SemestersModule,
     ClassesModule,
-    AuthenticationModule
+    AuthenticationModule,
+    
   ],
   providers: [
     DataManagerService,
@@ -60,7 +63,7 @@ import { ClassesDmService } from './data-manager/classes/classes-dm.service'
     ProfRestrictionDmService,
     ClassesDmService,
     UsersDmService,
-    AuthService
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

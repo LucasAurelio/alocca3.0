@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
     selector: 'app-home-page',
