@@ -36,6 +36,10 @@
 }
 
 
+mat-sidenav {
+  width: 255px;
+}
+
 .alert-card-header {
   background-color: #000077;
   margin-bottom: 7px;
@@ -49,10 +53,20 @@ mat-card-title {
   color: #FFFFFF;
 }
 
+.md-tab-label {
+  width: 20px;
+}
+
+/deep/.mat-tab-label, /deep/.mat-tab-label-active{
+ min-width: 20px !important;
+ padding: 10px!important;
+ margin: 10px!important;
+}
+
 .demo-tab-group {
   border: 1px solid #e8e8e8;
 }
 
-.demo-tab-content {
-  padding: 16px;
+.header-button {
+  color: #FFFFFF;
 }
