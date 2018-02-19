@@ -40,6 +40,10 @@ mat-sidenav {
   width: 255px;
 }
 
+mat-sidenav-content {
+  height: 1000px;
+}
+
 .alert-card-header {
   background-color: #000077;
   margin-bottom: 7px;
@@ -49,13 +53,6 @@ mat-sidenav {
   margin-bottom: 20px;
 }
 
-mat-card-title {
-  color: #FFFFFF;
-}
-
-.md-tab-label {
-  width: 20px;
-}
 
 /deep/.mat-tab-label, /deep/.mat-tab-label-active{
  min-width: 20px !important;
@@ -69,4 +66,10 @@ mat-card-title {
 
 .header-button {
   color: #FFFFFF;
+}
+
+.mat-mini-fab {
+  position: absolute;
+  right: 0px;
+  margin: 0px;
 }

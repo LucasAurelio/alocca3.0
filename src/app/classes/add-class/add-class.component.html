@@ -1,10 +1,14 @@
+<head>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+</head>
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" position="end">
-
       <mat-tab-group>
         <mat-tab label="Novos">
           <ng-template mat-tab-label class="mat-tab-label">
-            <mat-icon color="warn">warning</mat-icon>
+            <mat-icon color="primary">error_outline</mat-icon>
           </ng-template>
           <mat-card class="alert-card">
             <mat-card-header class="alert-card-header">
@@ -36,7 +40,7 @@
         </mat-tab>
         <mat-tab label="Ignorados">
           <ng-template mat-tab-label>
-            <mat-icon color="primary">thumb_down</mat-icon>
+            <mat-icon color="primary">highlight_off</mat-icon>
           </ng-template>
           <mat-card class="alert-card">
             <mat-card-header color="primary" class="alert-card-header">
@@ -48,23 +52,24 @@
               </p>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button color="primary">Mover para "Principais"</button>
+              <button mat-button color="primary">Mover para aba principal</button>
             </mat-card-actions>
           </mat-card>
         </mat-tab>
     </mat-tab-group>
-
     </mat-sidenav>
-
+    <div>
+  </div>
     <mat-sidenav-content>
-      <button mat-mini-fab type="submit" mat-button class="button" color="primary" (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-
       <mat-card>
-        <mat-card-title>Criar turmas</mat-card-title>
+        <div class="mat-mini-fab material-icons mdl-badge mdl-badge--overlap" data-badge="2" (click)="sidenav.toggle()">
+          <button  md-to type="submit" mat-button class="mat-mini-fab md-bottom-right sidebar-button"
+          color="primary">
+            <mat-icon>announcement</mat-icon>
+          </button>
+        </div>
+          <mat-card-title>Criar turmas</mat-card-title>
         <form [formGroup]="classForm">
-
             <div class="form-container">
 
               <mat-form-field>
