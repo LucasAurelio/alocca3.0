@@ -4,7 +4,7 @@
     /*max-height: 500px;*/
     min-width: 300px;
   }
-  
+
   .mat-table {
     overflow: auto;
     max-height: 500px;
@@ -13,4 +13,32 @@
   .hora{
     max-height: 10px;
   }
-  
+
+  .mat-option{
+    width: 80%;
+  }
+
+.mat-cell-1,
+.mat-header-1{
+  flex: 0 0 5%;
+}
+
+.mat-header-cell,
+.mat-header-row {
+  color: #FFFFFF;
+  background: #3798b7;
+  text-align: center;
+}
+
+#horario-header-cell,
+#horario-cell {
+  flex: 0 0 5%;
+  text-align: center;
+}
+
+.mat-form-field {
+  width: 70% !important;
+  align-items: center !important;
+  text-align: center;
+
+}

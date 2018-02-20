@@ -1,29 +1,30 @@
 <div class="example-container mat-elevation-z8">
-    <div class="example-header">
-        <mat-form-field>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquise uma turma">
-        </mat-form-field>
-    </div>
+  <div class="example-header">
+         <mat-form-field>
+           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquise uma turma">
+         </mat-form-field>
+     </div>
+
 
     <mat-table #table [dataSource]="dataSource">
-  
+
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
-  
+
       <!-- Hour Column -->
       <div id = "hora">
       <ng-container matColumnDef="horario">
-        <mat-header-cell *matHeaderCellDef> Horário </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.horario}}
+        <mat-header-cell id="horario-header-cell" *matHeaderCellDef> Horário </mat-header-cell>
+        <mat-cell id="horario-cell" *matCellDef="let element"> {{element.horario}}
         </mat-cell>
       </ng-container>
       </div>
-  
+
       <!-- Monday Column -->
       <ng-container matColumnDef="segunda">
         <mat-header-cell *matHeaderCellDef> Segunda </mat-header-cell>
-        <mat-cell *matCellDef="let element">         
-        
+        <mat-cell *matCellDef="let element">
+
           <mat-form-field>
           <mat-select placeholder="Selecione a turma">
             <mat-option value="let element"> {{element.segunda}}</mat-option>
@@ -32,12 +33,12 @@
 
       </mat-cell>
       </ng-container>
-  
+
       <!-- Tuesday Column -->
       <ng-container matColumnDef="terca">
         <mat-header-cell *matHeaderCellDef> Terça </mat-header-cell>
         <mat-cell *matCellDef="let element">
-        
+
           <mat-form-field>
             <mat-select placeholder="Selecione a turma">
               <mat-option value="let element"> {{element.terca}}</mat-option>
@@ -46,12 +47,12 @@
 
         </mat-cell>
       </ng-container>
-  
+
       <!-- Wednesday Column -->
       <ng-container matColumnDef="quarta">
         <mat-header-cell *matHeaderCellDef> Quarta </mat-header-cell>
         <mat-cell *matCellDef="let element">
-        
+
           <mat-form-field>
             <mat-select placeholder="Selecione a turma">
               <mat-option value="let element"> {{element.quarta}}</mat-option>
@@ -64,32 +65,31 @@
       <ng-container matColumnDef="quinta">
           <mat-header-cell *matHeaderCellDef> Quinta </mat-header-cell>
           <mat-cell *matCellDef="let element">
-          
+
             <mat-form-field>
               <mat-select placeholder="Selecione a turma">
                 <mat-option value="let element"> {{element.quinta}}</mat-option>
               </mat-select>
             </mat-form-field>
-  
+
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="sexta">
             <mat-header-cell *matHeaderCellDef> Sexta </mat-header-cell>
             <mat-cell *matCellDef="let element">
-            
+
               <mat-form-field>
                 <mat-select placeholder="Selecione a turma">
                   <mat-option value="let element"> {{element.sexta}}</mat-option>
                 </mat-select>
               </mat-form-field>
-    
+
             </mat-cell>
           </ng-container>
 
-  
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
-  
