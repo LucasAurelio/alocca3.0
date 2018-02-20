@@ -6,7 +6,7 @@
 
         <mat-form-field>
           <input type="text" placeholder="Disciplina" matInput formControlName="courseControl" 
-          [matAutocomplete]="coursesAuto">
+          [matAutocomplete]="coursesAuto" required>
           <mat-autocomplete #coursesAuto="matAutocomplete" [displayWith]="displayCourse">
             <mat-option *ngFor="let course of filteredCourses | async" [value]="course">
               {{ course.name }}
@@ -16,7 +16,7 @@
 
         <mat-form-field>
           <input type="text" placeholder="Professor 1" matInput formControlName="professor1Control" 
-          [matAutocomplete]="prof1Auto">
+          [matAutocomplete]="prof1Auto" required>
           <mat-autocomplete #prof1Auto="matAutocomplete" [displayWith]="displayProfessor">
             <mat-option *ngFor="let prof of filteredProfessors1 | async" [value]="prof">
               {{ prof.name }}
@@ -34,7 +34,7 @@
           </mat-autocomplete>
         </mat-form-field>
 
-        <button (click)="saveClass()" mat-button class="button" color="primary" >SALVAR</button>
+        <button (click)="saveClass()" [disabled]="!classForm.valid" mat-button class="button" color="primary" >SALVAR</button>
       </div>
 
   </form>
