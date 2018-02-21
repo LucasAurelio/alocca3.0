@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppRoutingModule } from '../app-routing.module';
 
 import { RequestAccessComponent } from './request-access/request-access.component';
-//import { ViewRequestsComponent } from './view-requests/view-requests.component';
+import { ViewRequestsComponent } from './view-requests/view-requests.component';
 
 @NgModule({
     imports: [
@@ -18,7 +18,7 @@ import { RequestAccessComponent } from './request-access/request-access.componen
         AppRoutingModule],
     declarations: [
         RequestAccessComponent,
-        //ViewRequestsComponent
+        ViewRequestsComponent
         ],
     exports: []
 })
