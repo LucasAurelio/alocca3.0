@@ -6,13 +6,15 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { FormsModule }   from '@angular/forms';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { RequestsModule } from '../requests/requests.module';
 
 @NgModule({
   imports: [
     CommonModule,
     AngularMaterialImporterModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RequestsModule
   ],
   declarations: [
     AddUserComponent,

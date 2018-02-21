@@ -1,8 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Request } from '../request.model';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { RequestsDmService } from '../../data-manager/requests/requests-dm.service';
+import { AuthService } from '../../authentication/auth.service';
 
 @Component({
   selector: 'app-request-access',
@@ -11,16 +13,41 @@ import { RequestsDmService } from '../../data-manager/requests/requests-dm.servi
 })
 export class RequestAccessComponent implements OnInit {
 
-  ngOnInit(){}
+  classForm = new FormGroup ({
+    SIAPE: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl()
+  });
+
+  ngOnInit(){
+  }
 
   constructor(
-    private reqDmService: RequestsDmService,
     private router: Router,
-    private snackbarService: MatSnackBar
+    private snackbarService: MatSnackBar,
+    private authService: AuthService,
+    private requestsDmService: RequestsDmService
   ) { }
 
   onAddNewRequest(){
+    var SIAPE = this.classForm.controls.SIAPE.value;
+    var name = this.classForm.controls.name.value;
+    var email = this.classForm.controls.email.value;
 
+    let request_ = new Request(
+      SIAPE,
+      name,
+      email
+    );
+
+    var exists = this.requestsDmService.existRequest(request_, SIAPE);
+
+    this.requestsDmService.saveRequest(request_);
+  }
+
+  back(){
+    this.authService.requestAccess();
+    this.router.navigateByUrl('login');
   }
 
 }

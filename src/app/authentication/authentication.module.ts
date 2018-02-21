@@ -4,7 +4,7 @@ import { AngularMaterialImporterModule } from '../angular-material-importer/angu
 import { MatListModule } from '@angular/material/list';
 import { NavbarModule } from '../navbar/navbar.module';
 import { RouterModule } from '@angular/router';
-
+import { RequestsModule } from '../requests/requests.module';
 
 import { LoginPageComponent } from './login/login.component';
 import { HomePageComponent } from './home/home.component';
@@ -15,7 +15,8 @@ import { HomePageComponent } from './home/home.component';
         AngularMaterialImporterModule,
         MatListModule,
         NavbarModule,
-        RouterModule
+        RouterModule,
+        RequestsModule
     ],
     declarations: [LoginPageComponent, HomePageComponent],
     exports: [LoginPageComponent, HomePageComponent]

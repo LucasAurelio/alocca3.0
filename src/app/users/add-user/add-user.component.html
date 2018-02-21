@@ -1,7 +1,7 @@
 <div>
   <mat-card>
     <mat-card-title>Cadastrar usuário</mat-card-title>
-  
+
     <form (ngSubmit)="saveUser()" #addUserForm="ngForm" >
       <div class="card-content-container">
         <mat-form-field type="text">
@@ -9,12 +9,12 @@
           <mat-hint align="end">{{siape?.length || 0}}/7</mat-hint>
           <mat-error *ngIf="siapeControl.errors.required">{{getErrorMessage(siapeControl)}}</mat-error>
         </mat-form-field>
-    
+
         <mat-form-field type="text">
           <input matInput [(ngModel)]="name" placeholder="nome" name="name" required>
           <mat-error *ngIf="nameControl.invalid">{{getErrorMessage(nameControl)}}</mat-error>
         </mat-form-field>
-    
+
         <mat-form-field>
           <mat-select placeholder="Tipo" (change)="parsePermissionValue()" [(ngModel)]="permission" name="permission" required>
             <mat-option *ngFor="let perm of permissionOptions" [value]="perm">
@@ -29,13 +29,13 @@
           <mat-hint align="end">@ccc, @computacao</mat-hint>
           <mat-error *ngIf="emailControl.errors.required">{{getErrorMessage(emailControl)}}</mat-error>
         </mat-form-field>
-    
+
         <button type="submit" mat-button class="button" color="primary" [disabled]="!addUserForm.form.valid">SALVAR</button>
-      </div> 
+      </div>
     </form>
-  
+
   </mat-card>
-  
+
   <div class="table-container mat-elevation-z8">
 
     <div class="table-header">
@@ -86,5 +86,11 @@
     <span class="spacer"></span>
 
     <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
-  </div>  
+  </div>
+
+  <ng-template *ngIf="true">
+    <app-view-requests></app-view-requests>
+  </ng-template>
+
+
 </div>

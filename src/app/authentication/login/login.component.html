@@ -1,12 +1,13 @@
-﻿<mat-card class="login-card">
-    <mat-card-title>Bem vindo(a) ao Alocca!</mat-card-title>
-    <mat-card-content>
-        O Alocca é o sistema de alocação de disciplinas desenvolvido para o curso de Ciência da Computação - UFCG.
-        Foi criado com o intuito de facilitar a vida de coordenadores de cursos no momento de gerenciar um novo semestre. Para acessar sua página basta fazer login abaixo,
-        se você está relacionado com um curso mas não tem login solicite abaixo o acesso ao administrador responsável pela sua área.
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button color="primary" (click)="login()">ENTRAR</button>
-        <button mat-button color="primary" (click)="requestAccess()">SOLICITAR ACESSO</button>
-    </mat-card-actions>
+﻿<mat-card class="login-card" *ngIf="loginPage; else showRequests">
+  <mat-card-title>Bem vindo ao Alocca!</mat-card-title>
+  <mat-card-content>
+    O Alocca é o sistema de alocação de disciplinas desenvolvido para o curso de Ciência da Computação - UFCG.
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="login()">ENTRAR</button>
+    <button mat-button color="primary" (click)="requestAccess()">SOLICITAR ACESSO</button>
+  </mat-card-actions>
 </mat-card>
+<ng-template #showRequests>
+  <app-request-access></app-request-access>
+</ng-template>
