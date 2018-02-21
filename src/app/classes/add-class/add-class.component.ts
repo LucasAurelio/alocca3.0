@@ -21,7 +21,7 @@ import { Router } from '@angular/router'
 })
 export class AddClassComponent implements OnInit {
 
-  static readonly  REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
+  static readonly REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
 
   semesterKey: string;
 

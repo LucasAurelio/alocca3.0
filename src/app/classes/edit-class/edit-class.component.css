@@ -13,3 +13,12 @@
     display: inline-block;
     width: auto;
 }
+
+.verified {
+    width: 45%;
+}
+
+.number {
+    width: 45%;
+    float: right;
+}

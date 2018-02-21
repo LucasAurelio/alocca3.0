@@ -4,12 +4,55 @@
   
         <div class="form-container">
   
-            <mat-checkbox formControlName="checkControl" [value]="verified" [checked]="verified">
-              Verificado
-            </mat-checkbox>
+            <mat-form-field>
+                <input type="text" placeholder="Disciplina" matInput formControlName="courseControl" 
+                [matAutocomplete]="coursesAuto">
+                <mat-autocomplete #coursesAuto="matAutocomplete" [displayWith]="displayCourse">
+                  <mat-option *ngFor="let course of filteredCourses | async" [value]="course">
+                    {{ course.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>  
 
+              <mat-form-field>
+                <input type="text" placeholder="Professor 1" matInput formControlName="professor1Control" 
+                [matAutocomplete]="prof1Auto">
+                <mat-autocomplete #prof1Auto="matAutocomplete" [displayWith]="displayProfessor">
+                  <mat-option *ngFor="let prof of filteredProfessors1 | async" [value]="prof">
+                    {{ prof.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+      
+              <mat-form-field>
+                <input type="text" placeholder="Professor 2" matInput formControlName="professor2Control"
+                 [matAutocomplete]="prof2Auto">
+                <mat-autocomplete #prof2Auto="matAutocomplete" [displayWith]="displayProfessor">
+                  <mat-option *ngFor="let prof of filteredProfessors2 | async" [value]="prof">
+                    {{ prof.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+            <div>
+                <mat-checkbox formControlName="checkControl" [value]="verified" [checked]="verified" class="verified">
+                    Verificado
+                </mat-checkbox>
+
+                <span class="spacer"></span>
+    
+                <mat-form-field style="width: 45%; margin-left: 15%;">
+                    <input matInput type="number" class="number" formControlName="numberControl" placeholder="Turma" name="number" required>
+                </mat-form-field>
+
+            </div>
+            
+
+            <mat-form-field type="text">
+                <input matInput formControlName="note" placeholder="Observação" name="note" required>
+            </mat-form-field>
 
         </div>
   
     </form>
-  </mat-card>
+  </mat-card> 
