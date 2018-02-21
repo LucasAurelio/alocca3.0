@@ -19,7 +19,9 @@ import { MatAutocompleteModule,
          MatTableModule,
          MatToolbarModule,
          MatTooltipModule,
-         MatListModule
+         MatListModule,
+         MatTabsModule,
+         MatSidenavModule
         } from '@angular/material';
 
 @NgModule({
@@ -43,7 +45,9 @@ import { MatAutocompleteModule,
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule,
+    MatTabsModule
   ],
   declarations: [],
   exports: [
@@ -65,7 +69,9 @@ import { MatAutocompleteModule,
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule,
+    MatTabsModule
   ]
 })
 

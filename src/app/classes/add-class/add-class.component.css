@@ -28,9 +28,48 @@
 }
 
 .filter-input {
-    width: 100%;    
+    width: 100%;
 }
 
 .checkbox-cell {
     overflow: initial;
+}
+
+
+mat-sidenav {
+  width: 255px;
+}
+
+mat-sidenav-content {
+  height: 1000px;
+}
+
+.alert-card-header {
+  background-color: #000077;
+  margin-bottom: 7px;
+}
+
+.alert-card {
+  margin-bottom: 20px;
+}
+
+
+/deep/.mat-tab-label, /deep/.mat-tab-label-active{
+ min-width: 20px !important;
+ padding: 10px!important;
+ margin: 10px!important;
+}
+
+.demo-tab-group {
+  border: 1px solid #e8e8e8;
+}
+
+.header-button {
+  color: #FFFFFF;
+}
+
+.mat-mini-fab {
+  position: absolute;
+  right: 0px;
+  margin: 0px;
 }
