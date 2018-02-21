@@ -5,9 +5,9 @@
     <form (ngSubmit)="saveProfessor()" #addProfessorForm="ngForm" >
       <div class="card-content-container">
         <mat-form-field type="text">
-          <input matInput [(ngModel)]="siap" maxLength="7" placeholder="SIAP" name="siap" pattern="[0-9]{7}" required>
-          <mat-hint align="end">{{siap?.length || 0}}/7</mat-hint>
-          <mat-error *ngIf="siapControl.errors.required">{{getErrorMessage(siapControl)}}</mat-error>
+          <input matInput [(ngModel)]="siape" maxLength="7" placeholder="siape" name="siape" pattern="[0-9]{7}" required>
+          <mat-hint align="end">{{siape?.length || 0}}/7</mat-hint>
+          <mat-error *ngIf="siapeControl.errors.required">{{getErrorMessage(siapeControl)}}</mat-error>
         </mat-form-field>
     
         <mat-form-field type="text">
@@ -47,9 +47,9 @@
         <mat-cell *matCellDef="let prof">{{prof.nickname}}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="siap">
-        <mat-header-cell *matHeaderCellDef> SIAP </mat-header-cell>
-        <mat-cell *matCellDef="let prof">{{prof.siap}}</mat-cell>
+      <ng-container matColumnDef="siape">
+        <mat-header-cell *matHeaderCellDef> siape </mat-header-cell>
+        <mat-cell *matCellDef="let prof">{{prof.siape}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="options">
@@ -67,8 +67,8 @@
         </mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="['name', 'nickname', 'siap', 'options']"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: ['name', 'nickname', 'siap', 'options'];"></mat-row>
+      <mat-header-row *matHeaderRowDef="['name', 'nickname', 'siape', 'options']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'nickname', 'siape', 'options'];"></mat-row>
 
     </mat-table>
 

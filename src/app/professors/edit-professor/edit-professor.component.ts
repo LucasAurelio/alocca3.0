@@ -16,10 +16,10 @@ export class EditProfessorComponent implements OnInit {
   static readonly  MIN_LENGTH_ERROR_MSG = 'Não possui 7 dígitos';
 
   id: string;
-  siap: string;
+  siape: string;
   name: string;
   nickname: string;
-  originalSiap:string; 
+  originalsiape:string; 
   originalNickname: string;
 
   constructor(
@@ -32,15 +32,15 @@ export class EditProfessorComponent implements OnInit {
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.params['id']
     this.profDmService.getProfessorById(this.id).valueChanges().subscribe( professor => {
-        this.siap = professor.siap;
+        this.siape = professor.siape;
         this.name = professor.name;
         this.nickname = professor.nickname;
-        this.originalSiap = professor.siap;
+        this.originalsiape = professor.siape;
         this.originalNickname = professor.nickname;
     });
   }
 
-  siapControl = new FormControl('', [Validators.required, Validators.maxLength(7), Validators.pattern("[0-9]")]);
+  siapeControl = new FormControl('', [Validators.required, Validators.maxLength(7), Validators.pattern("[0-9]")]);
   nameControl = new FormControl('', [Validators.required]);
   nicknameControl =  new FormControl('', [Validators.required]);
 
@@ -52,11 +52,11 @@ export class EditProfessorComponent implements OnInit {
   }
 
   saveInformation() {
-    let professor = new Professor(this.siap, this.name, this.nickname);
+    let professor = new Professor(this.siape, this.name, this.nickname);
     
-    this.profDmService.existChild('siap', this.siap).then( (exists) => {
-      if (exists && this.siap != this.originalSiap) { 
-        this.snackBar.open("Esse professor (SIAP) já foi cadastrado", null, {duration: 2500});
+    this.profDmService.existChild('siape', this.siape).then( (exists) => {
+      if (exists && this.siape != this.originalsiape) { 
+        this.snackBar.open("Esse professor (siape) já foi cadastrado", null, {duration: 2500});
       } else {
         this.profDmService.existChild("nickname", this.nickname).then( (exists) => {
           if (exists && this.nickname!= this.originalNickname) {

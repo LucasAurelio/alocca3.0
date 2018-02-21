@@ -1,15 +1,15 @@
 export class Request {
     constructor(
-        public SIAPE: string,
+        public siape: string,
         public name: string,
         public email: string
     ) {}
 
     /**
-     * @returns This request's SIAPE number.
+     * @returns This request's siape number.
      */
-    getSIAPE(): string{
-        return this.SIAPE;
+    getsiape(): string{
+        return this.siape;
     }
 
     /**
@@ -33,7 +33,7 @@ export class Request {
      */
     toFirebaseObject(): JSON {
         var request: any = {
-            SIAPE: this.getSIAPE(),
+            siape: this.getsiape(),
             name: this.getName(),
             email: this.getEmail()
         }

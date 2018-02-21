@@ -17,7 +17,7 @@ export class AddProfessorComponent implements OnInit {
   static readonly  REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
   static readonly  MIN_LENGTH_ERROR_MSG = 'Não possui 7 dígitos';
 
-  siap: string;
+  siape: string;
   name: string;
   nickname: string;
   dataSource: MatTableDataSource<JSON>;
@@ -40,7 +40,7 @@ export class AddProfessorComponent implements OnInit {
     })
   }
 
-  siapControl = new FormControl('', [Validators.required, Validators.maxLength(7), Validators.pattern("[0-9]")]);
+  siapeControl = new FormControl('', [Validators.required, Validators.maxLength(7), Validators.pattern("[0-9]")]);
   nameControl = new FormControl('', [Validators.required]);
   nicknameControl =  new FormControl('', [Validators.required]);
 
@@ -52,11 +52,11 @@ export class AddProfessorComponent implements OnInit {
   }
   
   saveProfessor() {
-    let professor = new Professor(this.siap, this.name, this.nickname);
+    let professor = new Professor(this.siape, this.name, this.nickname);
 
-    this.profDmService.existChild('siap', this.siap).then( (exists) => {
+    this.profDmService.existChild('siape', this.siape).then( (exists) => {
       if (exists) { 
-        this.snackBar.open("Esse professor (SIAP) já foi cadastrado", null, {duration: 2500});
+        this.snackBar.open("Esse professor (siape) já foi cadastrado", null, {duration: 2500});
       } else {
         this.profDmService.existChild("nickname", this.nickname).then( (exists) => {
           if (exists) {

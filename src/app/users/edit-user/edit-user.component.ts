@@ -23,7 +23,7 @@ export class EditUserComponent implements OnInit {
   permissionValue: number;
   permission: string;
   email: string;
-  originalSiape: string;
+  originalsiape: string;
   originalEmail: string;
 
   constructor(
@@ -40,7 +40,7 @@ export class EditUserComponent implements OnInit {
         this.name = user.name;
         this.permissionValue = user.permission;
         this.email = user.email;
-        this.originalSiape = user.siape;
+        this.originalsiape = user.siape;
         this.originalEmail = user.email;
 
         this.parsePermissionString(this.permissionValue);
@@ -77,19 +77,13 @@ export class EditUserComponent implements OnInit {
   saveInformation() {
     let user = new User(this.siape, this.name, this.permissionValue, this.email);
     
-    this.userDmService.existChild('siape', this.siape).then( (exists) => {
-      if (exists && this.siape != this.originalSiape) { 
-        this.snackBar.open("Esse usuário (SIAPE) já foi cadastrado", null, {duration: 2500});
+    this.userDmService.existChild('email', this.email).then( (exists) => {
+      if (exists && this.email!= this.originalEmail) {
+        this.snackBar.open("Esse email já foi cadastrado", null, {duration: 2500});      
       } else {
-        this.userDmService.existChild("email", this.email).then( (exists) => {
-          if (exists && this.email!= this.originalEmail) {
-            this.snackBar.open("Esse email já foi cadastrado", null, {duration: 2500});      
-          } else {
-            this.userDmService.updateUser(user, this.id);
-            this.snackBar.open("Informações atualizadas", null, {duration: 2500});
-            this.router.navigateByUrl('users');
-          }
-        })
+        this.userDmService.updateUser(user, this.id);
+        this.snackBar.open("Informações atualizadas", null, {duration: 2500});
+        this.router.navigateByUrl('users');
       }
     })
   }

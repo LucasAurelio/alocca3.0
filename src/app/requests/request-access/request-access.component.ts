@@ -14,7 +14,7 @@ import { AuthService } from '../../authentication/auth.service';
 export class RequestAccessComponent implements OnInit {
 
   classForm = new FormGroup ({
-    SIAPE: new FormControl('', [Validators.required]),
+    siape: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     email: new FormControl()
   });
@@ -30,17 +30,17 @@ export class RequestAccessComponent implements OnInit {
   ) { }
 
   onAddNewRequest(){
-    var SIAPE = this.classForm.controls.SIAPE.value;
+    var siape = this.classForm.controls.siape.value;
     var name = this.classForm.controls.name.value;
     var email = this.classForm.controls.email.value;
 
     let request_ = new Request(
-      SIAPE,
+      siape,
       name,
       email
     );
 
-    var exists = this.requestsDmService.existRequest(request_, SIAPE);
+    var exists = this.requestsDmService.existRequest(request_, siape);
 
     this.requestsDmService.saveRequest(request_);
   }

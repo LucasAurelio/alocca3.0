@@ -76,21 +76,15 @@ export class AddUserComponent implements OnInit {
   saveUser() {
     let user = new User(this.siape, this.name, this.permissionValue, this.email);
 
-    this.userDmService.existChild('siape', this.siape).then( (exists) => {
-      if (exists) { 
-        this.snackBar.open("Esse usuário (SIAP) já foi cadastrado", null, {duration: 2500});
+    this.userDmService.existChild('email', this.email).then( (exists) => {
+      if (exists) {
+        this.snackBar.open("Esse email já foi cadastrado", null, {duration: 2500});      
       } else {
-        this.userDmService.existChild("email", this.email).then( (exists) => {
-          if (exists) {
-            this.snackBar.open("Esse email já foi cadastrado", null, {duration: 2500});      
-          } else {
-            this.userDmService.saveUser(user)
-            this.snackBar.open("Usuário cadastrado com sucesso", null, {duration: 2500});
-            this.form.resetForm();
-          }
-        })
+        this.userDmService.saveUser(user)
+        this.snackBar.open("Usuário cadastrado com sucesso", null, {duration: 2500});
+        this.form.resetForm();
       }
-    });
+    })
   }
 
   applyFilter(filterValue: string) {

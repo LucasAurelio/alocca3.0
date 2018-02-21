@@ -1,14 +1,14 @@
 export class Professor {
 
     constructor(
-        public siap: string,
+        public siape: string,
         public name: string,
         public nickname: string
     ) {}
     
     toFirebaseObject() {
         var professor: any = {
-            siap: this.siap,
+            siape: this.siape,
             name: this.name,
             nickname: this.nickname
         }
