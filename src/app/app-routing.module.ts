@@ -13,12 +13,9 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { LoginPageComponent } from './authentication/login/login.component';
 import { HomePageComponent } from './authentication/home/home.component';
 import { RequestAccessComponent } from './requests/request-access/request-access.component';
-<<<<<<< HEAD
 import { SchedulesTableComponent} from './schedules/schedules-table/schedules-table.component';
-=======
 import { AlertsComponent } from './alerts/alerts.component'
 
->>>>>>> eb9af394f034b0d80c9f8a4ef5aa673130aebc93
 
 const routes: Routes = [
   { path: 'professors', component: AddProfessorComponent },
@@ -33,11 +30,8 @@ const routes: Routes = [
   { path: 'users', component: AddUserComponent },
   { path: 'edit_user/:id', component: EditUserComponent },
   { path: 'requestAccess', component: RequestAccessComponent },
-<<<<<<< HEAD
-  { path: 'schedules-table', component: SchedulesTableComponent}
-=======
+  { path: 'schedules-table', component: SchedulesTableComponent},
   { path: 'alerts', component: AlertsComponent }
->>>>>>> eb9af394f034b0d80c9f8a4ef5aa673130aebc93
 ];
 
 @NgModule({

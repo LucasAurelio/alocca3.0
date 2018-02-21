@@ -23,6 +23,8 @@ export class AddClassComponent implements OnInit {
 
   static readonly REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
 
+  opened: boolean;
+
   semesterKey: string;
 
   classForm = new FormGroup ({
