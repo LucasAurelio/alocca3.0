@@ -1,10 +1,50 @@
-﻿<mat-card>
-  <mat-card-title>Bem vindo ao Alocca!</mat-card-title>
-  <mat-card-content>
-    O Alocca é o sistema de alocação de disciplinas desenvolvido para o curso de Ciência da Computação - UFCG.
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="login()">ENTRAR</button>
-    <button mat-button color="primary" (click)="requestAccess()">SOLICITAR ACESSO</button>
-  </mat-card-actions>
-</mat-card>
+﻿
+<mat-card-actions>
+  <button mat-button color="primary" (click)="login()">ENTRAR</button>
+  <button mat-button color="primary" (click)="requestAccess()">SOLICITAR ACESSO</button>
+</mat-card-actions>
+
+<div class = "info-card">
+    <mat-card>
+        <mat-card-title>Bem vindo(a) ao Alocca!</mat-card-title>
+        <mat-card-content>
+        O Alocca é o sistema de alocação de disciplinas desenvolvido para o curso de Ciência da Computação - UFCG.
+         Foi criado com o intuito de facilitar a vida de coordenadores de cursos no momento de gerenciar um novo semestre. Para acessar sua página basta fazer login abaixo,
+         se você está relacionado com um curso mas não tem login solicite abaixo o acesso ao administrador responsável pela sua área.
+        
+         <div *ngIf="authState | async as user; else showLogin">
+            <div class="router-outlet-container">
+            <router-outlet></router-outlet>
+            </div>
+        </div>
+        
+        <ng-template #showLogin>
+        <app-login-page></app-login-page> 
+        </ng-template>
+        </mat-card-content>
+    </mat-card>
+
+
+    <mat-card>
+    <mat-card-title>O que é?</mat-card-title>
+    <mat-card-content>
+            O Sitema Alocca é um assistente para alocar turmas em um curso. Foi primeiramente desenvolvido para auxiliar a Coordenação 
+            do curso de Ciência da Computação da Universidade Federal de Campina Grande e hoje já pode ser utilizado por outros cursos.
+    </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title>Equipe</mat-card-title>
+        <mat-card-content>
+        Nosso time de desenvolvedores é formado por:
+        <mat-list>
+            <mat-list-item>Dandara Sousa</mat-list-item>
+            <mat-list-item>Hugo Gabriel</mat-list-item>
+            <mat-list-item>Laybson Plismenn</mat-list-item>
+            <mat-list-item>Lucas Lima</mat-list-item>
+            <mat-list-item>Luiz Fonseca</mat-list-item>
+            <mat-list-item>Paulo Vinícius</mat-list-item>
+        </mat-list>
+        </mat-card-content>
+    </mat-card>
+</div>

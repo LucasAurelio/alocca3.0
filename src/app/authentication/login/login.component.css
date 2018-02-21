@@ -1,3 +1,8 @@
 ﻿mat-card {
-  width: calc(100% - 70px);
+  width: 50%;
+  align-content: center;
+  
+}
+.info-card{
+    background: rgb(20, 55, 168);
 }

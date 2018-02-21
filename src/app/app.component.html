@@ -1,8 +1,5 @@
-﻿<div *ngIf="authState | async as user; else showLogin">
-    <app-navbar></app-navbar>
-    <div class="router-outlet-container">
-      <router-outlet></router-outlet>
-    </div>
+﻿<div *ngIf="authState | async as user; else ">
+        <app-navbar></app-navbar>
 </div>
 <ng-template #showLogin>
   <app-login-page></app-login-page>
