@@ -17,7 +17,7 @@
             </mat-form-field>
   
             <mat-form-field type="text">
-                <input matInput [(ngModel)]="shortname"  maxLength="12" placeholder="Nome curto" name="shortname" required>
+                <input matInput [(ngModel)]="shortname"  maxLength="12" placeholder="Sigla" name="shortname" required>
                 <mat-hint align="end">{{shortname?.length || 0}}/12</mat-hint>
                 <mat-error *ngIf="shortnameControl.errors.required">{{getErrorMessage(shortnameControl)}}</mat-error>
             </mat-form-field>
@@ -122,7 +122,7 @@
         </ng-container>
   
         <ng-container matColumnDef="shortname">
-          <mat-header-cell *matHeaderCellDef  mat-sort-header> Nome curto </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef  mat-sort-header> Sigla </mat-header-cell>
           <mat-cell *matCellDef="let course">{{course.shortname}}</mat-cell>
         </ng-container>
 
