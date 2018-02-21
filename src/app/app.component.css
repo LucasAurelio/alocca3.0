@@ -1,20 +1,13 @@
-mat-card {
-    opacity: 0.8;
-    color: rgb(6, 32, 110);
-    
-  }
 .router-outlet-container {
     padding: 28px;
-}
-.app-card{
-    background: rgb(20, 55, 168);
-}
-.login-card{
-    text-align: right;
-    color: white;
 }
 .quebrapagina {
     page-break-after: always;
     page-break-inside: avoid;
   
+}
+.login-page{
+    align-content: center;
+    align-items: center;
+    align-self: center;
 }

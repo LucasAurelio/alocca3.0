@@ -32,11 +32,7 @@ import { ProfRestrictionDmService } from './data-manager/professor-restrictions/
 import { RequestsDmService } from './data-manager/requests/requests-dm.service'
 import { ClassesModule } from './classes/classes.module'
 import { ClassesDmService } from './data-manager/classes/classes-dm.service'
-<<<<<<< HEAD
 import { SchedulesModule } from './schedules/schedules.module';
-=======
-import { MatList } from '@angular/material';
->>>>>>> 48f2a36e67cdd825a2e3722a6ca4e68606dff82f
 
 @NgModule({
   declarations: [
@@ -57,13 +53,10 @@ import { MatList } from '@angular/material';
     SemestersModule,
     ClassesModule,
     AuthenticationModule,
-<<<<<<< HEAD
     UsersModule,
     RequestsModule,
     SchedulesModule
-=======
     
->>>>>>> 48f2a36e67cdd825a2e3722a6ca4e68606dff82f
   ],
   providers: [
     DataManagerService,
@@ -76,10 +69,7 @@ import { MatList } from '@angular/material';
     ClassesDmService,
     UsersDmService,
     AuthService,
-<<<<<<< HEAD
     RequestsDmService
-=======
->>>>>>> 48f2a36e67cdd825a2e3722a6ca4e68606dff82f
   ],
   bootstrap: [AppComponent]
 })

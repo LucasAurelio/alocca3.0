@@ -1,8 +1,7 @@
-﻿mat-card {
+﻿.login-card {
   width: 50%;
   align-content: center;
-  
-}
-.info-card{
-    background: rgb(20, 55, 168);
+  align-items: center;
+  align-self: center;
+  text-align: center;
 }
