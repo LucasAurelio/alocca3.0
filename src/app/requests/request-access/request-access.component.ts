@@ -43,6 +43,10 @@ export class RequestAccessComponent implements OnInit {
     var exists = this.requestsDmService.existRequest(request_, siape);
 
     this.requestsDmService.saveRequest(request_);
+
+    this.classForm.reset();
+    this.snackbarService.open("Seu pedido foi cadastrado com sucesso!", null, {duration: 2500});
+    this.router.navigateByUrl('/');
   }
 
   back(){
