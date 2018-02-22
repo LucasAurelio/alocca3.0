@@ -36,6 +36,8 @@
 
   </mat-card>
 
+  <app-view-requests></app-view-requests>
+
   <div class="table-container mat-elevation-z8">
 
     <div class="table-header">
@@ -69,8 +71,8 @@
       <ng-container matColumnDef="options">
         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <button mat-icon-button color="accent">
-              <mat-icon class="table-options" matTooltip="Editar Informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(user.key)">edit</mat-icon>
+            <button mat-icon-button color="accent" matTooltip="Editar Informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(user.key)">
+              <mat-icon class="table-options">edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteUser(user, user.key)">
               <mat-icon class="table-options">delete</mat-icon>

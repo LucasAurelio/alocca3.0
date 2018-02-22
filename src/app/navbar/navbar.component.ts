@@ -5,6 +5,7 @@ import { SemestersDmService } from '../data-manager/semesters/semesters-dm.servi
 import { Semester } from '../semesters/semester'
 import { DialogService } from "../dialog-service/dialog.service"
 import { OrderBy } from '../utils/order-by-pipe'
+import { Router } from '@angular/router';
 import { SemesterService } from '../semesters/semester.service'
 import { AuthService } from '../authentication/auth.service';
 
@@ -24,7 +25,8 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private dialogService: DialogService,
     private snackBar: MatSnackBar,
-    private semesterService: SemesterService
+    private semesterService: SemesterService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -68,7 +70,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-      this.authService.logout();
+    this.router.navigateByUrl('');
+    this.authService.logout();
   }
 
 }

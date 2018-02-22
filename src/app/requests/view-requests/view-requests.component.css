@@ -19,6 +19,32 @@
   color: red;
 }
 
+.table-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-width: auto;
+    margin-top: 28px;
+}
+
+.blue{
+  color: #3299CC;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.filter-input {
+    width: 100%;    
+}
+
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
 .center-table{
   margin: 0 auto;
 }

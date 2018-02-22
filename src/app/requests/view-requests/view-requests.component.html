@@ -1,4 +1,4 @@
-<div class="table-container mat-elevation-z8">
+<div class="table-container mat-elevation-z8" *ngIf="requestsExist()">
 
   <div class="table-header">
     <mat-form-field class="filter-input">
@@ -26,10 +26,10 @@
     <ng-container matColumnDef="options">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let reqUser">
-          <button mat-icon-button color="accent">
-            <mat-icon class="table-options" matTooltip="Editar Informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(user.key)">edit</mat-icon>
+          <button mat-icon-button color="accent" matTooltip="Aceitar usuário" [matTooltipShowDelay]="800" (click)="acceptRequest(reqUser.key)">
+            <mat-icon class="table-options blue">thumb_up</mat-icon>
           </button>
-          <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteUser(user, user.key)">
+          <button mat-icon-button color="warn" matTooltip="Recusar pedido" [matTooltipShowDelay]="800" (click)="deleteRequest(reqUser, reqUser.key)">
             <mat-icon class="table-options">delete</mat-icon>
           </button>
       </mat-cell>
