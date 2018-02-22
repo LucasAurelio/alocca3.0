@@ -48,12 +48,6 @@ export class AuthService {
         return this.afAuth.authState;
     }
 
-    requestAccess(){
-      console.log(this.loginPage);
-      if(this.loginPage) this.loginPage = false;
-      else this.loginPage = true;
-    }
-
     getLoginPage(){
       return this.loginPage;
     }

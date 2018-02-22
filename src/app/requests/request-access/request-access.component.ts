@@ -46,8 +46,7 @@ export class RequestAccessComponent implements OnInit {
   }
 
   back(){
-    this.authService.requestAccess();
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('/');
   }
 
 }

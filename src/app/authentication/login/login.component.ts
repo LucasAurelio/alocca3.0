@@ -9,21 +9,21 @@ import { AuthService } from '../auth.service';
 })
 export class LoginPageComponent implements OnInit {
 
-    loginPage: boolean;
-
     constructor(public authService: AuthService, private router: Router) {
-      this.loginPage = this.authService.getLoginPage();
     }
     ngOnInit() {
+    }
+
+    isLoginPage(){
+        if(this.router.url=='/'){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     login() {
         this.authService.login();
         this.router.navigateByUrl('');
-    }
-
-    requestAccess(){
-      this.authService.requestAccess();
-      this.loginPage = this.authService.getLoginPage();
     }
 }
