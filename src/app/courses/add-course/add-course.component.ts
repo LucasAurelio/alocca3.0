@@ -88,6 +88,10 @@ export class AddCourseComponent implements OnInit {
   }
 
   saveCourse() {
+    if(this.credits<0){
+      this.snackBar.open("O número de créditos deve ser maior 0", null, {duration: 2500});
+      return;
+    }
     if (this.type == "Optativa") {
       var minSemester = this.minRecSemester;
       var maxSemester = this.maxRecSemester;
