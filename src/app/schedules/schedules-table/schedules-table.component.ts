@@ -18,6 +18,8 @@ export class SchedulesTableComponent {
   displayedColumns = ['horario', 'segunda', 'terca', 'quarta', 'quinta', 'sexta'];
   dataSource = new MatTableDataSource(TABLE_DATA);
 
+  opened: boolean;
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches

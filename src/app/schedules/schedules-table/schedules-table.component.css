@@ -3,20 +3,20 @@
     flex-direction: column;
     /*max-height: 500px;*/
     min-width: 300px;
-  }
+}
 
-  .mat-table {
+.mat-table {
     overflow: auto;
-    max-height: 500px;
-  }
+    max-height: auto;
+}
 
-  .hora{
+.hora{
     max-height: 10px;
-  }
+}
 
-  .mat-option{
+.mat-option{
     width: 80%;
-  }
+}
 
 .mat-cell-1,
 .mat-header-1{
@@ -41,4 +41,46 @@
   align-items: center !important;
   text-align: center;
 
+}
+
+/*
+  Sidenav
+*/
+
+mat-sidenav {
+  width: 255px;
+  height: auto;
+}
+
+mat-sidenav-content {
+}
+
+.alert-card-header {
+  background-color: #000077;
+  margin-bottom: 7px;
+}
+
+.alert-card {
+  margin-bottom: 20px;
+}
+
+.demo-tab-group {
+  border: 1px solid #e8e8e8;
+}
+
+.header-button {
+  color: #FFFFFF;
+}
+
+.mat-mini-fab {
+  position: absolute;
+  right: 0px;
+  margin: 0px;
+  margin-top: 1%;
+}
+
+/deep/.mat-tab-label, /deep/.mat-tab-label-active{
+ min-width: 20px !important;
+ padding: 10px!important;
+ margin: 10px!important;
 }

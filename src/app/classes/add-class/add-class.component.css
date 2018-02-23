@@ -17,7 +17,7 @@
 .table-container {
     display: flex;
     flex-direction: column;
-    height: 600px;
+    height: auto;
     min-width: 300px;
     margin-top: 28px;
 }
@@ -38,10 +38,10 @@
 
 mat-sidenav {
   width: 255px;
+  height: auto;
 }
 
 mat-sidenav-content {
-  height: 1000px;
 }
 
 .alert-card-header {
