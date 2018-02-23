@@ -82,11 +82,16 @@ export class AddProfessorComponent implements OnInit {
     var message = "Todas as informações de "+professor.nickname+" serão apagadas";
     var posAct = "Excluir";
     var negAct = "Cancelar";
+    var noException = true;
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
         this.profDmService.deleteProfessor(firebaseId).catch(() => {
           this.snackBar.open("Desculpe. Não foi possível excluir o professor.", null, {duration: 2500});      
+          noException = false;
         });
+        if(noException){
+          this.snackBar.open("Professor excluído com sucesso", null, {duration: 2500});      
+        }
       }
     })   
   }
