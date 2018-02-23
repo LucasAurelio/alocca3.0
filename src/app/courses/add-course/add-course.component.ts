@@ -128,11 +128,17 @@ export class AddCourseComponent implements OnInit {
     var message = "Todas as informações de "+course.shortname+" serão apagadas";
     var posAct = "Excluir";
     var negAct = "Cancelar";
+    var noException = true;
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
         this.coursesDmService.deleteCourse(firebaseId).catch(() => {
           this.snackBar.open("Desculpe. Não foi possível excluir a disciplina.", null, {duration: 2500});      
+          noException = false;
         });
+        if(noException){
+          this.snackBar.open("Disciplina excluída com sucesso", null, {duration: 2500});
+        }
+
       }
     })   
   }
