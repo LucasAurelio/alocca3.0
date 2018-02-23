@@ -72,6 +72,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.router.navigateByUrl('');
     this.authService.logout();
+    this.snackBar.open("Você não está mais logado. Até logo! :)", null, {duration: 2500});
   }
 
 }
