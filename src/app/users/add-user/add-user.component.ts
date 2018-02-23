@@ -98,11 +98,16 @@ export class AddUserComponent implements OnInit {
     var message = "Todas as informações de "+user.name+" serão apagadas";
     var posAct = "Excluir";
     var negAct = "Cancelar";
+    var noException = true;
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
         this.userDmService.deleteUser(firebaseId).catch(() => {
           this.snackBar.open("Desculpe. Não foi possível excluir o usuário.", null, {duration: 2500});      
+          noException = false;
         });
+        if(noException){
+          this.snackBar.open("Usuário excluído com sucesso", null, {duration: 2500});      
+        }
       }
     })   
   }
