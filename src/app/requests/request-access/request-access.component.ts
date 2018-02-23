@@ -1,9 +1,10 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Request } from '../request.model';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { RequestsDmService } from '../../data-manager/requests/requests-dm.service';
+import { UsersDmService } from "../../data-manager/users/users-dm.service";
 import { AuthService } from '../../authentication/auth.service';
 
 @Component({
@@ -13,40 +14,56 @@ import { AuthService } from '../../authentication/auth.service';
 })
 export class RequestAccessComponent implements OnInit {
 
-  classForm = new FormGroup ({
-    siape: new FormControl('', [Validators.required]),
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl()
-  });
+  static readonly  REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
+  static readonly  MIN_LENGTH_ERROR_MSG = 'Não possui 7 dígitos';
 
-  ngOnInit(){
-  }
+  siape:string;
+  name:string;
+  email:string;
+  @ViewChild('addRequestForm') form;
 
   constructor(
     private router: Router,
     private snackbarService: MatSnackBar,
     private authService: AuthService,
-    private requestsDmService: RequestsDmService
+    private requestsDmService: RequestsDmService,
+    private usersDmService: UsersDmService
   ) { }
 
-  onAddNewRequest(){
-    var siape = this.classForm.controls.siape.value;
-    var name = this.classForm.controls.name.value;
-    var email = this.classForm.controls.email.value;
+  ngOnInit(){
+  }
 
-    let request_ = new Request(
-      siape,
-      name,
-      email
-    );
+  siapeControl = new FormControl('', [Validators.required, Validators.maxLength(7), Validators.pattern("[0-9]")]);
+  nameControl = new FormControl('', [Validators.required]);
+  emailControl = new FormControl('', [Validators.required, Validators.pattern("[A-Za-z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+")]);
 
-    var exists = this.requestsDmService.existRequest(request_, siape);
+  getErrorMessage(control: FormControl) {
+    return control.hasError('required') ? RequestAccessComponent.REQUIRED_FIELD_ERROR_MSG :
+           control.hasError('minlength') ? RequestAccessComponent.MIN_LENGTH_ERROR_MSG : 
+            '';
+  }
 
-    this.requestsDmService.saveRequest(request_);
+  addNewRequest(){
 
-    this.classForm.reset();
-    this.snackbarService.open("Seu pedido foi cadastrado com sucesso!", null, {duration: 2500});
-    this.router.navigateByUrl('/');
+    let request = new Request(this.siape, this.name, this.email);
+
+    this.requestsDmService.existChild('email', this.email).then( (exists) => {
+      if(exists){
+        this.snackbarService.open("Já existe um pedido de acesso para esse email.", null, {duration: 2500});
+      }else{
+        this.usersDmService.existChild('email', this.email).then( (exists) => {
+          if(exists){
+            this.snackbarService.open("Você já está cadastrado. Tente fazer login.", null, {duration: 2500});
+            this.router.navigateByUrl('/');
+          }else{
+            this.requestsDmService.saveRequest(request);
+            this.form.resetForm();
+            this.snackbarService.open("Seu pedido foi cadastrado com sucesso!", null, {duration: 2500});
+            this.router.navigateByUrl('/');
+          }
+        })
+      }
+    })
   }
 
   back(){

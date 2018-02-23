@@ -1,26 +1,31 @@
-<mat-card>
-  <mat-card-title>Requisição de Acesso</mat-card-title>
-  <form [formGroup]="classForm" #addRequestForm="ngForm">
+<div>
+  <mat-card>
+    <mat-card-title>Requisição de Acesso</mat-card-title>
+    <form  (ngSubmit)="addNewRequest()" #addRequestForm="ngForm">
 
-      <div class="form-container">
+        <div class="form-container">
 
-        <mat-form-field>
-          <input type="text" size="7" maxlength="7" pattern="[0-9]{7}" placeholder="siape" matInput formControlName="siape" required>
-          <mat-hint align="end">{{siape?.length || 0}}/7</mat-hint>
-        </mat-form-field>
+          <mat-form-field type="text">
+            <input matInput size="7" maxlength="7" pattern="[0-9]{7}" [(ngModel)]="siape" placeholder="siape" name="siape" required>
+            <mat-hint align="end">{{siape?.length || 0}}/7</mat-hint>
+            <mat-error *ngIf="siapeControl.errors.required">{{getErrorMessage(siapeControl)}}</mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <input type="text" placeholder="Nome" matInput formControlName="name" required>
-        </mat-form-field>
+          <mat-form-field type="text">
+            <input matInput [(ngModel)]="name" placeholder="Nome" name="name" required>
+            <mat-error *ngIf="nameControl.errors.required">{{getErrorMessage(nameControl)}}</mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <input type="text" placeholder="Email" pattern="[A-Za-z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+" matInput formControlName="email" required>
-          <mat-hint align="end">conta google (@gmail,@ccc,..)</mat-hint>
-        </mat-form-field>
+          <mat-form-field type="text">
+            <input matInput [(ngModel)]="email" placeholder="Email" name="email" pattern="[A-Za-z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+" required>
+            <mat-hint align="end">conta google (@gmail,@ccc,..)</mat-hint>
+            <mat-error *ngIf="emailControl.errors.required">{{getErrorMessage(emailControl)}}</mat-error>
+          </mat-form-field>
 
-        <button (click)="onAddNewRequest()" mat-button class="button" color="primary" [disabled]="!addRequestForm.form.valid">Cadastrar</button>
+          <button mat-button class="button" color="primary" [disabled]="!addRequestForm.form.valid">Cadastrar</button>
 
-        <button (click)="back()" mat-button class="button" color="primary" >Cancelar</button>
-      </div>
-  </form>
-</mat-card>
+          <button (click)="back()" mat-button class="button" color="primary" >Cancelar</button>
+        </div>
+    </form>
+  </mat-card>
+</div>
