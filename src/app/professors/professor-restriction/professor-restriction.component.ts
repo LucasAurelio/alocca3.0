@@ -94,6 +94,17 @@ export class ProfessorRestrictionComponent implements OnInit {
   }
 
   saveRestrictions() {
+    if(this.minimumCredits>this.maximumCredits){
+      this.snackBar.open("O máximo de créditos deve ser maior que "+this.minimumCredits, null, {duration: 4000});
+      return;
+    }
+    if(this.maximumCredits<this.graduationCredits){
+      this.snackBar.open("O número de créditos da graduação deve ser menor que "+this.maximumCredits, null, {duration: 3500});
+      return;
+    }
+
+
+
     let schedules = new ScheduleRestriction(
       this.mondaySelection.selected,
       this.tuesdaySelection.selected,
