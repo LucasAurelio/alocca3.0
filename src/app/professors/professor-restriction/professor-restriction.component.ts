@@ -58,6 +58,8 @@ export class ProfessorRestrictionComponent implements OnInit {
         restrictions => {
 
           if (restrictions) {
+            this.cleanTable();
+
             this.minimumCredits = restrictions.minCredits;
             this.maximumCredits = restrictions.maxCredits;
             this.graduationCredits = restrictions.graduationCredits;
@@ -92,6 +94,17 @@ export class ProfessorRestrictionComponent implements OnInit {
   }
 
   saveRestrictions() {
+    if(this.minimumCredits>this.maximumCredits){
+      this.snackBar.open("O máximo de créditos deve ser maior que "+this.minimumCredits, null, {duration: 4000});
+      return;
+    }
+    if(this.maximumCredits<this.graduationCredits){
+      this.snackBar.open("O número de créditos da graduação deve ser menor que "+this.maximumCredits, null, {duration: 3500});
+      return;
+    }
+
+
+
     let schedules = new ScheduleRestriction(
       this.mondaySelection.selected,
       this.tuesdaySelection.selected,
@@ -100,13 +113,22 @@ export class ProfessorRestrictionComponent implements OnInit {
       this.fridaySelection.selected,
     )
 
-    let restrictions = new ProfessorRestriction(
+    var restrictions = new ProfessorRestriction(
       this.professorKey,
       this.semesterKey,
-      this.minimumCredits,
-      this.maximumCredits, 
-      this.graduationCredits,
-      schedules)
+      null,
+      null,
+      null,
+      schedules);
+    if(this.minimumCredits!=null){
+      restrictions.setMinCredits(this.minimumCredits);
+    }
+    if(this.maximumCredits!=null){
+      restrictions.setMaxCredits(this.maximumCredits);
+    }
+    if(this.graduationCredits!=null){
+      restrictions.setGraduationCredits(this.graduationCredits);
+    }
 
     this.profRestDmService.saveRestrictions(restrictions);
     this.snackBar.open("Restrições atualizadas", null, {duration: 2500});

@@ -10,6 +10,19 @@ export class ProfessorRestriction {
         public scheduleRestrictions: ScheduleRestriction
     ) { }
 
+    setMinCredits(min: number){
+        this.minCredits = min;
+    }
+
+    setMaxCredits(max: number){
+        this.maxCredits = max;
+    }
+
+    setGraduationCredits(grad: number){
+        this.graduationCredits = grad;
+    }
+
+
     toFirebaseObject() {
        var firebaseObject: any = {
            'minCredits': this.minCredits,

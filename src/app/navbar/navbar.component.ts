@@ -53,11 +53,16 @@ export class NavbarComponent implements OnInit {
     var message = "Todas as informações de "+semester.identifier+" serão apagadas";
     var posAct = "Excluir";
     var negAct = "Cancelar";
+    var noException = true;
     this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
       if (result) {
         this.semDmService.deleteSemester(firebaseId).catch(() => {
           this.snackBar.open("Desculpe. Não foi possível excluir o semestre", null, {duration: 2500});
+          noException = false;
         });
+        if(noException){
+          this.snackBar.open("Semestre excluído com sucesso", null, {duration: 2500});
+        }
         if (semester.identifier == this.selectedSemester) {
           this.semesterService.emitSemester(this.semestersList[0].key);
         }
@@ -72,6 +77,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.router.navigateByUrl('');
     this.authService.logout();
+    this.snackBar.open("Você não está mais logado. Até logo! :)", null, {duration: 2500});
   }
 
 }

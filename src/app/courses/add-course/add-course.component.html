@@ -25,7 +25,7 @@
 
           <div class="form-row">
             <mat-form-field>
-                <input matInput type="number" [(ngModel)]="credits" placeholder="Créditos" name="credits" required>
+                <input matInput type="number" [(ngModel)]="credits" min="0" placeholder="Créditos" name="credits" required>
                 <mat-error *ngIf="creditsControl.errors.required">{{getErrorMessage(creditsControl)}}</mat-error>
             </mat-form-field>
 
