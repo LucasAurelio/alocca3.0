@@ -58,6 +58,8 @@ export class ProfessorRestrictionComponent implements OnInit {
         restrictions => {
 
           if (restrictions) {
+            this.cleanTable();
+            
             this.minimumCredits = restrictions.minCredits;
             this.maximumCredits = restrictions.maxCredits;
             this.graduationCredits = restrictions.graduationCredits;
