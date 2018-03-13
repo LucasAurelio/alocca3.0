@@ -20,7 +20,7 @@ export class AuthService {
 
     login() {
         var self = this;
-        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+        return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
             function (result) {
                 var token = result.credential.accessToken;
                 var user = result.user;
@@ -50,5 +50,14 @@ export class AuthService {
 
     getLoginPage(){
       return this.loginPage;
+    }
+    
+    getCurrentBinaryPermission(){
+        return this.usersDmService.getUserPermission(this.afAuth.auth.currentUser.email).then(
+                    perm => {
+                        console.log(perm);
+                        return Promise.resolve(perm);
+                    }
+                )
     }
 }

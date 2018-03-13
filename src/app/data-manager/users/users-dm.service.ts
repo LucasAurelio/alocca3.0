@@ -55,5 +55,24 @@ export class UsersDmService {
   checkEmail(userEmail: string) {
       return this.existChild("email", userEmail);
   }
+
+  getUserPermission(userEmail: string){
+    var permi: number;
+    var isDataAvailable:boolean = false;
+    return this.users.query.orderByChild("email").equalTo(userEmail).once('value').then(
+        function(snapshot){
+            var allUsers = snapshot.val();
+            var allUsersKeys = Object.keys(allUsers);
+            var currentUserKey = allUsersKeys[0];
+            console.log(currentUserKey);
+            permi = snapshot.child(currentUserKey+'/permission').val();
+            isDataAvailable = true;
+            console.log(permi);
+            return Promise.resolve(permi);
+        }
+    )
+    
+
+  }
   
 }

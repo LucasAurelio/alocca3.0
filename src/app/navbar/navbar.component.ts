@@ -2,6 +2,7 @@
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { AddSemesterComponent } from "../semesters/add-semester/add-semester.component"
 import { SemestersDmService } from '../data-manager/semesters/semesters-dm.service'
+import { UsersDmService } from '../data-manager/users/users-dm.service';
 import { Semester } from '../semesters/semester'
 import { DialogService } from "../dialog-service/dialog.service"
 import { OrderBy } from '../utils/order-by-pipe'
@@ -18,16 +19,22 @@ export class NavbarComponent implements OnInit {
 
   semestersList;
   selectedSemester: string;
+  userPermission: boolean;
+
 
   constructor(
     private dialog: MatDialog,
     private semDmService: SemestersDmService,
+    private usersDmService: UsersDmService,
     private authService: AuthService,
     private dialogService: DialogService,
     private snackBar: MatSnackBar,
     private semesterService: SemesterService,
-    private router: Router
-  ) { }
+    private router: Router,
+    public aAuth: AuthService
+  ) {
+    console.log(' navbar constructor');
+  }
 
   ngOnInit() {
     this.semDmService.getSemesters().subscribe( semesters => {
@@ -41,6 +48,10 @@ export class NavbarComponent implements OnInit {
         this.selectedSemester = semester.identifier;
       });
     })
+
+    this.isAdmin();
+
+    console.log(' navbar onInit()');
 
   }
 
@@ -78,6 +89,20 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('');
     this.authService.logout();
     this.snackBar.open("Você não está mais logado. Até logo! :)", null, {duration: 2500});
+  }
+
+  isAdmin(){
+    return this.aAuth.getCurrentBinaryPermission().then(
+      binPerm => {
+        if(binPerm == 1){
+          console.log(binPerm);
+          this.userPermission = true;
+        }else if(binPerm == 0){
+          console.log(binPerm);
+          this.userPermission = false;
+    }
+      }
+    )
   }
 
 }
