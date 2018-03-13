@@ -1,5 +1,5 @@
 <div>
-  <mat-card>
+  <mat-card *ngIf="userPermission">
     <mat-card-title>Cadastrar professor</mat-card-title>
   
     <form (ngSubmit)="saveProfessor()" #addProfessorForm="ngForm" >
@@ -55,13 +55,13 @@
       <ng-container matColumnDef="options">
         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
         <mat-cell *matCellDef="let prof">
-            <button mat-icon-button color="accent"> 
+            <button *ngIf="userPermission" mat-icon-button color="accent"> 
                 <mat-icon class="table-options" matTooltip="Ir para restrições" [matTooltipShowDelay]="800" (click)="redirectToRestrictions(prof.key)">event_busy</mat-icon>
             </button>
-            <button mat-icon-button color="accent">
+            <button *ngIf="userPermission" mat-icon-button color="accent">
               <mat-icon class="table-options" matTooltip="Editar Informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(prof.key)">edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteProfessor(prof, prof.key)">
+            <button *ngIf="userPermission" mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteProfessor(prof, prof.key)">
               <mat-icon class="table-options">delete</mat-icon>
             </button>
         </mat-cell>

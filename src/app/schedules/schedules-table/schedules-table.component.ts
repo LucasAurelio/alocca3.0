@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { RequestsDmService } from '../../data-manager/requests/requests-dm.service';
 import {MatTableDataSource} from '@angular/material';
+import { AuthService } from '../../authentication/auth.service';
 
 /**
  * @title Basic table
@@ -20,10 +21,35 @@ export class SchedulesTableComponent {
 
   opened: boolean;
 
+  userPermission: boolean;
+
+  constructor(
+    private aAuth: AuthService
+  ) { }
+
+  ngOnInit() {
+
+    this.isAdmin();
+  }
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  isAdmin(){
+    return this.aAuth.getCurrentBinaryPermission().then(
+      binPerm => {
+        if(binPerm == 1){
+          console.log(binPerm);
+          this.userPermission = true;
+        }else if(binPerm == 0){
+          console.log(binPerm);
+          this.userPermission = false;
+    }
+      }
+    )
   }
 }
 

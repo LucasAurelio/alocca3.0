@@ -8,13 +8,13 @@
   <span class="spacer"></span>
 
   <mat-menu #appMenu="matMenu">
-      <button mat-menu-item (click)="addNewSemester()">
+      <button *ngIf="userPermission" mat-menu-item (click)="addNewSemester()">
         <mat-icon color="accent"> add_circle </mat-icon>
         <span> Novo Semestre </span>
       </button>
 
       <button mat-menu-item *ngFor="let sem of semestersList | orderBy:'identifier':false">
-         <button mat-icon-button (click)="deleteSemester(sem, sem.key)">
+         <button *ngIf="userPermission" mat-icon-button (click)="deleteSemester(sem, sem.key)">
             <mat-icon color="warn">delete</mat-icon>
           </button>
          <span  (click)="onSemesterSelected(sem.key)" class="semester-span">  {{sem.identifier}}  </span>

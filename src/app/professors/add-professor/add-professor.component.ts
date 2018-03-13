@@ -3,8 +3,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { Professor } from '../professor'
 import { ProfessorsDmService } from '../../data-manager/professors/professors-dm.service';
 import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { DialogService } from "../../dialog-service/dialog.service"
-import { Router } from '@angular/router'
+import { DialogService } from "../../dialog-service/dialog.service";
+import { Router } from '@angular/router';
+import { AuthService } from '../../authentication/auth.service';
 
 @Component({
   selector: 'app-add-professor',
@@ -17,6 +18,8 @@ export class AddProfessorComponent implements OnInit {
   static readonly  REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
   static readonly  MIN_LENGTH_ERROR_MSG = 'Não possui 7 dígitos';
 
+  userPermission: boolean;
+  
   siape: string;
   name: string;
   nickname: string;
@@ -29,7 +32,8 @@ export class AddProfessorComponent implements OnInit {
     private profDmService: ProfessorsDmService,
     private snackBar: MatSnackBar,
     private dialogService: DialogService,
-    private router: Router
+    private router: Router,
+    private aAuth: AuthService
   ) { }
 
   ngOnInit() {
@@ -38,6 +42,8 @@ export class AddProfessorComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
+
+    this.isAdmin();
   }
 
   siapeControl = new FormControl('', [Validators.required, Validators.maxLength(7), Validators.pattern("[0-9]")]);
@@ -102,5 +108,19 @@ export class AddProfessorComponent implements OnInit {
 
   redirectToRestrictions(professorId: string) {
     this.router.navigateByUrl('prof_restriction/'+professorId);
+  }
+
+  isAdmin(){
+    return this.aAuth.getCurrentBinaryPermission().then(
+      binPerm => {
+        if(binPerm == 1){
+          console.log(binPerm);
+          this.userPermission = true;
+        }else if(binPerm == 0){
+          console.log(binPerm);
+          this.userPermission = false;
+    }
+      }
+    )
   }
 }

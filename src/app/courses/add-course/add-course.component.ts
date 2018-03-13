@@ -3,8 +3,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { Course } from '../course'
 import { CoursesDmService } from '../../data-manager/courses/courses-dm.service'
 import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { DialogService } from "../../dialog-service/dialog.service"
-import { Router } from '@angular/router'
+import { DialogService } from "../../dialog-service/dialog.service";
+import { Router } from '@angular/router';
+import { AuthService } from '../../authentication/auth.service';
 
 @Component({
   selector: 'app-add-course',
@@ -14,6 +15,8 @@ import { Router } from '@angular/router'
 export class AddCourseComponent implements OnInit {
 
   static readonly  REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
+
+  userPermission: boolean;
 
   code: string;
   name: string;
@@ -40,7 +43,8 @@ export class AddCourseComponent implements OnInit {
     private coursesDmService: CoursesDmService,
     private snackBar: MatSnackBar,
     private dialogService: DialogService,
-    private router: Router
+    private router: Router,
+    private aAuth: AuthService
   ) { }
 
   ngOnInit() {
@@ -50,6 +54,8 @@ export class AddCourseComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
+
+    this.isAdmin();
   }
 
   codeControl = new FormControl('', [Validators.required]);
@@ -145,6 +151,20 @@ export class AddCourseComponent implements OnInit {
 
       }
     })   
+  }
+
+  isAdmin(){
+    return this.aAuth.getCurrentBinaryPermission().then(
+      binPerm => {
+        if(binPerm == 1){
+          console.log(binPerm);
+          this.userPermission = true;
+        }else if(binPerm == 0){
+          console.log(binPerm);
+          this.userPermission = false;
+    }
+      }
+    )
   }
 
 

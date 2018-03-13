@@ -1,5 +1,5 @@
 <div>
-    <mat-card>
+    <mat-card *ngIf="userPermission">
       <mat-card-title>Cadastrar disciplina</mat-card-title>
     
       <form (ngSubmit)="saveCourse()" #addCourseForm="ngForm" >
@@ -154,10 +154,10 @@
         <ng-container matColumnDef="options">
           <mat-header-cell *matHeaderCellDef> </mat-header-cell>
           <mat-cell *matCellDef="let course">
-              <button mat-icon-button color="accent">
+              <button *ngIf="userPermission" mat-icon-button color="accent">
                 <mat-icon class="table-options" matTooltip="Editar informações" [matTooltipShowDelay]="800" (click)="redirectToEdition(course.key)">edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteCourse(course, course.key)">
+              <button *ngIf="userPermission" mat-icon-button color="warn" (click)="deleteCourse(course, course.key)">
                 <mat-icon class="table-options" matTooltip="Excluir" [matTooltipShowDelay]="800">delete</mat-icon>
               </button>
           </mat-cell> 
