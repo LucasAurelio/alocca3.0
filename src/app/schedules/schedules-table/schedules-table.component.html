@@ -3,6 +3,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 </head>
+
+<!-- Schedule Table -->
 <mat-sidenav-container class="example-container" *ngIf="userPermission">
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" position="end">
       <mat-tab-group>
@@ -67,7 +69,6 @@
           <mat-icon>announcement</mat-icon>
           </button>
         </div>
-
         <div class="example-container mat-elevation-z8">
           <div class="example-header">
             <mat-form-field>
@@ -85,7 +86,7 @@
             <div id = "hora">
               <ng-container matColumnDef="horario">
                 <mat-header-cell id="horario-header-cell" *matHeaderCellDef> Horário </mat-header-cell>
-                <mat-cell id="horario-cell" *matCellDef="let element"> {{element.horario}}
+                <mat-cell id="horario-cell" *matCellDef="let element"> {{element.horario}}h
                 </mat-cell>
               </ng-container>
             </div>
@@ -94,13 +95,6 @@
               <ng-container matColumnDef="segunda">
                 <mat-header-cell *matHeaderCellDef> Segunda </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.segunda}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
                 </mat-cell>
               </ng-container>
 
@@ -108,13 +102,6 @@
               <ng-container matColumnDef="terca">
                 <mat-header-cell *matHeaderCellDef> Terça </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.terca}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
                 </mat-cell>
               </ng-container>
 
@@ -122,39 +109,18 @@
               <ng-container matColumnDef="quarta">
                 <mat-header-cell *matHeaderCellDef> Quarta </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.quarta}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="quinta">
                   <mat-header-cell *matHeaderCellDef> Quinta </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-
-                    <mat-form-field>
-                      <mat-select placeholder="Selecione a turma">
-                        <mat-option value="let element"> {{element.quinta}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-
                   </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="sexta">
                     <mat-header-cell *matHeaderCellDef> Sexta </mat-header-cell>
                     <mat-cell *matCellDef="let element">
-
-                      <mat-form-field>
-                        <mat-select placeholder="Selecione a turma">
-                          <mat-option value="let element"> {{element.sexta}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
                     </mat-cell>
               </ng-container>
 
@@ -166,7 +132,6 @@
 
     </mat-sidenav-content>
 </mat-sidenav-container>
-
         <div *ngIf="!userPermission" class="example-container mat-elevation-z8">
           <div class="example-header">
             <mat-form-field>
@@ -193,13 +158,6 @@
               <ng-container matColumnDef="segunda">
                 <mat-header-cell *matHeaderCellDef> Segunda </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.segunda}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
                 </mat-cell>
               </ng-container>
 
@@ -207,13 +165,6 @@
               <ng-container matColumnDef="terca">
                 <mat-header-cell *matHeaderCellDef> Terça </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.terca}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
                 </mat-cell>
               </ng-container>
 
@@ -221,39 +172,18 @@
               <ng-container matColumnDef="quarta">
                 <mat-header-cell *matHeaderCellDef> Quarta </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.quarta}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="quinta">
                   <mat-header-cell *matHeaderCellDef> Quinta </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-
-                    <mat-form-field>
-                      <mat-select placeholder="Selecione a turma">
-                        <mat-option value="let element"> {{element.quinta}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-
                   </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="sexta">
                     <mat-header-cell *matHeaderCellDef> Sexta </mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-
-                      <mat-form-field>
-                        <mat-select placeholder="Selecione a turma">
-                          <mat-option value="let element"> {{element.sexta}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
+                    <mat-cell *matCellDef="let element">eld>
                     </mat-cell>
               </ng-container>
 

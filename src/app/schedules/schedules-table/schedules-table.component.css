@@ -1,3 +1,20 @@
+.form-row {
+    width: 100%;
+    flex-direction: column;
+}
+
+.form-row > * {
+    margin-right: 28px;
+    display: inline-block;
+    width: 20%;
+}
+
+
+.form-row button {
+    display: inline-block;
+    width: auto;
+}
+
 .example-container {
     display: flex;
     flex-direction: column;
