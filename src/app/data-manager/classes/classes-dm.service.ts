@@ -86,9 +86,12 @@ export class ClassesDmService {
          class_.professor1Key,
          class_.professor1Name,
          class_.professor2Key? class_.professor2Key : null,
-         class_.professor2Name? class_.professor2Name : null
+         class_.professor2Name? class_.professor2Name : null,
+         class_.courseType,
+         class_.courseSemester
       );
       classToSchedule.setVerifiedState(class_.verified);
+      classToSchedule.setNote(class_.note);
       classToSchedule.setSchedule(class_.schedule);
       classToSchedule.addHour(day, hour);
 
@@ -115,8 +118,12 @@ export class ClassesDmService {
           class_.professor1Key,
           class_.professor1Name,
           class_.professor2Key? class_.professor2Key : null,
-          class_.professor2Name? class_.professor2Name : null
+          class_.professor2Name? class_.professor2Name : null,
+          class_.courseType,
+          class_.courseSemester
         );
+        updatedClass.setVerifiedState(class_.verified);
+        updatedClass.setNote(class_.note);
         var hoursComplete = this.setNewSchedule(class_,day,hours);
         updatedClass.setSchedule(hoursComplete);
         this.dm.update(this.semesterClasses,updatedClass.toFirebaseObject(),class_.key)

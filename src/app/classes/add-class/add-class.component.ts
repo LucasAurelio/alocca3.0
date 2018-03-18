@@ -142,8 +142,12 @@ export class AddClassComponent implements OnInit {
         prof1.key,
         prof1.nickname,
         prof2? prof2.key : null,
-        prof2? prof2.nickname : null 
+        prof2? prof2.nickname : null,
+        course.type,
+        course.minimumSemester
       );
+      console.log(course.type);
+      console.log(course.minimumSemester);
 
       this.classesDmService.saveClass(class_);
       this.snackBar.open("Turma salva com sucesso", null, {duration: 2500}); 

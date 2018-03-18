@@ -62,18 +62,20 @@
 
 #time-header-cell{
   flex: 0 0 5%;
+  max-width: 4%;
   text-align: center;
   color: #FFFFFF;
 }
 
 #time-cell{
-    max-width: 5%;
+    max-width: 4%;
+    margin-right: 2%;
     text-align: center;
     color: #1976D2;
 }
 
 td{
-    font-size: 80%;
+    font-size: 75%;
 }
 
 mat-header-row{
@@ -82,16 +84,22 @@ mat-header-row{
 }
 
 .week-header-cell{
-    margin-left: 1%;
-    max-width: 18%;
+    margin-left: 0.1%;
+    max-width: 50%;
     text-align: center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
     color: #FFFFFF;
 }
 
 .week-cell{
-    margin-left: 1%;
-    width: 18%;
+    margin-left: 0.1%;
+    width: 50%;
     text-align: center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
 }
 
 /* FOR THE SIDENAV */

@@ -12,7 +12,9 @@ export class Class {
         public professor1Key: string,
         public professor1Name: string,
         public professor2Key: string,
-        public professor2Name: string
+        public professor2Name: string,
+        public courseType: string,
+        public courseSemester: number
     ) { 
         this.verified = false;
         this.schedule = {
@@ -32,7 +34,6 @@ export class Class {
                     hours:['']
                 }
         }
-        //SET NOTEN OTNOENEO
         this.note = "";
     }
 
@@ -58,6 +59,10 @@ export class Class {
         this.schedule = currentSchedule;
     }
 
+    setNote(not: string){
+        this.note = not;
+    }
+
     toFirebaseObject() {
         var class_: any = {
             verified: this.verified,
@@ -69,7 +74,9 @@ export class Class {
             professor2Key: this.professor2Key,
             professor2Name: this.professor2Name,
             schedule: this.schedule,
-            note: this.note
+            note: this.note,
+            courseType: this.courseType,
+            courseSemester: this.courseSemester
         }
         return <JSON>class_;
     }
