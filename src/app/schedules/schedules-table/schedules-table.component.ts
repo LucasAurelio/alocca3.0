@@ -1,73 +1,145 @@
-import {Component} from '@angular/core';
-import { Schedule } from '../schedule.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { ClassesDmService } from '../../data-manager/classes/classes-dm.service';
+import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import { DialogService } from "../../dialog-service/dialog.service";
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
-import { RequestsDmService } from '../../data-manager/requests/requests-dm.service';
-import {MatTableDataSource} from '@angular/material';
 import { AuthService } from '../../authentication/auth.service';
+import { SemesterService } from '../../semesters/semester.service';
 
-/**
- * @title Basic table
- */
 @Component({
-  selector: 'schedules-table',
-  styleUrls: ['schedules-table.component.css'],
-  templateUrl: 'schedules-table.component.html',
+  selector: 'app-schedules-table',
+  templateUrl: './schedules-table.component.html',
+  styleUrls: ['./schedules-table.component.css']
 })
-
-export class SchedulesTableComponent {
-  displayedColumns = ['horario', 'segunda', 'terca', 'quarta', 'quinta', 'sexta'];
-  dataSource = new MatTableDataSource(TABLE_DATA);
-
-  opened: boolean;
+export class SchedulesTableComponent implements OnInit {
+  static readonly  REQUIRED_FIELD_ERROR_MSG = 'Campo obrigatório';
+  
+  displayedColumnsMainTable = ["time","monday", "tuesday", "wednesday", "thursday", "friday"];
+  DAYS =  ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
+  HOURS = [7,8,10,12,14,16,18,20];
+  dataSourceMainTable = new MatTableDataSource(WEEK_HOURS);
 
   userPermission: boolean;
 
+  classesList: JSON[];
+
+  semesterKey: string;
+  
+  class: any;
+  day: string;
+  hour: number;
+  @ViewChild('scheduleClassForm') form;
+  dataSourceClasses: MatTableDataSource<JSON>;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+
+  classControl = new FormControl('', [Validators.required]);
+  dayControl = new FormControl('', [Validators.required]);
+  hourControl =  new FormControl('', [Validators.required]);
+  
   constructor(
+    private classesDmService: ClassesDmService,
+    private snackBar: MatSnackBar,
+    private dialogService: DialogService,
+    private semesterService: SemesterService,
+    private router: Router,
     private aAuth: AuthService
   ) { }
 
   ngOnInit() {
 
     this.isAdmin();
+
+    this.semesterService.getSemesterEmitter().subscribe(semesterKey => {
+      this.semesterKey = semesterKey;
+
+      this.classesDmService.getClasses().subscribe( classes => {
+        this.classesList = classes;
+        this.dataSourceClasses = new MatTableDataSource(classes);
+        this.dataSourceClasses.sort = this.sort;
+        this.dataSourceClasses.paginator = this.paginator;
+      });
+
+    });
+    
+    this.semesterService.reemitSemester();
   }
+
+  checkHours(class_, row){
+    var hours: any[] = class_.schedule.monday.hours;
+    return hours;
+  }
+
+  getErrorMessage(control: FormControl) {
+    return control.hasError('required') ? SchedulesTableComponent.REQUIRED_FIELD_ERROR_MSG :
+            '';
+  }
+
+  displayClass(clas?: any): string | undefined {
+    return clas ? clas.courseName+" - "+clas.number : undefined;
+  } 
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+    this.dataSourceClasses.filter = filterValue;
+  }
+  
+  scheduleClass() {
+
+    this.classesDmService.scheduleClass(this.class.key,this.day,this.hour)
+    this.snackBar.open("Horário definido com sucesso", null, {duration: 2500});
+    this.form.resetForm();
+  }
+  
+  deleteClassSchedule(class_,day,hour) {
+    var title = "Remover horário";
+    var message = "será desalocada";
+    var posAct = "Excluir";
+    var negAct = "Cancelar";
+    //var noException = true;
+    this.dialogService.openDialog(title, message, posAct, negAct).subscribe( (result) => {
+      if (result) {
+        this.classesDmService.removeClassFromSchedule(class_,day,hour)
+        //.catch(() => {
+        this.snackBar.open("Turma desalocada com sucesso", null, {duration: 2500});      
+        //this.snackBar.open("Desculpe. Não foi possível desalocar a turma", null, {duration: 2500});      
+          //noException = false;
+        //});
+        //if(noException){
+        //this.snackBar.open("Turma desalocada com sucesso", null, {duration: 2500});      
+       // }
+      }
+    })   
   }
 
   isAdmin(){
     return this.aAuth.getCurrentBinaryPermission().then(
       binPerm => {
         if(binPerm == 1){
-          console.log(binPerm);
           this.userPermission = true;
         }else if(binPerm == 0){
-          console.log(binPerm);
           this.userPermission = false;
     }
       }
     )
   }
+
 }
 
-export interface Table {
-  horario: number;
-  segunda: string;
-  terca: string;
-  quarta: string;
-  quinta: string;
-  sexta: string;
+export interface Hour {
+  hour: number;
 }
 
-const TABLE_DATA: Table[] = [
-  {horario: 7, segunda: 'Hydrogen', terca: 'aula', quarta: 'aula', quinta: 'algo', sexta: 'algo tb'},
-  {horario: 8, segunda: 'Helium', terca: 'aula', quarta: 'aula', quinta: 'algo', sexta: 'algo tb'},
-  {horario: 10, segunda: 'Lithium', terca: 'aula', quarta: 'aula', quinta: 'algo', sexta: 'algo tb'},
-  {horario: 14, segunda: 'Beryllium', terca: 'aula', quarta: 'aula', quinta: 'algo', sexta: 'algo tb'},
-  {horario: 16, segunda: 'Boron', terca: 'aula', quarta: 'aula', quinta: 'algo', sexta: 'algo tb'},
-  {horario: 18, segunda: 'Carbon', terca: 'aula', quarta: 'aula', quinta: 'algo', sexta: 'algo tb'},
-  {horario: 20, segunda: 'Nitrogen', terca: 'aula', quarta: 'aula',quinta: 'algo', sexta: 'algo tb'},
+const WEEK_HOURS: Hour[] = [
+  {hour: 7},
+  {hour: 8},
+  {hour: 10},
+  {hour: 12},
+  {hour: 14},
+  {hour: 16},
+  {hour: 18},
+  {hour: 20}
 ];

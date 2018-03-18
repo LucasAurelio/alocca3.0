@@ -55,7 +55,6 @@ export class AuthService {
     getCurrentBinaryPermission(){
         return this.usersDmService.getUserPermission(this.afAuth.auth.currentUser.email).then(
                     perm => {
-                        console.log(perm);
                         return Promise.resolve(perm);
                     }
                 )

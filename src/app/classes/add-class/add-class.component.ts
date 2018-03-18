@@ -106,9 +106,9 @@ export class AddClassComponent implements OnInit {
     var prof2 = this.classForm.controls.professor2Control.value;
 
     // Verifica se as entradas estão nas respectivas lista de disciplinas e professores
-    var isCourseValid = course? course.name? true : false : false; 
-    var isProf1Valid = prof1? prof1.name? true : false : false;
-    var isProf2Valid = prof2? prof2.name? true : false : true;
+    var isCourseValid = course? course.shortname? true : false : false; 
+    var isProf1Valid = prof1? prof1.nickname? true : false : false;
+    var isProf2Valid = prof2? prof2.nickname? true : false : true;
 
     // Validações
     if (!isCourseValid) {
@@ -137,12 +137,12 @@ export class AddClassComponent implements OnInit {
       let class_ = new Class(
         this.semesterKey,
         course.key,
-        course.name,
+        course.shortname,
         number + 1,
         prof1.key,
-        prof1.name,
-        prof1? prof1.key : null,
-        prof2? prof2.name : null 
+        prof1.nickname,
+        prof2? prof2.key : null,
+        prof2? prof2.nickname : null 
       );
 
       this.classesDmService.saveClass(class_);

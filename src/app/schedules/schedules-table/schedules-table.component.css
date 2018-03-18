@@ -1,103 +1,99 @@
-.form-row {
+/* FOR THE SCHEDULE-CLASS FORM */
+
+.card-content-container {
     width: 100%;
     flex-direction: column;
-}
-
-.form-row > * {
+} 
+  
+.card-content-container > * {
     margin-right: 28px;
     display: inline-block;
-    width: 20%;
+    width: 27%;
 }
 
-
-.form-row button {
+.card-content-container button {
     display: inline-block;
     width: auto;
 }
 
-.example-container {
-    display: flex;
-    flex-direction: column;
-    /*max-height: 500px;*/
-    min-width: 300px;
+#class-input{
+    width: 20%;
+    margin-left: 20%;
+}
+
+#day-input{
+    width: 10%;
+}
+
+#hour-input{
+    width: 10%;
+}
+
+/* FOR THE MAIN FORM */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 70%;
+  margin-top: 2.3%;
+}
+
+.main-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+  /*background: linear-gradient(to top, #1976D2, white);*/
+}
+
+#filter-form {
+  margin-top: 0.5%;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+}
+
+#filter-input {
+  font-size: 14px;
+  width: 100%;
 }
 
 .mat-table {
-    overflow: auto;
-    max-height: auto;
-}
-
-.hora{
-    max-height: 10px;
-}
-
-.mat-option{
-    width: 80%;
-}
-
-.mat-cell-1,
-.mat-header-1{
-  flex: 0 0 5%;
-}
-
-.mat-header-cell,
-.mat-header-row {
-  color: #FFFFFF;
-  background: #3798b7;
-  text-align: center;
-}
-
-#horario-header-cell,
-#horario-cell {
-  flex: 0 0 5%;
-  text-align: center;
-}
-
-.mat-form-field {
-  width: 70% !important;
-  align-items: center !important;
-  text-align: center;
-
-}
-
-/*
-  Sidenav
-*/
-
-mat-sidenav {
-  width: 255px;
+  overflow: auto;
   height: auto;
 }
 
-mat-sidenav-content {
-}
-
-.alert-card-header {
-  background-color: #000077;
-  margin-bottom: 7px;
-}
-
-.alert-card {
-  margin-bottom: 20px;
-}
-
-.demo-tab-group {
-  border: 1px solid #e8e8e8;
-}
-
-.header-button {
+#time-header-cell{
+  flex: 0 0 5%;
+  text-align: center;
   color: #FFFFFF;
 }
 
-.mat-mini-fab {
-  position: absolute;
-  right: 0px;
-  margin: 0px;
-  margin-top: 1%;
+#time-cell{
+    max-width: 5%;
+    text-align: center;
+    color: #1976D2;
 }
 
-/deep/.mat-tab-label, /deep/.mat-tab-label-active{
- min-width: 20px !important;
- padding: 10px!important;
- margin: 10px!important;
+td{
+    font-size: 80%;
 }
+
+mat-header-row{
+    /*background-color: #3798b7;*/
+    background-color: #1976D2;
+}
+
+.week-header-cell{
+    margin-left: 1%;
+    max-width: 18%;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.week-cell{
+    margin-left: 1%;
+    width: 18%;
+    text-align: center;
+}
+
+/* */
+
+/* */

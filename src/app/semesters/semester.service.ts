@@ -11,11 +11,11 @@ export class SemesterService {
   }
 
   public emitSemester(semesterKey: string){
-      this.semesterListener.emit(semesterKey)
+      this.semesterListener.emit(semesterKey);
       this.selectedSemesterKey = semesterKey;
   }
 
   public reemitSemester() {
-    this.semesterListener.emit(this.selectedSemesterKey)
+    this.semesterListener.emit(this.selectedSemesterKey);
   }
 }
