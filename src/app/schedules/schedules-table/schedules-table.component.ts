@@ -22,6 +22,8 @@ export class SchedulesTableComponent implements OnInit {
 
   userPermission: boolean;
 
+  opened: boolean;
+
   classesList: JSON[];
 
   semesterKey: string;

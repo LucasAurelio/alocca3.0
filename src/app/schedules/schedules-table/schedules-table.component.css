@@ -94,6 +94,43 @@ mat-header-row{
     text-align: center;
 }
 
-/* */
+/* FOR THE SIDENAV */
+
+mat-sidenav {
+  width: 255px;
+  height: auto;
+}
+
+mat-sidenav-content {
+}
+
+.alert-card-header {
+  background-color: #000077;
+  margin-bottom: 7px;
+}
+
+.alert-card {
+  margin-bottom: 20px;
+}
+
+.demo-tab-group {
+  border: 1px solid #e8e8e8;
+}
+
+.header-button {
+  color: #FFFFFF;
+}
+
+.mat-mini-fab {
+  position: absolute;
+  right: 0px;
+  margin: 0px;
+}
+
+/deep/.mat-tab-label, /deep/.mat-tab-label-active{
+ min-width: 20px !important;
+ padding: 10px!important;
+ margin: 10px!important;
+}
 
 /* */
