@@ -1,7 +1,7 @@
 export class Class {
 
     public verified: boolean;
-    public schedule: any[];
+    public schedule;
     public note: string;
 
     constructor(
@@ -12,11 +12,55 @@ export class Class {
         public professor1Key: string,
         public professor1Name: string,
         public professor2Key: string,
-        public professor2Name: string
+        public professor2Name: string,
+        public courseType: string,
+        public courseSemester: number
     ) { 
         this.verified = false;
-        this.schedule = null;
+        this.schedule = {
+                monday:{
+                    hours:['']
+                },
+                tuesday:{
+                    hours:['']
+                },
+                wednesday:{
+                    hours:['']
+                },
+                thursday:{
+                    hours:['']
+                },
+                friday:{
+                    hours:['']
+                }
+        }
         this.note = "";
+    }
+
+    addHour(day: string, hour: number){
+        if(day=='Segunda'){
+            this.schedule.monday.hours.push(hour);
+        }else if(day=='Terça'){
+            this.schedule.tuesday.hours.push(hour);
+        }else if(day=='Quarta'){
+            this.schedule.wednesday.hours.push(hour);
+        }else if(day=='Quinta'){
+            this.schedule.thursday.hours.push(hour);
+        }else{
+            this.schedule.friday.hours.push(hour);
+        }
+    }
+
+    setVerifiedState(state: boolean){
+        this.verified = state;
+    }
+
+    setSchedule(currentSchedule){
+        this.schedule = currentSchedule;
+    }
+
+    setNote(not: string){
+        this.note = not;
     }
 
     toFirebaseObject() {
@@ -30,7 +74,9 @@ export class Class {
             professor2Key: this.professor2Key,
             professor2Name: this.professor2Name,
             schedule: this.schedule,
-            note: this.note
+            note: this.note,
+            courseType: this.courseType,
+            courseSemester: this.courseSemester
         }
         return <JSON>class_;
     }

@@ -74,6 +74,83 @@ export class ClassesDmService {
     return this.dm.readObject(this.semesterClassesListRef + classKey);
   }
 
+  scheduleClass(classKey: string, day: string, hour: number) {
+    var ssubbs;
+    //get class query---snapshot?? OR update???
+    ssubbs = this.getClassById(classKey).valueChanges().subscribe( class_ => {
+      let classToSchedule = new Class(
+         this.semesterService.selectedSemesterKey,
+         class_.courseKey,
+         class_.courseName,
+         class_.number,
+         class_.professor1Key,
+         class_.professor1Name,
+         class_.professor2Key? class_.professor2Key : null,
+         class_.professor2Name? class_.professor2Name : null,
+         class_.courseType,
+         class_.courseSemester
+      );
+      classToSchedule.setVerifiedState(class_.verified);
+      classToSchedule.setNote(class_.note);
+      classToSchedule.setSchedule(class_.schedule);
+      classToSchedule.addHour(day, hour);
+
+      this.dm.update(this.semesterClasses, classToSchedule.toFirebaseObject(), classKey);
+      this.closeOnSubmit(ssubbs);
+    });
+  }
+
+  closeOnSubmit(subscribed){
+    subscribed.unsubscribe();      
+  }
+
+  removeClassFromSchedule(class_,day,hour){
+    var ssubbs;
+    ssubbs = this.dm.readObject(this.semesterClassesListRef +class_.key+"/schedule/"+day+"/hours")
+      .valueChanges().subscribe( hours_ =>{
+        var hours: any[] = hours_;
+        hours.splice(hours.indexOf(hour),1);
+        let updatedClass = new Class(
+          this.semesterService.selectedSemesterKey,
+          class_.courseKey,
+          class_.courseName,
+          class_.number,
+          class_.professor1Key,
+          class_.professor1Name,
+          class_.professor2Key? class_.professor2Key : null,
+          class_.professor2Name? class_.professor2Name : null,
+          class_.courseType,
+          class_.courseSemester
+        );
+        updatedClass.setVerifiedState(class_.verified);
+        updatedClass.setNote(class_.note);
+        var hoursComplete = this.setNewSchedule(class_,day,hours);
+        updatedClass.setSchedule(hoursComplete);
+        this.dm.update(this.semesterClasses,updatedClass.toFirebaseObject(),class_.key)
+        this.closeOnSubmit(ssubbs);
+    });
+  }
+
+  setNewSchedule(class_,day,hours_){
+    var schedules: any = class_.schedule;
+    if(day=='monday'){
+      schedules.monday.hours = hours_;
+    }else if(day=='tuesday'){
+      schedules.tuesday.hours = hours_;
+    }else if(day=='wednesday'){
+      schedules.wednesday.hours = hours_;
+    }else if(day=='thursday'){
+      schedules.thursday.hours = hours_;
+    }else{
+      schedules.friday.hours = hours_;
+    }
+    return schedules;
+  }
+
+  getCurrentSemester(){
+    return this.semesterService.selectedSemesterKey;
+  }
+
 
 }
  

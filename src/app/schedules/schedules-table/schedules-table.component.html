@@ -3,262 +3,454 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 </head>
-<mat-sidenav-container class="example-container" *ngIf="userPermission">
+
+<!-- ADMIN USER VIEW -->
+<mat-sidenav-container *ngIf="userPermission" class="example-container">
+    <!-- SIDENAV TAB -->
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" position="end">
-      <mat-tab-group>
-        <mat-tab label="Novos">
-          <ng-template mat-tab-label class="mat-tab-label">
-            <mat-icon color="primary">error_outline</mat-icon>
-          </ng-template>
-          <mat-card class="alert-card">
-            <mat-card-header class="alert-card-header">
-              <button mat-button color="primary" class="header-button">Violação de Créditos</button>
-            </mat-card-header>
-            <mat-card-content class="alert-card-content">
-              <p>
-                O(A) professor(a) Joseana está com mais créditos que o limite estabelecido
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button color="warn">Ignorar</button>
-            </mat-card-actions>
-          </mat-card>
+        <mat-tab-group>
+          <mat-tab label="Novos">
+            <ng-template mat-tab-label class="mat-tab-label">
+              <mat-icon color="primary">error_outline</mat-icon>
+            </ng-template>
+            <mat-card class="alert-card">
+              <mat-card-header class="alert-card-header">
+                <button mat-button color="primary" class="header-button">Violação de Créditos</button>
+              </mat-card-header>
+              <mat-card-content class="alert-card-content">
+                <p>
+                  O(A) professor(a) Joseana está com mais créditos que o limite estabelecido
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button color="warn">Ignorar</button>
+              </mat-card-actions>
+            </mat-card>
 
-          <mat-card class="alert-card">
-            <mat-card-header color="primary" class="alert-card-header">
-              <button mat-button color="primary" class="header-button">Violação de Créditos</button>
-            </mat-card-header>
-            <mat-card-content class="alert-card-content">
-              <p>
-                O(A) professor(a) Gustavo está com menos créditos que o limite estabelecido
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button color="warn">Ignorar</button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-tab>
-        <mat-tab label="Ignorados">
-          <ng-template mat-tab-label>
-            <mat-icon color="primary">highlight_off</mat-icon>
-          </ng-template>
-          <mat-card class="alert-card">
-            <mat-card-header color="primary" class="alert-card-header">
-              <button mat-button color="primary" class="header-button">Violação de Créditos</button>
-            </mat-card-header>
-            <mat-card-content class="alert-card-content">
-              <p>
-                O(A) professor(a) Kyller está com menos créditos que o limite estabelecido
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button color="primary">Mover para aba principal</button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-tab>
-      </mat-tab-group>
+            <mat-card class="alert-card">
+              <mat-card-header color="primary" class="alert-card-header">
+                <button mat-button color="primary" class="header-button">Violação de Créditos</button>
+              </mat-card-header>
+              <mat-card-content class="alert-card-content">
+                <p>
+                  O(A) professor(a) Gustavo está com menos créditos que o limite estabelecido
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button color="warn">Ignorar</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-tab>
+          <mat-tab label="Ignorados">
+            <ng-template mat-tab-label>
+              <mat-icon color="primary">highlight_off</mat-icon>
+            </ng-template>
+            <mat-card class="alert-card">
+              <mat-card-header color="primary" class="alert-card-header">
+                <button mat-button color="primary" class="header-button">Violação de Créditos</button>
+              </mat-card-header>
+              <mat-card-content class="alert-card-content">
+                <p>
+                  O(A) professor(a) Kyller está com menos créditos que o limite estabelecido
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button color="primary">Mover para aba principal</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-tab>
+        </mat-tab-group>
     </mat-sidenav>
-    <div>
-  </div>
+
+    <!-- PAGE CONTENT -->
     <mat-sidenav-content>
-        <div class="mat-mini-fab material-icons mdl-badge mdl-badge--overlap" data-badge="2" (click)="sidenav.toggle()">
-          <button  md-to type="submit" mat-button class="mat-mini-fab md-bottom-right sidebar-button"
+      <!-- SCHEDULE CLASS FORM -->
+      <mat-card>
+          <div class="mat-mini-fab material-icons mdl-badge mdl-badge--overlap" data-badge="2" (click)="sidenav.toggle()">
+            <button  md-to type="submit" mat-button class="mat-mini-fab md-bottom-right sidebar-button"
             color="primary">
-          <mat-icon>announcement</mat-icon>
-          </button>
-        </div>
-
-        <div class="example-container mat-elevation-z8">
-          <div class="example-header">
-            <mat-form-field>
-              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquise uma turma">
-            </mat-form-field>
+              <mat-icon>announcement</mat-icon>
+            </button>
           </div>
+          <mat-card-title>Definir horários</mat-card-title>
+        
+          <form (ngSubmit)="scheduleClass()" #scheduleClassForm="ngForm" >
+            <div class="card-content-container">
 
+              <!-- Class Input -->
+              <mat-form-field type="text" id="class-input">
+                <input matInput placeholder="Turma" [(ngModel)]="class" name="class" [matAutocomplete]="classesAuto" required>
+                <mat-autocomplete #classesAuto="matAutocomplete" [displayWith]="displayClass">
+                  <mat-option *ngFor="let clas of classesList" [value]="clas">
+                    {{ clas.courseName }} - t{{ clas.number }}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="classControl.errors.required">{{getErrorMessage(classControl)}}</mat-error>
+              </mat-form-field>
 
-          <mat-table #table [dataSource]="dataSource">
+              <!-- Day Input -->
+              <mat-form-field type="text" id="day-input">
+                <mat-select placeholder="Dia" [(ngModel)]="day" name="day" required>
+                  <mat-option *ngFor="let day of DAYS" [value]="day">
+                    {{ day }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="dayControl.errors.required">{{getErrorMessage(dayControl)}}</mat-error>
+              </mat-form-field>
 
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
+              <!-- Hour Input -->
+              <mat-form-field type="text" id="hour-input">
+                <mat-select placeholder="Hora" [(ngModel)]="hour" name="hour" required>
+                  <mat-option *ngFor="let hour of HOURS" [value]="hour">
+                    {{ hour }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hourControl.errors.required">{{getErrorMessage(hourControl)}}</mat-error>
+              </mat-form-field>
+          
+              <button type="submit" mat-button class="button" color="primary" [disabled]="!scheduleClassForm.form.valid">SALVAR</button>
+            </div> 
+          </form>
+        
+      </mat-card>
 
-            <!-- Hour Column -->
-            <div id = "hora">
-              <ng-container matColumnDef="horario">
-                <mat-header-cell id="horario-header-cell" *matHeaderCellDef> Horário </mat-header-cell>
-                <mat-cell id="horario-cell" *matCellDef="let element"> {{element.horario}}
-                </mat-cell>
-              </ng-container>
-            </div>
-
-            <!-- Monday Column -->
-              <ng-container matColumnDef="segunda">
-                <mat-header-cell *matHeaderCellDef> Segunda </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.segunda}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                </mat-cell>
-              </ng-container>
-
-              <!-- Tuesday Column -->
-              <ng-container matColumnDef="terca">
-                <mat-header-cell *matHeaderCellDef> Terça </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.terca}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                </mat-cell>
-              </ng-container>
-
-              <!-- Wednesday Column -->
-              <ng-container matColumnDef="quarta">
-                <mat-header-cell *matHeaderCellDef> Quarta </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.quarta}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="quinta">
-                  <mat-header-cell *matHeaderCellDef> Quinta </mat-header-cell>
-                  <mat-cell *matCellDef="let element">
-
-                    <mat-form-field>
-                      <mat-select placeholder="Selecione a turma">
-                        <mat-option value="let element"> {{element.quinta}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-
-                  </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="sexta">
-                    <mat-header-cell *matHeaderCellDef> Sexta </mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-
-                      <mat-form-field>
-                        <mat-select placeholder="Selecione a turma">
-                          <mat-option value="let element"> {{element.sexta}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
-                    </mat-cell>
-              </ng-container>
-
-
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          </mat-table>
+      <!-- SCHEDULE-CLASSES TABLE -->
+      <div class="main-container mat-elevation-z8">
+        <div class="main-header">
+          <mat-form-field id="filter-form">
+            <input matInput id="filter-input" (keyup)="applyFilter($event.target.value)" placeholder="Filtre as turmas">
+          </mat-form-field>
         </div>
+        <mat-table #table [dataSource]="dataSourceMainTable">
 
+          <!-- Time Column -->
+          <ng-container matColumnDef="time" class="time-column">
+            <mat-header-cell id="time-header-cell" *matHeaderCellDef> Horário </mat-header-cell>
+            <mat-cell id = "time-cell" *matCellDef="let row"> {{row.hour}}h
+              </mat-cell>
+          </ng-container>
+
+          <!-- Monday Column -->
+          <ng-container matColumnDef="monday">
+            <mat-header-cell class="week-header-cell" *matHeaderCellDef> Segunda </mat-header-cell>
+            <mat-cell class="week-cell" *matCellDef="let row">
+              <table>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr *ngFor="let class of classesList">
+                  <span *ngFor="let time of class.schedule.monday.hours">
+                    <span *ngIf="time == row.hour">
+                      <td>{{class.courseName}}-t{{class.number}}  </td>
+                      <td>{{class.professor1Name}}  </td>
+                      <td>{{class.courseType}}  </td>
+                      <td>{{class.courseSemester}}º</td>
+                      <td>
+                        <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'monday',row.hour)">
+                          <mat-icon class="table-options">delete</mat-icon>
+                        </button>
+                      </td>
+                    </span>
+                  </span>
+                </tr>
+              </table>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Tuesday Column -->
+          <ng-container matColumnDef="tuesday">
+            <mat-header-cell class="week-header-cell" *matHeaderCellDef> Terça </mat-header-cell>
+            <mat-cell class="week-cell" *matCellDef="let row">
+                <table>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <tr *ngFor="let class of classesList">
+                    <span *ngFor="let time of class.schedule.tuesday.hours">
+                      <span *ngIf="time == row.hour">
+                        <td>{{class.courseName}}-t{{class.number}}</td>
+                        <td>{{class.professor1Name}}</td>
+                        <td>{{class.courseType}}</td>
+                        <td>{{class.courseSemester}}º</td>
+                        <td>
+                          <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'tuesday',row.hour)">
+                            <mat-icon class="table-options">delete</mat-icon>
+                          </button>
+                        </td>
+                      </span>
+                    </span>
+                  </tr>
+                </table>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Wednesday Column -->
+          <ng-container matColumnDef="wednesday">
+            <mat-header-cell class="week-header-cell" *matHeaderCellDef> Quarta </mat-header-cell>
+            <mat-cell class="week-cell" *matCellDef="let row">
+              <table>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr *ngFor="let class of classesList">
+                  <span *ngFor="let time of class.schedule.wednesday.hours">
+                    <span *ngIf="time == row.hour">
+                      <td>{{class.courseName}}-t{{class.number}}</td>
+                      <td>{{class.professor1Name}}</td>
+                      <td>{{class.courseType}}</td>
+                      <td>{{class.courseSemester}}º</td>
+                      <td>
+                        <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'wednesday',row.hour)">
+                          <mat-icon class="table-options">delete</mat-icon>
+                        </button>
+                      </td>
+                    </span>
+                  </span>
+                </tr>
+              </table>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Thursday Column -->
+          <ng-container matColumnDef="thursday">
+            <mat-header-cell class="week-header-cell" *matHeaderCellDef> Quinta </mat-header-cell>
+            <mat-cell class="week-cell" *matCellDef="let row">
+              <table>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr *ngFor="let class of classesList">
+                  <span *ngFor="let time of class.schedule.thursday.hours">
+                    <span *ngIf="time == row.hour">
+                      <td>{{class.courseName}}-t{{class.number}}</td>
+                      <td>{{class.professor1Name}}</td>
+                      <td>{{class.courseType}}</td>
+                      <td>{{class.courseSemester}}º</td>
+                      <td>
+                        <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'thursday',row.hour)">
+                          <mat-icon class="table-options">delete</mat-icon>
+                        </button>
+                      </td>
+                    </span>
+                  </span>
+                </tr>
+              </table>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Friday Column -->
+          <ng-container matColumnDef="friday">
+            <mat-header-cell class="week-header-cell" *matHeaderCellDef> Sexta </mat-header-cell>
+            <mat-cell class="week-cell" *matCellDef="let row">
+              <table>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr *ngFor="let class of classesList">
+                  <span *ngFor="let time of class.schedule.friday.hours">
+                    <span *ngIf="time == row.hour">
+                      <td>{{class.courseName}}-t{{class.number}}</td>
+                      <td>{{class.professor1Name}}</td>
+                      <td>{{class.courseType}}</td>
+                      <td>{{class.courseSemester}}º</td>
+                      <td>
+                        <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'friday',row.hour)">
+                          <mat-icon class="table-options">delete</mat-icon>
+                        </button>
+                      </td>
+                    </span>
+                  </span>
+                </tr>
+              </table>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsMainTable"></mat-header-row>
+          <mat-row *matRowDef="let row; columns:displayedColumnsMainTable;"></mat-row>
+        </mat-table>
+      </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
 
-        <div *ngIf="!userPermission" class="example-container mat-elevation-z8">
-          <div class="example-header">
-            <mat-form-field>
-              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquise uma turma">
-            </mat-form-field>
-          </div>
 
+<!-- DEFAULT USER VIEW -->
+<!-- SCHEDULE-CLASSES TABLE -->
+<div *ngIf="!userPermission" class="main-container mat-elevation-z8">
+    <div class="main-header">
+      <mat-form-field id="filter-form">
+        <input matInput id="filter-input" (keyup)="applyFilter($event.target.value)" placeholder="Filtre as turmas">
+      </mat-form-field>
+    </div>
+    <mat-table #table [dataSource]="dataSourceMainTable">
 
-          <mat-table #table [dataSource]="dataSource">
+      <!-- Time Column -->
+      <ng-container matColumnDef="time" class="time-column">
+        <mat-header-cell id="time-header-cell" *matHeaderCellDef> Horário </mat-header-cell>
+        <mat-cell id = "time-cell" *matCellDef="let row"> {{row.hour}}h
+          </mat-cell>
+      </ng-container>
 
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
+      <!-- Monday Column -->
+      <ng-container matColumnDef="monday">
+        <mat-header-cell class="week-header-cell" *matHeaderCellDef> Segunda </mat-header-cell>
+        <mat-cell class="week-cell" *matCellDef="let row">
+          <table>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let class of classesList">
+              <span *ngFor="let time of class.schedule.monday.hours">
+                <span *ngIf="time == row.hour">
+                  <td>{{class.courseName}}-{{class.number}}</td>
+                  <td>{{class.professor1Name}}</td>
+                  <td>{{time}}</td>
+                  <td>
+                    <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'monday',row.hour)">
+                      <mat-icon class="table-options">delete</mat-icon>
+                    </button>
+                  </td>
+                </span>
+              </span>
+            </tr>
+          </table>
+        </mat-cell>
+      </ng-container>
 
-            <!-- Hour Column -->
-            <div id = "hora">
-              <ng-container matColumnDef="horario">
-                <mat-header-cell id="horario-header-cell" *matHeaderCellDef> Horário </mat-header-cell>
-                <mat-cell id="horario-cell" *matCellDef="let element"> {{element.horario}}
-                </mat-cell>
-              </ng-container>
-            </div>
+      <!-- Tuesday Column -->
+      <ng-container matColumnDef="tuesday">
+        <mat-header-cell class="week-header-cell" *matHeaderCellDef> Terça </mat-header-cell>
+        <mat-cell class="week-cell" *matCellDef="let row">
+            <table>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+              <tr *ngFor="let class of classesList">
+                <span *ngFor="let time of class.schedule.tuesday.hours">
+                  <span *ngIf="time == row.hour">
+                    <td>{{class.courseName}}-{{class.number}}</td>
+                    <td>{{class.professor1Name}}</td>
+                    <td>{{time}}</td>
+                    <td>
+                      <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'tuesday',row.hour)">
+                        <mat-icon class="table-options">delete</mat-icon>
+                      </button>
+                    </td>
+                  </span>
+                </span>
+              </tr>
+            </table>
+        </mat-cell>
+      </ng-container>
 
-            <!-- Monday Column -->
-              <ng-container matColumnDef="segunda">
-                <mat-header-cell *matHeaderCellDef> Segunda </mat-header-cell>
-                <mat-cell *matCellDef="let element">
+      <!-- Wednesday Column -->
+      <ng-container matColumnDef="wednesday">
+        <mat-header-cell class="week-header-cell" *matHeaderCellDef> Quarta </mat-header-cell>
+        <mat-cell class="week-cell" *matCellDef="let row">
+          <table>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let class of classesList">
+              <span *ngFor="let time of class.schedule.wednesday.hours">
+                <span *ngIf="time == row.hour">
+                  <td>{{class.courseName}}-{{class.number}}</td>
+                  <td>{{class.professor1Name}}</td>
+                  <td>{{time}}</td>
+                  <td>
+                    <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'wednesday',row.hour)">
+                      <mat-icon class="table-options">delete</mat-icon>
+                    </button>
+                  </td>
+                </span>
+              </span>
+            </tr>
+          </table>
+        </mat-cell>
+      </ng-container>
 
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.segunda}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+      <!-- Thursday Column -->
+      <ng-container matColumnDef="thursday">
+        <mat-header-cell class="week-header-cell" *matHeaderCellDef> Quinta </mat-header-cell>
+        <mat-cell class="week-cell" *matCellDef="let row">
+          <table>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let class of classesList">
+              <span *ngFor="let time of class.schedule.thursday.hours">
+                <span *ngIf="time == row.hour">
+                  <td>{{class.courseName}}-{{class.number}}</td>
+                  <td>{{class.professor1Name}}</td>
+                  <td>{{time}}</td>
+                  <td>
+                    <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'thursday',row.hour)">
+                      <mat-icon class="table-options">delete</mat-icon>
+                    </button>
+                  </td>
+                </span>
+              </span>
+            </tr>
+          </table>
+        </mat-cell>
+      </ng-container>
 
-                </mat-cell>
-              </ng-container>
+      <!-- Friday Column -->
+      <ng-container matColumnDef="friday">
+        <mat-header-cell class="week-header-cell" *matHeaderCellDef> Sexta </mat-header-cell>
+        <mat-cell class="week-cell" *matCellDef="let row">
+          <table>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let class of classesList">
+              <span *ngFor="let time of class.schedule.friday.hours">
+                <span *ngIf="time == row.hour">
+                  <td>{{class.courseName}}-{{class.number}}</td>
+                  <td>{{class.professor1Name}}</td>
+                  <td>{{time}}</td>
+                  <td>
+                    <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'friday',row.hour)">
+                      <mat-icon class="table-options">delete</mat-icon>
+                    </button>
+                  </td>
+                </span>
+              </span>
+            </tr>
+          </table>
+        </mat-cell>
+      </ng-container>
 
-              <!-- Tuesday Column -->
-              <ng-container matColumnDef="terca">
-                <mat-header-cell *matHeaderCellDef> Terça </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.terca}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                </mat-cell>
-              </ng-container>
-
-              <!-- Wednesday Column -->
-              <ng-container matColumnDef="quarta">
-                <mat-header-cell *matHeaderCellDef> Quarta </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-
-                  <mat-form-field>
-                    <mat-select placeholder="Selecione a turma">
-                      <mat-option value="let element"> {{element.quarta}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="quinta">
-                  <mat-header-cell *matHeaderCellDef> Quinta </mat-header-cell>
-                  <mat-cell *matCellDef="let element">
-
-                    <mat-form-field>
-                      <mat-select placeholder="Selecione a turma">
-                        <mat-option value="let element"> {{element.quinta}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-
-                  </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="sexta">
-                    <mat-header-cell *matHeaderCellDef> Sexta </mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-
-                      <mat-form-field>
-                        <mat-select placeholder="Selecione a turma">
-                          <mat-option value="let element"> {{element.sexta}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
-                    </mat-cell>
-              </ng-container>
-
-
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          </mat-table>
-        </div>
+      <mat-header-row *matHeaderRowDef="displayedColumnsMainTable"></mat-header-row>
+      <mat-row *matRowDef="let row; columns:displayedColumnsMainTable;"></mat-row>
+    </mat-table>
+</div>

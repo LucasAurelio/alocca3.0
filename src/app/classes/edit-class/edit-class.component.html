@@ -3,8 +3,8 @@
     <form [formGroup]="editClassForm">
   
         <div class="form-container">
-  
-            <mat-form-field>
+            
+              <mat-form-field>
                 <input type="text" placeholder="Disciplina" matInput formControlName="courseControl" 
                 [matAutocomplete]="coursesAuto">
                 <mat-autocomplete #coursesAuto="matAutocomplete" [displayWith]="displayCourse">
@@ -34,24 +34,17 @@
                 </mat-autocomplete>
               </mat-form-field>
 
-            <div>
-                <mat-checkbox formControlName="checkControl" [value]="verified" [checked]="verified" class="verified">
-                    Verificado
-                </mat-checkbox>
-
-                <span class="spacer"></span>
-    
-                <mat-form-field style="width: 45%; margin-left: 15%;">
-                    <input matInput type="number" class="number" formControlName="numberControl" placeholder="Turma" name="number" required>
-                </mat-form-field>
-
-            </div>
+              <mat-form-field id="note" type="text">
+                <input matInput formControlName="noteControl" placeholder="Observação" name="note">
+              </mat-form-field>
             
+              <mat-form-field id="number">
+                <input matInput type="number" min="1" formControlName="numberControl" placeholder="Turma" name="number" required>
+              </mat-form-field>
 
-            <mat-form-field type="text">
-                <input matInput formControlName="note" placeholder="Observação" name="note" required>
-            </mat-form-field>
-
+              <button mat-button class="button" color="primary" [routerLink]="['/classes']">CANCELAR</button>          
+              <button (click)="saveInformation()" [disabled]="!editClassForm.valid" mat-button class="button" color="primary" >SALVAR</button>
+            
         </div>
   
     </form>

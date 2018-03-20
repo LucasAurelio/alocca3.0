@@ -17,7 +17,7 @@ import { AuthService } from '../authentication/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  semestersList;
+  semestersList: any[];
   selectedSemester: string;
   userPermission: boolean;
 
@@ -33,25 +33,22 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     public aAuth: AuthService
   ) {
-    console.log(' navbar constructor');
   }
 
   ngOnInit() {
     this.semDmService.getSemesters().subscribe( semesters => {
       this.semestersList = semesters;
       // mudar isso para pegar o semestre mais atual ao inves do de indice 0
-      this.semesterService.emitSemester(this.semestersList[0].key)
-    })
+      this.semesterService.emitSemester(this.semestersList[0].key);      
+    });
 
     this.semesterService.getSemesterEmitter().subscribe( (semesterKey) => {
       this.semDmService.getSemesterByKey(semesterKey).valueChanges().subscribe( (semester) => {
         this.selectedSemester = semester.identifier;
       });
-    })
+    });
 
     this.isAdmin();
-
-    console.log(' navbar onInit()');
 
   }
 
@@ -95,10 +92,8 @@ export class NavbarComponent implements OnInit {
     return this.aAuth.getCurrentBinaryPermission().then(
       binPerm => {
         if(binPerm == 1){
-          console.log(binPerm);
           this.userPermission = true;
         }else if(binPerm == 0){
-          console.log(binPerm);
           this.userPermission = false;
     }
       }

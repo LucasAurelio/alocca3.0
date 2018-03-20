@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SchedulesTableComponent } from './schedules-table.component';
 
-describe('RequestAccessComponent', () => {
+describe('SchedulesTableComponent', () => {
   let component: SchedulesTableComponent;
   let fixture: ComponentFixture<SchedulesTableComponent>;
 
@@ -19,7 +19,7 @@ describe('RequestAccessComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

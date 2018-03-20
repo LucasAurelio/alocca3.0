@@ -149,7 +149,23 @@
 
           <ng-container matColumnDef="schedule">
             <mat-header-cell *matHeaderCellDef> Horários </mat-header-cell>
-            <mat-cell *matCellDef="let class_">{{ class_.schedule? class_.schedule : ""}}</mat-cell>
+              <mat-cell *matCellDef="let class_">
+                <span *ngFor="let hour of class_.schedule.monday.hours">
+                  <span *ngIf="hour">2 {{ hour? hour : "" }}h<br></span>
+                </span>
+                <span *ngFor="let hour of class_.schedule.tuesday.hours">
+                  <span *ngIf="hour">3 {{ hour? hour : "" }}h<br></span>
+                </span>
+                <span *ngFor="let hour of class_.schedule.wednesday.hours">
+                  <span *ngIf="hour">4 {{ hour? hour : "" }}h<br></span>
+                </span>
+                <span *ngFor="let hour of class_.schedule.thursday.hours">
+                  <span *ngIf="hour">5 {{ hour? hour : "" }}h<br></span>
+                </span>
+                <span *ngFor="let hour of class_.schedule.friday.hours">
+                  <span *ngIf="hour">6 {{ hour? hour : "" }}h<br></span>
+                </span>
+              </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="note">

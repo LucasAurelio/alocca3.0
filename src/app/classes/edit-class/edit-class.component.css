@@ -14,11 +14,10 @@
     width: auto;
 }
 
-.verified {
-    width: 45%;
+#number {
+    width: 5%;
 }
 
-.number {
-    width: 45%;
-    float: right;
+#note {
+    width: 40%;
 }

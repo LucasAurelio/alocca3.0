@@ -157,10 +157,8 @@ export class AddCourseComponent implements OnInit {
     return this.aAuth.getCurrentBinaryPermission().then(
       binPerm => {
         if(binPerm == 1){
-          console.log(binPerm);
           this.userPermission = true;
         }else if(binPerm == 0){
-          console.log(binPerm);
           this.userPermission = false;
     }
       }

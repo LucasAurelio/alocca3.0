@@ -64,10 +64,8 @@ export class UsersDmService {
             var allUsers = snapshot.val();
             var allUsersKeys = Object.keys(allUsers);
             var currentUserKey = allUsersKeys[0];
-            console.log(currentUserKey);
             permi = snapshot.child(currentUserKey+'/permission').val();
             isDataAvailable = true;
-            console.log(permi);
             return Promise.resolve(permi);
         }
     )
