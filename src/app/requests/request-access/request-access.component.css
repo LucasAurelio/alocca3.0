@@ -3,6 +3,12 @@
     flex-direction: column;
 }
 
+mat-card {
+    margin-top: 15%;
+    margin-left: 15%;
+    width: 70%;
+}
+
 .form-container > * {
     margin-right: 28px;
     display: inline-block;
@@ -12,4 +18,16 @@
 .form-container button {
     display: inline-block;
     width: auto;
+}
+
+#backRequest{
+    opacity: 0.9;
+}
+
+#siape {
+    margin-left: 6%;
+}
+
+#cadastrar {
+    margin-left: 40%;
 }

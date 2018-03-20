@@ -1,11 +1,11 @@
-<div>
+<div id="backRequest">
   <mat-card>
     <mat-card-title>Requisição de Acesso</mat-card-title>
     <form  (ngSubmit)="addNewRequest()" #addRequestForm="ngForm">
 
         <div class="form-container">
 
-          <mat-form-field type="text">
+          <mat-form-field id="siape" type="text">
             <input matInput size="7" maxlength="7" pattern="[0-9]{7}" [(ngModel)]="siape" placeholder="siape" name="siape" required>
             <mat-hint align="end">{{siape?.length || 0}}/7</mat-hint>
             <mat-error *ngIf="siapeControl.errors.required">{{getErrorMessage(siapeControl)}}</mat-error>
@@ -22,9 +22,9 @@
             <mat-error *ngIf="emailControl.errors.required">{{getErrorMessage(emailControl)}}</mat-error>
           </mat-form-field>
 
-          <button mat-button class="button" color="primary" [disabled]="!addRequestForm.form.valid">Cadastrar</button>
+          <button mat-button id="cadastrar" class="button" color="primary" [disabled]="!addRequestForm.form.valid">Cadastrar</button>
 
-          <button (click)="back()" mat-button class="button" color="primary" >Cancelar</button>
+          <button (click)="back()" mat-button class="button" color="primary" >voltar</button>
         </div>
     </form>
   </mat-card>

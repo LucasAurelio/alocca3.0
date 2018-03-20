@@ -4,4 +4,20 @@
   align-items: center;
   align-self: center;
   text-align: center;
+  margin-top: 15%;
+  margin-left: 25%;
+  opacity: 0.9;
+}
+
+#backInitial {
+  opacity: 0.8;
+ 	height: 100%;
+    width: 100%;
+    background: -webkit-linear-gradient(40deg, #000077 8%, #90CAF9 100%);
+    background:    -moz-linear-gradient(40deg, #000077 8%, #90CAF9 100%);
+    background:     -ms-linear-gradient(40deg, #000077 10%, #90CAF9 100%);
+    background:      -o-linear-gradient(40deg,#000077 10%, #90CAF9 100%);
+    background:         linear-gradient(40deg, #000077 10%, #90CAF9 100%);
+    font-family: 'Lato', sans-serif;
+    overflow-y: hidden;
 }
