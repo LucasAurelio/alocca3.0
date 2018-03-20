@@ -147,6 +147,10 @@ export class ClassesDmService {
     return schedules;
   }
 
+  getCurrentSemester(){
+    return this.semesterService.selectedSemesterKey;
+  }
+
 
 }
  
