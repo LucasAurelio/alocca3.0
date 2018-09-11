@@ -5,58 +5,8 @@
 </head>
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" position="end">
-      <mat-tab-group>
-        <mat-tab label="Novos">
-          <ng-template mat-tab-label class="mat-tab-label">
-            <mat-icon color="primary">error_outline</mat-icon>
-          </ng-template>
-          <mat-card class="alert-card">
-            <mat-card-header class="alert-card-header">
-              <button mat-button color="primary" class="header-button">Violação de Créditos</button>
-            </mat-card-header>
-            <mat-card-content class="alert-card-content">
-              <p>
-                O(A) professor(a) Joseana está com mais créditos que o limite estabelecido
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button color="warn">Ignorar</button>
-            </mat-card-actions>
-          </mat-card>
-
-          <mat-card class="alert-card">
-            <mat-card-header color="primary" class="alert-card-header">
-              <button mat-button color="primary" class="header-button">Violação de Créditos</button>
-            </mat-card-header>
-            <mat-card-content class="alert-card-content">
-              <p>
-                O(A) professor(a) Gustavo está com menos créditos que o limite estabelecido
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button color="warn">Ignorar</button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-tab>
-        <mat-tab label="Ignorados">
-          <ng-template mat-tab-label>
-            <mat-icon color="primary">highlight_off</mat-icon>
-          </ng-template>
-          <mat-card class="alert-card">
-            <mat-card-header color="primary" class="alert-card-header">
-              <button mat-button color="primary" class="header-button">Violação de Créditos</button>
-            </mat-card-header>
-            <mat-card-content class="alert-card-content">
-              <p>
-                O(A) professor(a) Kyller está com menos créditos que o limite estabelecido
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button color="primary">Mover para aba principal</button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-tab>
-    </mat-tab-group>
+       <app-alerts
+       [semesterKey]="semesterKey"></app-alerts>
     </mat-sidenav>
     <div>
   </div>

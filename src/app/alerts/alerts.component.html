@@ -1,23 +1,41 @@
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" position="end">
-    Cards com alertas
-    <mat-card>
-      <mat-card-header color="primary">
-        <mat-card-title>Violação de Créditos</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          O(A) professor(a) Joseana está com mais créditos que o limite estabelecido
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button color="primary">Ignorar</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-sidenav>
+  <mat-tab-group>
+    <mat-tab label="Novos">
+      <ng-template mat-tab-label class="mat-tab-label">
+        <mat-icon color="primary">error_outline</mat-icon>
+      </ng-template>
 
-  <mat-sidenav-content>
-    <button type="submit" mat-button class="button" color="primary" (click)="sidenav.toggle()">Abrir</button>
-    <app-root></app-root>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <mat-card class="alert-card" *ngFor="let alert of alerts">
+        <mat-card-header class="alert-card-header">
+          <button mat-button color="primary" class="header-button"> {{ alert.type }}</button>
+        </mat-card-header>
+        <mat-card-content class="alert-card-content">
+          <p>
+            {{ alert.message }}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="warn" (click)="alertsDmService.ignoreAlert(alert.key)">Ignorar</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="Ignorados">
+      <ng-template mat-tab-label>
+        <mat-icon color="primary">highlight_off</mat-icon>
+      </ng-template>
+      <mat-card class="alert-card" *ngFor="let alert of ignoredAlerts">
+        <mat-card-header color="primary" class="alert-card-header">
+          <button mat-button color="primary" class="header-button">{{ alert.type }}</button>
+        </mat-card-header>
+        <mat-card-content class="alert-card-content">
+          <p>
+            {{ alert.message }}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="alertsDmService.undoIgnoredAlert(alert.key)">Mover para aba principal</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-tab>
+</mat-tab-group>
+

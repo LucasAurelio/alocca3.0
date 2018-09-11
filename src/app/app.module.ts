@@ -33,12 +33,12 @@ import { RequestsDmService } from './data-manager/requests/requests-dm.service'
 import { ClassesModule } from './classes/classes.module'
 import { ClassesDmService } from './data-manager/classes/classes-dm.service'
 import { SchedulesModule } from './schedules/schedules.module';
-import { AlertsComponent } from './alerts/alerts.component'
+import { AlertsDmService } from './data-manager/alerts/alerts-dm.service'
+import { AlertsModule } from './alerts/alerts.module'
 
 @NgModule({
   declarations: [
-      AppComponent,
-      AlertsComponent
+      AppComponent
   ],
   imports: [
     BrowserModule,
@@ -57,8 +57,8 @@ import { AlertsComponent } from './alerts/alerts.component'
     AuthenticationModule,
     UsersModule,
     RequestsModule,
-    SchedulesModule
-    
+    SchedulesModule,
+    AlertsModule
   ],
   providers: [
     DataManagerService,
@@ -71,7 +71,8 @@ import { AlertsComponent } from './alerts/alerts.component'
     ClassesDmService,
     UsersDmService,
     AuthService,
-    RequestsDmService
+    RequestsDmService,
+    AlertsDmService
   ],
   bootstrap: [AppComponent]
 })

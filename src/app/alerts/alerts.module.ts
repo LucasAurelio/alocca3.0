@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddClassComponent } from './add-class/add-class.component';
 import { AngularMaterialImporterModule } from '../angular-material-importer/angular-material-importer.module'
 import { AppRoutingModule } from '../app-routing.module'
 import { ReactiveFormsModule }   from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
-import { EditClassComponent } from './edit-class/edit-class.component';
-import { AlertsModule } from '../alerts/alerts.module'
+
+import { AlertsComponent } from './alerts.component'
 
 @NgModule({
   imports: [
@@ -14,9 +13,9 @@ import { AlertsModule } from '../alerts/alerts.module'
     AngularMaterialImporterModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
-    AlertsModule
+    FormsModule
   ],
-  declarations: [AddClassComponent, EditClassComponent]
+  declarations: [AlertsComponent],
+  exports: [AlertsComponent]
 })
-export class ClassesModule { }
+export class AlertsModule { }
