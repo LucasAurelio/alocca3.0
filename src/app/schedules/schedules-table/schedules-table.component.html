@@ -120,6 +120,25 @@
           <mat-form-field id="filter-form">
             <input matInput id="filter-input" (keyup)="applyFilter($event.target.value)" placeholder="Filtre as turmas">
           </mat-form-field>
+
+          <mat-form-field  class="filter">
+            <mat-select placeholder="Período" [(ngModel)]="filteredSemester" (change)="applyFilters()" name="semester">
+              <mat-option>Todos</mat-option>
+              <mat-option *ngFor="let semester of semesters" [value]="semester">
+                {{ semester }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="filter">
+              <mat-select  placeholder="Tipo" [(ngModel)]="filteredType"  (change)="applyFilters()"  name="type">
+                <mat-option>Todos</mat-option>
+                <mat-option *ngFor="let type of courseTypes" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+
         </div>
         <mat-table #table [dataSource]="dataSourceMainTable">
 
@@ -141,7 +160,7 @@
                   <th></th>
                   <th></th>
                 </tr>
-                <tr *ngFor="let class of classesList">
+                <tr *ngFor="let class of classesFiltered">
                   <span *ngFor="let time of class.schedule.monday.hours">
                     <span *ngIf="time == row.hour">
                       <td>{{class.courseName}}-t{{class.number}}  </td>
@@ -171,7 +190,7 @@
                     <th></th>
                     <th></th>
                   </tr>
-                  <tr *ngFor="let class of classesList">
+                  <tr *ngFor="let class of classesFiltered">
                     <span *ngFor="let time of class.schedule.tuesday.hours">
                       <span *ngIf="time == row.hour">
                         <td>{{class.courseName}}-t{{class.number}}</td>
@@ -201,7 +220,7 @@
                   <th></th>
                   <th></th>
                 </tr>
-                <tr *ngFor="let class of classesList">
+                <tr *ngFor="let class of classesFiltered">
                   <span *ngFor="let time of class.schedule.wednesday.hours">
                     <span *ngIf="time == row.hour">
                       <td>{{class.courseName}}-t{{class.number}}</td>
@@ -231,7 +250,7 @@
                   <th></th>
                   <th></th>
                 </tr>
-                <tr *ngFor="let class of classesList">
+                <tr *ngFor="let class of classesFiltered">
                   <span *ngFor="let time of class.schedule.thursday.hours">
                     <span *ngIf="time == row.hour">
                       <td>{{class.courseName}}-t{{class.number}}</td>
@@ -261,7 +280,7 @@
                   <th></th>
                   <th></th>
                 </tr>
-                <tr *ngFor="let class of classesList">
+                <tr *ngFor="let class of classesFiltered">
                   <span *ngFor="let time of class.schedule.friday.hours">
                     <span *ngIf="time == row.hour">
                       <td>{{class.courseName}}-t{{class.number}}</td>
@@ -292,9 +311,7 @@
 <!-- SCHEDULE-CLASSES TABLE -->
 <div *ngIf="!userPermission" class="main-container mat-elevation-z8">
     <div class="main-header">
-      <mat-form-field id="filter-form">
         <input matInput id="filter-input" (keyup)="applyFilter($event.target.value)" placeholder="Filtre as turmas">
-      </mat-form-field>
     </div>
     <mat-table #table [dataSource]="dataSourceMainTable">
 
@@ -316,7 +333,7 @@
               <th></th>
               <th></th>
             </tr>
-            <tr *ngFor="let class of classesList">
+            <tr *ngFor="let class of classesFiltered">
               <span *ngFor="let time of class.schedule.monday.hours">
                 <span *ngIf="time == row.hour">
                   <td>{{class.courseName}}-{{class.number}}</td>
@@ -345,7 +362,7 @@
                 <th></th>
                 <th></th>
               </tr>
-              <tr *ngFor="let class of classesList">
+              <tr *ngFor="let class of classesFiltered">
                 <span *ngFor="let time of class.schedule.tuesday.hours">
                   <span *ngIf="time == row.hour">
                     <td>{{class.courseName}}-{{class.number}}</td>
@@ -374,7 +391,7 @@
               <th></th>
               <th></th>
             </tr>
-            <tr *ngFor="let class of classesList">
+            <tr *ngFor="let class of classesFiltered">
               <span *ngFor="let time of class.schedule.wednesday.hours">
                 <span *ngIf="time == row.hour">
                   <td>{{class.courseName}}-{{class.number}}</td>
@@ -403,7 +420,7 @@
               <th></th>
               <th></th>
             </tr>
-            <tr *ngFor="let class of classesList">
+            <tr *ngFor="let class of classesFiltered">
               <span *ngFor="let time of class.schedule.thursday.hours">
                 <span *ngIf="time == row.hour">
                   <td>{{class.courseName}}-{{class.number}}</td>
@@ -432,7 +449,7 @@
               <th></th>
               <th></th>
             </tr>
-            <tr *ngFor="let class of classesList">
+            <tr *ngFor="let class of classesFiltered">
               <span *ngFor="let time of class.schedule.friday.hours">
                 <span *ngIf="time == row.hour">
                   <td>{{class.courseName}}-{{class.number}}</td>

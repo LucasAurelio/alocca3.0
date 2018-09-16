@@ -24,7 +24,8 @@ export class SchedulesTableComponent implements OnInit {
 
   opened: boolean;
 
-  classesList: JSON[];
+  classesList: any[];
+  classesFiltered: any[];
 
   semesterKey: string;
   
@@ -36,10 +37,15 @@ export class SchedulesTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-
   classControl = new FormControl('', [Validators.required]);
   dayControl = new FormControl('', [Validators.required]);
   hourControl =  new FormControl('', [Validators.required]);
+
+  // Filtros
+  semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  courseTypes = ['Complementar', 'Eletiva', 'Obrigatória', 'Optativa']
+  filteredSemester: number;
+  filteredType: string;
   
   constructor(
     private classesDmService: ClassesDmService,
@@ -59,7 +65,9 @@ export class SchedulesTableComponent implements OnInit {
 
       this.classesDmService.getClasses().subscribe( classes => {
         this.classesList = classes;
+        this.classesFiltered = classes;
         this.dataSourceClasses = new MatTableDataSource(classes);
+        console.dir(this.dataSourceClasses);
         this.dataSourceClasses.sort = this.sort;
         this.dataSourceClasses.paginator = this.paginator;
       });
@@ -67,6 +75,20 @@ export class SchedulesTableComponent implements OnInit {
     });
     
     this.semesterService.reemitSemester();
+  }
+
+  // Filtros de semestre e tipo de disciplina
+  applyFilters() {
+    if (this.filteredSemester && this.filteredType) {
+      this.classesFiltered = this.classesList.filter(class_ => class_.courseSemester == this.filteredSemester && 
+        class_.courseType == this.filteredType);
+    } else  if (this.filteredSemester) {
+      this.classesFiltered = this.classesList.filter(class_ => class_.courseSemester == this.filteredSemester);
+    } else if (this.filteredType) {
+      this.classesFiltered = this.classesList.filter(class_ => class_.courseType == this.filteredType);
+    } else {
+      this.classesFiltered = this.classesList;
+    }
   }
 
   checkHours(class_, row){
@@ -86,7 +108,7 @@ export class SchedulesTableComponent implements OnInit {
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSourceClasses.filter = filterValue;
+    this.dataSourceMainTable.filter = filterValue;
   }
   
   scheduleClass() {
