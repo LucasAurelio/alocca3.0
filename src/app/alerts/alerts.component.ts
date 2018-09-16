@@ -132,7 +132,7 @@ export class AlertsComponent implements OnInit,OnChanges {
             (course1.minimumSemester<course2.maximumSemester && course1.minimumSemester>course2.minimumSemester)){
               let timeShock: string = this.checkScheduleShocks(schedule,class_.schedule);
               if(timeShock){
-                var message = "A turma "+ classNumber + " de " + courseName +" e a turma "+ class_.number + " de " + class_.courseName + ", sugeridas para o(s) mesmo(s) semestre(s), estão alocadas para o(s) mesmo(s) horário(s): (" + timeShock + ")";
+                var message = "A turma "+ classNumber + " de " + courseName +" e a turma "+ class_.number + " de " + class_.courseName + ", sugeridas para o(s) mesmo(s) semestre(s), estão alocadas para o(s) mesmo(s) horário(s): " + timeShock;
                 let alert = new Alert(this.semesterKey, CRED_HOUR_VIOLATION, message, false);
                 this.alertsDmService.saveAlert(alert);
               }else{
