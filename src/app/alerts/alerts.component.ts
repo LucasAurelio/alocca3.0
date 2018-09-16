@@ -8,6 +8,7 @@ import { AlertsDmService } from '../data-manager/alerts/alerts-dm.service';
 
 const CREDITS_VIOLATION = "Violação de créditos";
 const DUPLICATED_PROFESSOR = "Professor duplicado";
+const CRED_HOUR_VIOLATION = "Violação de carga horária";
 
 @Component({
   selector: 'app-alerts',
@@ -59,6 +60,10 @@ export class AlertsComponent implements OnInit,OnChanges {
       this.checkMinCreditsForProf(class_.professor2Key, class_.professor2Name);
       this.checkMaxCreditsForProf(class_.professor1Key, class_.professor1Name);
       this.checkMaxCreditsForProf(class_.professor2Key, class_.professor2Name);
+      this.checkHourPerCreditForCourses(class_.courseKey,class_.timetable,class_.courseName,class_.number);
+      console.log('checking');
+      //this.checkSameSemesterForCourses(class_);
+      //this.checkSchedulesForProf();
     });
   }
 
@@ -99,4 +104,22 @@ export class AlertsComponent implements OnInit,OnChanges {
       }
     })
   }
+
+  checkHourPerCreditForCourses(courseKey,timetable,disciplina,turma){
+    this.coursesDmService.getCourseById(courseKey).valueChanges().subscribe(cours => {
+      if (cours.credits > timetable){
+        console.log(cours.credits);
+        console.log(timetable);
+        var message = "A turma "+ turma + " de " + disciplina + " não possui horários suficientes para a sua quantidade de créditos";
+        let alert = new Alert(this.semesterKey, CRED_HOUR_VIOLATION, message, false);
+        this.alertsDmService.saveAlert(alert);
+      }
+      if (cours.credits < timetable){
+        var message = "A turma "+ turma + " de " + disciplina + " possui mais horários que o necessário para sua quantidade de créditos";
+        let alert = new Alert(this.semesterKey, CRED_HOUR_VIOLATION, message, false);
+        this.alertsDmService.saveAlert(alert);
+      }
+    })
+  }
+  
 }
