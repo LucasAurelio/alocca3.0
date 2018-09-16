@@ -61,8 +61,7 @@ export class AlertsComponent implements OnInit,OnChanges {
       this.checkMaxCreditsForProf(class_.professor1Key, class_.professor1Name);
       this.checkMaxCreditsForProf(class_.professor2Key, class_.professor2Name);
       this.checkHourPerCreditForCourses(class_.courseKey,class_.timetable,class_.courseName,class_.number);
-      console.log('checking');
-      //this.checkSameSemesterForCourses(class_);
+      this.checkSameSemesterForCourses(class_.courseKey,class_.courseName,class_.number,class_.schedule);
       //this.checkSchedulesForProf();
     });
   }
@@ -105,21 +104,125 @@ export class AlertsComponent implements OnInit,OnChanges {
     })
   }
 
-  checkHourPerCreditForCourses(courseKey,timetable,disciplina,turma){
+  checkHourPerCreditForCourses(courseKey,timetable,courseName,classNumber){
     this.coursesDmService.getCourseById(courseKey).valueChanges().subscribe(cours => {
       if (cours.credits > timetable){
-        console.log(cours.credits);
-        console.log(timetable);
-        var message = "A turma "+ turma + " de " + disciplina + " não possui horários suficientes para a sua quantidade de créditos";
+        var message = "A turma "+ classNumber + " de " + courseName + " não possui horários suficientes para a sua quantidade de créditos";
         let alert = new Alert(this.semesterKey, CRED_HOUR_VIOLATION, message, false);
         this.alertsDmService.saveAlert(alert);
       }
       if (cours.credits < timetable){
-        var message = "A turma "+ turma + " de " + disciplina + " possui mais horários que o necessário para sua quantidade de créditos";
+        var message = "A turma "+ classNumber + " de " + courseName + " possui mais horários que o necessário para sua quantidade de créditos";
         let alert = new Alert(this.semesterKey, CRED_HOUR_VIOLATION, message, false);
         this.alertsDmService.saveAlert(alert);
       }
     })
+  }
+
+  checkSameSemesterForCourses(courseKey,courseName,classNumber,schedule){
+    this.classes.forEach(class_ =>{
+      if (class_.courseKey != courseKey){
+        this.coursesDmService.getCourseById(courseKey).valueChanges().subscribe(course1 =>{
+          this.coursesDmService.getCourseById(class_.courseKey).valueChanges().subscribe(course2 =>{
+            if(course1.maximumSemester==course2.maximumSemester ||
+            course1.minimumSemester==course2.minimumSemester ||
+            course1.maximumSemester==course2.minimumSemester ||
+            course1.minimumSemester==course2.maximumSemester ||
+            (course1.maximumSemester<course2.maximumSemester && course1.maximumSemester>course2.minimumSemester) ||
+            (course1.minimumSemester<course2.maximumSemester && course1.minimumSemester>course2.minimumSemester)){
+              let timeShock: string = this.checkScheduleShocks(schedule,class_.schedule);
+              if(timeShock){
+                var message = "A turma "+ classNumber + " de " + courseName +" e a turma "+ class_.number + " de " + class_.courseName + ", sugeridas para o(s) mesmo(s) semestre(s), estão alocadas para o(s) mesmo(s) horário(s): (" + timeShock + ")";
+                let alert = new Alert(this.semesterKey, CRED_HOUR_VIOLATION, message, false);
+                this.alertsDmService.saveAlert(alert);
+              }else{
+              }
+            }
+          })
+        })
+      }
+    })
+  }
+
+  private checkScheduleShocks(schedule1,schedule2): string{
+    let finalString = "";
+    let monday1 = schedule1.monday.hours;
+    let tuesday1 = schedule1.tuesday.hours;
+    let wednesday1 = schedule1.wednesday.hours;
+    let thursday1 = schedule1.thursday.hours;
+    let friday1 = schedule1.friday.hours;
+    let monday2 = schedule2.monday.hours;
+    let tuesday2 = schedule2.tuesday.hours;
+    let wednesday2 = schedule2.wednesday.hours;
+    let thursday2 = schedule2.thursday.hours;
+    let friday2 = schedule2.friday.hours;
+    monday1.forEach(hour1 =>{
+      if(hour1){
+        monday2.forEach(hour2 =>{
+          if(hour1==hour2){
+            if(finalString){
+              finalString = finalString + ", 2: "+ hour1 + "h"
+            }else{
+              finalString = finalString + "2: "+ hour1 + "h"
+            }
+          }
+        })
+      }
+    })
+    tuesday1.forEach(hour1 =>{
+      if(hour1){
+        tuesday2.forEach(hour2 =>{
+          if(hour1==hour2){
+            if(finalString){
+              finalString = finalString + ", 3: "+ hour1 + "h"
+            }else{
+              finalString = finalString + "3: "+ hour1 + "h"
+            }
+          }
+        })
+      }
+    })
+    wednesday1.forEach(hour1 =>{
+      if(hour1){
+        wednesday2.forEach(hour2 =>{
+          if(hour1==hour2){
+            if(finalString){
+              finalString = finalString + ", 4: "+ hour1 + "h"
+            }else{
+              finalString = finalString + "4: "+ hour1 + "h"
+            }
+          }
+        })
+      }
+    })
+    thursday1.forEach(hour1 =>{
+      if(hour1){
+        thursday2.forEach(hour2 =>{
+          if(hour1==hour2){
+            if(finalString){
+              finalString = finalString + ", 5: "+ hour1 + "h"
+            }else{
+              finalString = finalString + "5: "+ hour1 + "h"
+            }
+          }
+        })
+      }
+    })
+    friday1.forEach(hour1 =>{
+      if(hour1){
+        friday2.forEach(hour2 =>{
+          if(hour1==hour2){
+            if(finalString){
+              finalString = finalString + ", 6: "+ hour1 + "h"
+            }else{
+              finalString = finalString + "6: "+ hour1 + "h"
+            }
+          }
+        })
+      }
+    })
+
+    return finalString;
   }
   
 }
