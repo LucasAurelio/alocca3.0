@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ClassesDmService } from '../data-manager/classes/classes-dm.service'
+import { ClassesDmService} from '../data-manager/classes/classes-dm.service'
 import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ProfRestrictionDmService } from '../data-manager/professor-restrictions/prof-restriction-dm.service'
 import { CoursesDmService } from '../data-manager/courses/courses-dm.service'
@@ -8,6 +8,7 @@ import { AlertsDmService } from '../data-manager/alerts/alerts-dm.service';
 
 const CREDITS_VIOLATION = "Violação de créditos";
 const DUPLICATED_PROFESSOR = "Professor duplicado";
+const PRE_BLOCK = "Recomendação da PRE";
 
 @Component({
   selector: 'app-alerts',
@@ -59,8 +60,51 @@ export class AlertsComponent implements OnInit,OnChanges {
       this.checkMinCreditsForProf(class_.professor2Key, class_.professor2Name);
       this.checkMaxCreditsForProf(class_.professor1Key, class_.professor1Name);
       this.checkMaxCreditsForProf(class_.professor2Key, class_.professor2Name);
+      this.checkPREBlocking(class_);
     });
   }
+  
+  checkPREBlocking(className) {
+    console.log(className.courseName);
+    let flag = false;
+    let dailyBlocking_1 = {monday: "wednesday", tuesday: "thursday", wednesday:"friday", thursday: "monday", friday: "tuesday"};
+    //let dailyBlocking_2 = {monday: "thursday", tuesday: "friday", wednesday:"monday", thursday:"tuesday", friday:"wednesday"}
+    let hourBlocking = {8: 10, 10: 8, 14: 16, 16: 14};
+    
+    for(let day in className.schedule){
+       let hours = className.schedule[day].hours
+       if(hours.length > 1){
+        for(var i = 1; i < hours.length; i++){
+          if(hours[i] == 8 || hours[i] == 14){
+            //checking if has class
+            let matchDay = dailyBlocking_1[day];
+            let matchHour = hourBlocking[hours[i]];
+
+            for(var j = 0; j < className.schedule[matchDay].hours.length; j ++){
+              if (className.schedule[matchDay].hours[j] == matchHour){
+                flag = true;
+              }
+            }
+          }else if(hours[i] == 10 || hours[i] == 16){
+            let matchDay = dailyBlocking_1[day];
+            let matchHour = hourBlocking[hours[i]];
+
+            for(var j = 0; j < className.schedule[matchDay].hours.length; j ++){
+              if (className.schedule[matchDay].hours[j] == matchHour){
+                flag = true;
+              }
+            }
+          }
+        }
+      }
+    }
+    if(flag == false){
+      var message = "O horário da disciplina "+ className.courseName + " não está seguindo a blocagem da PRE.";
+      let alert = new Alert(this.semesterKey, PRE_BLOCK, message, false);
+      this.alertsDmService.saveAlert(alert);
+    }
+  }
+  
 
   checkMinCreditsForProf(profKey, profName) {
     var currentCredits = 0;
