@@ -9,6 +9,7 @@ import { AlertsDmService } from '../data-manager/alerts/alerts-dm.service';
 const CREDITS_VIOLATION = "Violação de créditos";
 const DUPLICATED_PROFESSOR = "Professor duplicado";
 const CRED_HOUR_VIOLATION = "Violação de carga horária";
+const PROF_HOUR_VIOLATION = "Violação de horário de professor";
 
 @Component({
   selector: 'app-alerts',
@@ -62,9 +63,75 @@ export class AlertsComponent implements OnInit,OnChanges {
       this.checkMaxCreditsForProf(class_.professor2Key, class_.professor2Name);
       this.checkHourPerCreditForCourses(class_.courseKey,class_.timetable,class_.courseName,class_.number);
       this.checkSameSemesterForCourses(class_.courseKey,class_.courseName,class_.number,class_.schedule);
-      //this.checkSchedulesForProf();
+      this.checkSchedulesForProf(class_.professor1Key, class_.professor1Name, class_.schedule);
+      this.checkSchedulesForProf(class_.professor2Key, class_.professor2Name, class_.schedule);
     });
   }
+
+  checkSchedulesForProf(profKey, profName, schedule) {
+    this.restrictionDmService.getRestrictionById(this.semesterKey, profKey).valueChanges().subscribe( restrictions => {
+      if (restrictions && restrictions.scheduleRestrictions) {
+        let timeShock: string = this.hoursRestricted(schedule, restrictions.scheduleRestrictions);
+        if (timeShock) {
+          const message = "O professor " + profName + " possui restrições para o(s) horário(s): " + timeShock;
+          let alert = new Alert(this.semesterKey, PROF_HOUR_VIOLATION, message, false);
+          this.alertsDmService.saveAlert(alert);
+        }
+      }
+    })
+  }
+
+  private hoursRestricted(schedule, scheduleRestrictions): string{
+    let intersectionHours = "";
+    this.intersection(schedule.monday.hours,scheduleRestrictions.monday).forEach(hour =>{
+      if (intersectionHours){
+        intersectionHours = intersectionHours + ", ";
+      }
+      intersectionHours = intersectionHours + "2: "+ hour + "h"
+    });
+    this.intersection(schedule.tuesday.hours,scheduleRestrictions.tuesday).forEach(hour =>{
+      if (intersectionHours){
+        intersectionHours = intersectionHours + ", ";
+      }
+      intersectionHours = intersectionHours + "3: "+ hour + "h"
+    });
+    this.intersection(schedule.wednesday.hours,scheduleRestrictions.wednesday).forEach(hour =>{
+      if (intersectionHours){
+        intersectionHours = intersectionHours + ", ";
+      }
+      intersectionHours = intersectionHours + "4: "+ hour + "h"
+    });
+    this.intersection(schedule.thursday.hours,scheduleRestrictions.thursday).forEach(hour =>{
+      if (intersectionHours){
+        intersectionHours = intersectionHours + ", ";
+      }
+      intersectionHours = intersectionHours + "5: "+ hour + "h"
+    });
+    this.intersection(schedule.friday.hours,scheduleRestrictions.friday).forEach(hour =>{
+      if (intersectionHours){
+        intersectionHours = intersectionHours + ", ";
+      }
+      intersectionHours = intersectionHours + "6: "+ hour + "h"
+    });
+    return intersectionHours;
+  }
+
+  private intersection ( array1: any[], array2: any[]): any[] {
+    let result: any[] = [];
+    let dict: {} = {};
+    for (let el of array1) {
+      if (!(el in dict)) {
+        dict[el] = 1;
+      }
+    }
+    for (let el2 of array2) {
+      if (el2 in dict && dict[el2] !== 2) {
+        dict[el2] = 2;
+        result.push(el2);
+      }
+    }
+    return result;
+  };
 
   checkMinCreditsForProf(profKey, profName) {
     var currentCredits = 0;
@@ -89,7 +156,7 @@ export class AlertsComponent implements OnInit,OnChanges {
     var currentCredits = 0;
     this.classes.forEach(class_ => {
       if (class_.professor1Key == profKey) {
-        // this.coursesDmService.getCourseById(class_.courseKey). 
+        // this.coursesDmService.getCourseById(class_.courseKey).
         currentCredits = currentCredits + 4;
       }
     })
@@ -224,5 +291,5 @@ export class AlertsComponent implements OnInit,OnChanges {
 
     return finalString;
   }
-  
+
 }
