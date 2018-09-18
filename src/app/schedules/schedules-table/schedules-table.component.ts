@@ -110,7 +110,7 @@ export class SchedulesTableComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSourceMainTable.filter = filterValue;
   }
-  
+   
   scheduleClass() {
 
     this.classesDmService.scheduleClass(this.class.key,this.day,this.hour)
