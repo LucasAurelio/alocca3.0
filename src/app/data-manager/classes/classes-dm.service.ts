@@ -94,6 +94,12 @@ export class ClassesDmService {
       classToSchedule.setNote(class_.note);
       classToSchedule.setSchedule(class_.schedule);
       classToSchedule.addHour(day, hour);
+      classToSchedule.setTimeTable(class_.timetable);
+      if(hour == 7){
+        classToSchedule.addToTimeTable(1);
+      }else{
+        classToSchedule.addToTimeTable(2);
+      }
 
       this.dm.update(this.semesterClasses, classToSchedule.toFirebaseObject(), classKey);
       this.closeOnSubmit(ssubbs);
@@ -125,7 +131,14 @@ export class ClassesDmService {
         updatedClass.setVerifiedState(class_.verified);
         updatedClass.setNote(class_.note);
         var hoursComplete = this.setNewSchedule(class_,day,hours);
+        updatedClass.setTimeTable(class_.timetable);
+        if(hour == 7){
+          updatedClass.removeFromTimeTable(1);
+        }else{
+          updatedClass.removeFromTimeTable(2);
+        }
         updatedClass.setSchedule(hoursComplete);
+
         this.dm.update(this.semesterClasses,updatedClass.toFirebaseObject(),class_.key)
         this.closeOnSubmit(ssubbs);
     });

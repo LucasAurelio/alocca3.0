@@ -3,6 +3,7 @@ export class Class {
     public verified: boolean;
     public schedule;
     public note: string;
+    public timetable: number;
 
     constructor(
         public semesterKey: string,
@@ -35,6 +36,7 @@ export class Class {
                 }
         }
         this.note = "";
+        this.timetable = 0;
     }
 
     addHour(day: string, hour: number){
@@ -49,6 +51,18 @@ export class Class {
         }else{
             this.schedule.friday.hours.push(hour);
         }
+    }
+
+    addToTimeTable(hours){
+        this.timetable = this.timetable + hours;
+    }
+
+    removeFromTimeTable(hours){
+        this.timetable = this.timetable - hours;
+    }
+
+    setTimeTable(hours){
+        this.timetable = hours;
     }
 
     setVerifiedState(state: boolean){
@@ -76,7 +90,8 @@ export class Class {
             schedule: this.schedule,
             note: this.note,
             courseType: this.courseType,
-            courseSemester: this.courseSemester
+            courseSemester: this.courseSemester,
+            timetable: this.timetable
         }
         return <JSON>class_;
     }
