@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppRoutingModule } from '../app-routing.module';
 import { SchedulesTableComponent } from './schedules-table/schedules-table.component';
+import { AlertsModule } from '../alerts/alerts.module'; 
+
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { SchedulesTableComponent } from './schedules-table/schedules-table.compo
     FormsModule,
     AngularMaterialImporterModule,
     BrowserAnimationsModule,
-    AppRoutingModule],
+    AppRoutingModule,
+    AlertsModule
+],
 declarations: [
     SchedulesTableComponent
     ],
