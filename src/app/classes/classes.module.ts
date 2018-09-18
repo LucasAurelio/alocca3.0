@@ -6,7 +6,7 @@ import { AppRoutingModule } from '../app-routing.module'
 import { ReactiveFormsModule }   from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
 import { EditClassComponent } from './edit-class/edit-class.component';
-import { AlertsModule } from '../alerts/alerts.module'
+import { AlertsModule } from '../alerts/alerts.module'; 
 
 @NgModule({
   imports: [
