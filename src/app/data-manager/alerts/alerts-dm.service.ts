@@ -34,7 +34,9 @@ export class AlertsDmService {
 
   saveAlert(alert: Alert) {
     this.updateSemesterKey(alert.semesterKey)
-    this.dm.push(this.semesterAlerts, alert.toFirebaseObject());
+    if(!this.isExistingAlert(alert)){
+      this.dm.push(this.semesterAlerts, alert.toFirebaseObject());
+    }
   }
 
   getAlerts() {
@@ -61,6 +63,16 @@ export class AlertsDmService {
     this.semesterAlertsListName = this.allAlertsListReference + semesterKey;
     this.semesterAlertsListRef = this.semesterAlertsListName + '/';
     this.semesterAlerts = this.dm.createList(this.semesterAlertsListName);
+  }
+  private isExistingAlert(alert: Alert){
+    this.getAlerts().subscribe( alerts =>{
+      alerts.map(alert_ =>{
+        if(alert.message == alert_.message){
+          return true;
+        }
+      })
+    })
+    return false;
   }
 
 }
