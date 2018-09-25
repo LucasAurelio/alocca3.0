@@ -24,9 +24,9 @@
               <mat-icon>announcement</mat-icon>
             </button>
           </div>
-          
+
           <mat-card-title>Definir horários</mat-card-title>
-        
+
           <form (ngSubmit)="scheduleClass()" #scheduleClassForm="ngForm" >
             <div class="card-content-container">
 
@@ -60,11 +60,11 @@
                 </mat-select>
                 <mat-error *ngIf="hourControl.errors.required">{{getErrorMessage(hourControl)}}</mat-error>
               </mat-form-field>
-          
+
               <button type="submit" mat-button class="button" color="primary" [disabled]="!scheduleClassForm.form.valid">SALVAR</button>
-            </div> 
+            </div>
           </form>
-        
+
       </mat-card>
 
       <!-- SCHEDULE-CLASSES TABLE -->
@@ -116,13 +116,13 @@
                 <tr *ngFor="let class of classesFiltered">
                   <span *ngFor="let time of class.schedule.monday.hours">
                     <span *ngIf="time == row.hour">
-                      <td>{{class.courseName}}-t{{class.number}}  </td>
-                      <td>{{class.professor1Name}}  </td>
-                      <td>{{class.courseType}}  </td>
+                      <td class="td-turma">{{class.courseName}}-t{{class.number}}  </td>
+                      <td class="td-professor">{{class.professor1Name}}  </td>
+                      <td class="td-tipo">{{class.courseType}}  </td>
                       <td>{{class.courseSemester}}º</td>
                       <td>
                         <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'monday',row.hour)">
-                          <mat-icon class="table-options">delete</mat-icon>
+                          <mat-icon class="table-options excluir">delete</mat-icon>
                         </button>
                       </td>
                     </span>
@@ -146,13 +146,13 @@
                   <tr *ngFor="let class of classesFiltered">
                     <span *ngFor="let time of class.schedule.tuesday.hours">
                       <span *ngIf="time == row.hour">
-                        <td>{{class.courseName}}-t{{class.number}}</td>
-                        <td>{{class.professor1Name}}</td>
-                        <td>{{class.courseType}}</td>
+                        <td class="td-turma">{{class.courseName}}-t{{class.number}}  </td>
+                        <td class="td-professor">{{class.professor1Name}}  </td>
+                        <td class="td-tipo">{{class.courseType}}  </td>
                         <td>{{class.courseSemester}}º</td>
                         <td>
                           <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'tuesday',row.hour)">
-                            <mat-icon class="table-options">delete</mat-icon>
+                            <mat-icon class="table-options excluir">delete</mat-icon>
                           </button>
                         </td>
                       </span>
@@ -176,13 +176,13 @@
                 <tr *ngFor="let class of classesFiltered">
                   <span *ngFor="let time of class.schedule.wednesday.hours">
                     <span *ngIf="time == row.hour">
-                      <td>{{class.courseName}}-t{{class.number}}</td>
-                      <td>{{class.professor1Name}}</td>
-                      <td>{{class.courseType}}</td>
+                      <td class="td-turma">{{class.courseName}}-t{{class.number}}  </td>
+                      <td class="td-professor">{{class.professor1Name}}  </td>
+                      <td class="td-tipo">{{class.courseType}}  </td>
                       <td>{{class.courseSemester}}º</td>
                       <td>
                         <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'wednesday',row.hour)">
-                          <mat-icon class="table-options">delete</mat-icon>
+                          <mat-icon class="table-options excluir">delete</mat-icon>
                         </button>
                       </td>
                     </span>
@@ -206,13 +206,13 @@
                 <tr *ngFor="let class of classesFiltered">
                   <span *ngFor="let time of class.schedule.thursday.hours">
                     <span *ngIf="time == row.hour">
-                      <td>{{class.courseName}}-t{{class.number}}</td>
-                      <td>{{class.professor1Name}}</td>
-                      <td>{{class.courseType}}</td>
+                      <td class="td-turma">{{class.courseName}}-t{{class.number}}  </td>
+                      <td class="td-professor">{{class.professor1Name}}  </td>
+                      <td class="td-tipo">{{class.courseType}}  </td>
                       <td>{{class.courseSemester}}º</td>
                       <td>
                         <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'thursday',row.hour)">
-                          <mat-icon class="table-options">delete</mat-icon>
+                          <mat-icon class="table-options excluir">delete</mat-icon>
                         </button>
                       </td>
                     </span>
@@ -236,13 +236,13 @@
                 <tr *ngFor="let class of classesFiltered">
                   <span *ngFor="let time of class.schedule.friday.hours">
                     <span *ngIf="time == row.hour">
-                      <td>{{class.courseName}}-t{{class.number}}</td>
-                      <td>{{class.professor1Name}}</td>
-                      <td>{{class.courseType}}</td>
+                      <td class="td-turma">{{class.courseName}}-t{{class.number}}  </td>
+                      <td class="td-professor">{{class.professor1Name}}  </td>
+                      <td class="td-tipo">{{class.courseType}}  </td>
                       <td>{{class.courseSemester}}º</td>
                       <td>
                         <button mat-icon-button color="warn" matTooltip="Excluir" [matTooltipShowDelay]="800" (click)="deleteClassSchedule(class,'friday',row.hour)">
-                          <mat-icon class="table-options">delete</mat-icon>
+                          <mat-icon class="table-options excluir">delete</mat-icon>
                         </button>
                       </td>
                     </span>

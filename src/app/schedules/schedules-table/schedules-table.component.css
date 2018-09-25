@@ -3,8 +3,8 @@
 .card-content-container {
     width: 100%;
     flex-direction: column;
-} 
-  
+}
+
 .card-content-container > * {
     margin-right: 28px;
     display: inline-block;
@@ -98,12 +98,13 @@ mat-header-row{
 }
 
 .week-cell{
-    margin-left: 0.1%;
-    width: 50%;
-    text-align: center;
-    align-content: center;
-    align-items: center;
-    align-self: center;
+    margin-left: 0%;
+    margin-top: 0%;
+    width: 5%;
+    text-align: right;
+    align-content: right;
+    align-items: right;
+    align-self: right;
 }
 
 /* FOR THE SIDENAV */
@@ -138,6 +139,32 @@ mat-sidenav-content {
   right: 0px;
   margin: 0px;
 }
+
+.td-turma {
+   min-width: 76px !important;
+ }
+
+.td-professor {
+  min-width: 70px !important;
+}
+
+.td-tipo {
+   min-width: 71px !important;
+}
+
+ .excluir {
+   font-size: 14px;
+ }
+
+ .mat-icon-button {
+     padding: 0 !important;
+     min-width: 0 !important;
+     width: 0px;
+     height: 0px;
+     flex-shrink: 0;
+     line-height: 0px !important;
+     border-radius: 0%;
+ }
 
 /deep/.mat-tab-label, /deep/.mat-tab-label-active{
  min-width: 20px !important;
