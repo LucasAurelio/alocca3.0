@@ -142,7 +142,7 @@ mat-sidenav-content {
 
 .td-turma {
    min-width: 76px !important;
- }
+}
 
 .td-professor {
   min-width: 70px !important;
@@ -152,11 +152,11 @@ mat-sidenav-content {
    min-width: 71px !important;
 }
 
- .excluir {
+.excluir {
    font-size: 14px;
- }
+}
 
- .mat-icon-button {
+.mat-icon-button {
      padding: 0 !important;
      min-width: 0 !important;
      width: 0px;
@@ -164,7 +164,7 @@ mat-sidenav-content {
      flex-shrink: 0;
      line-height: 0px !important;
      border-radius: 0%;
- }
+}
 
 /deep/.mat-tab-label, /deep/.mat-tab-label-active{
  min-width: 20px !important;
